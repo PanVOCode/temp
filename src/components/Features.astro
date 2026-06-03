@@ -1,0 +1,276 @@
+---
+const steps = [
+  {
+    num: '01',
+    total: '04',
+    title: 'АНАЛИЗ',
+    dur: '1—3',
+    unit: 'дня',
+    items: [
+      'Получаем чертёж или 3D-модель изделия',
+      'Определяем число гнёзд и точки впрыска',
+      'Проектируем систему охлаждения',
+    ],
+    photoSrc: '/photo-atpm-mold.png',
+    photoBg: '#F0F0EE',
+    photoRight: true,
+  },
+  {
+    num: '02',
+    total: '04',
+    title: 'КД',
+    dur: '5—14',
+    unit: 'дней',
+    items: [
+      '3D-моделирование оснастки',
+      'Расчёт и топология охлаждения',
+      'Конструкторская документация по ЕСКД',
+    ],
+    photoSrc: '/photo-mold-nobg.png',
+    photoBg: '#060606',
+    photoRight: false,
+  },
+  {
+    num: '03',
+    total: '04',
+    title: 'ПРОИЗ­ВОДСТВО',
+    dur: '14—30',
+    unit: 'дней',
+    items: [
+      '5-осевая ЧПУ-обработка',
+      'Аддитивные технологии — сложные элементы',
+      'Термообработка · Сборка оснастки',
+    ],
+    photoSrc: '/photo-hotrunner-01.jpg',
+    photoBg: '#060606',
+    photoRight: true,
+  },
+  {
+    num: '04',
+    total: '04',
+    title: 'ОТК',
+    dur: '2—5',
+    unit: 'дней',
+    items: [
+      'Пробные отливки на нашем оборудовании',
+      'Контроль всех размеров по КД',
+      'Передача полного комплекта документации',
+    ],
+    photoSrc: '/photo-machine-01.jpg',
+    photoBg: '#060606',
+    photoRight: false,
+  },
+];
+---
+
+{steps.map((s) => (
+  <section id={s.num === '01' ? 'process' : undefined} class={`proc-panel ${s.photoRight ? 'proc-pr' : 'proc-pl'}`}>
+
+    <!-- Photo column -->
+    <div class="proc-photo" style={`order: ${s.photoRight ? 2 : 1}; background: ${s.photoBg};`}>
+      <img
+        src={s.photoSrc}
+        alt=""
+        aria-hidden="true"
+        class="proc-photo-img"
+        loading="lazy"
+      >
+      <span class="proc-ghost" aria-hidden="true" style={`color: ${s.photoBg === '#F8F8F8' ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)'}`}>{s.num}</span>
+    </div>
+
+    <!-- Text column -->
+    <div class="proc-text" style={`order: ${s.photoRight ? 1 : 2}`} data-reveal>
+      <div class="proc-inner">
+
+        <div class="sw-label">{s.num} / {s.total} · ПРОЦЕСС</div>
+
+        <h2 class="proc-title">{s.title}</h2>
+
+        <div class="proc-dur">
+          <span class="proc-dur-num">{s.dur}</span>
+          <span class="proc-dur-unit">{s.unit}</span>
+        </div>
+
+        <div class="sw-rule"></div>
+
+        <ul class="proc-list">
+          {s.items.map((item) => (
+            <li class="proc-item">
+              <span class="proc-bullet"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+      </div>
+    </div>
+
+  </section>
+))}
+
+<style>
+  .proc-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    border-bottom: 1px solid #000;
+  }
+
+  .proc-photo {
+    position: relative;
+    overflow: visible;
+    z-index: 10;
+  }
+  .proc-pr .proc-photo { border-left: none; }
+  .proc-pl .proc-photo { border-right: none; }
+
+  /* Photo on RIGHT — bleeds left into text column */
+  .proc-pr .proc-photo-img {
+    position: absolute;
+    top: -5%;
+    left: -25%;
+    width: 125%;
+    height: 110%;
+    object-fit: cover;
+    z-index: 10;
+  }
+  /* Photo on LEFT — bleeds right into text column */
+  .proc-pl .proc-photo-img {
+    position: absolute;
+    top: -5%;
+    left: 0;
+    width: 125%;
+    height: 110%;
+    object-fit: cover;
+    z-index: 10;
+  }
+  .proc-ghost {
+    position: absolute;
+    bottom: -0.08em;
+    right: -0.04em;
+    font-family: var(--font);
+    font-weight: 800;
+    font-stretch: expanded;
+    font-size: clamp(180px, 26vw, 400px);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .proc-text {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .proc-inner {
+    padding: clamp(48px, 7vw, 100px) clamp(40px, 5vw, 80px);
+    width: 100%;
+  }
+
+  .sw-label {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sw-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #999;
+    flex-shrink: 0;
+  }
+
+  .proc-title {
+    font-family: var(--font);
+    font-weight: 800;
+    font-stretch: expanded;
+    font-size: clamp(56px, 8.5vw, 120px);
+    letter-spacing: -0.04em;
+    line-height: 0.88;
+    color: #000;
+    text-transform: uppercase;
+    margin: 0 0 24px;
+    word-break: break-word;
+    hyphens: manual;
+  }
+
+  .proc-dur {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .proc-dur-num {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: clamp(44px, 6vw, 80px);
+    letter-spacing: -0.04em;
+    color: #FF6A00;
+    line-height: 1;
+  }
+  .proc-dur-unit {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .sw-rule {
+    height: 1px;
+    background: #000;
+    margin-bottom: 28px;
+  }
+
+  .proc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .proc-item {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: clamp(13px, 1.2vw, 15px);
+    color: #444;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    letter-spacing: 0.01em;
+  }
+  .proc-bullet {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background: #FF6A00;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .proc-panel { grid-template-columns: 1fr; }
+    .proc-photo {
+      min-height: 55vh;
+      border-left: none !important;
+      border-right: none !important;
+      border-bottom: 1px solid #000;
+      order: 1 !important;
+    }
+    .proc-text { order: 2 !important; }
+  }
+</style>

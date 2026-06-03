@@ -1,0 +1,444 @@
+---
+---
+
+<section class="hero" id="hero">
+
+  <!-- ── Secondary info strip below nav ── -->
+  <div class="h-topstrip">
+    <div class="h-topstrip-inner cx">
+      <div class="hts-left">
+        <span class="hts-bar"></span>
+        <span class="hts-desc">ПРЕСС-ФОРМЫ ДЛЯ ЛИТЬЯ ПЛАСТМАСС</span>
+      </div>
+      <div class="hts-right">
+        <span class="hts-tag">ООО НПК АДДИТЕХПРОММАШ</span>
+        <span class="hts-tag hts-tag-num">ВЛАДИМИР · 2023</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main grid: text LEFT | visual RIGHT ── -->
+  <div class="h-main">
+
+    <!-- LEFT: typography -->
+    <div class="h-textcol">
+      <div class="h-textcol-inner">
+
+        <h1 class="h-title" data-reveal>
+          <span class="ht">ПРЕСС</span>
+          <span class="ht">ФОРМЫ</span>
+        </h1>
+
+        <p class="h-tagline" data-reveal data-delay="1">
+          Российское производство.<br>Сроки — недели.
+        </p>
+
+        <span class="h-orange-line" data-reveal data-delay="2"></span>
+
+        <div class="h-params" data-reveal data-delay="3">
+          <span class="h-param">DMLS · SLM · ЧПУ</span>
+          <span class="h-param-sep">·</span>
+          <span class="h-param">1—32 ГНЕЗДА</span>
+          <span class="h-param-sep">·</span>
+          <span class="h-param">±0.01 ММ</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: photo + background "01" — full bleed, no container -->
+    <div class="h-visual">
+      <!-- Giant "01" background — white, behind product -->
+      <span class="h-bg-num" aria-hidden="true">01</span>
+
+      <!-- Real product photo -->
+      <img
+        src="/photo-atpm-mold.png"
+        alt="Пресс-форма АДДИТЕХПРОММАШ — литьё пластмасс под давлением"
+        class="h-photo"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+      />
+    </div>
+
+  </div>
+
+  <!-- ── Bottom spec bar ── -->
+  <div class="h-specbar">
+    <div class="h-specbar-inner cx">
+
+      <!-- Frame with company info -->
+      <div class="h-spec-frame" data-reveal>
+        <span class="hsf-corner hsf-tl"></span>
+        <span class="hsf-corner hsf-br"></span>
+        <span class="hsf-plus" aria-hidden="true">+</span>
+        <div class="hsf-text">
+          <span class="hsf-brand">АДДИТЕХПРОММАШ / 2026</span>
+          <span class="hsf-sub">MOLD ENGINEERING</span>
+          <span class="hsf-sub">PRECISION. QUALITY. RESULTS.</span>
+        </div>
+      </div>
+
+      <!-- УТП specs -->
+      <div class="h-specs" data-reveal data-delay="1">
+        <div class="hsp-item">
+          <span class="hsp-k">СРОКИ</span>
+          <span class="hsp-v">НЕДЕЛИ, НЕ МЕСЯЦЫ</span>
+        </div>
+        <span class="hsp-div"></span>
+        <div class="hsp-item">
+          <span class="hsp-k">СТОИМОСТЬ</span>
+          <span class="hsp-v">ДЕШЕВЛЕ КИТАЯ</span>
+        </div>
+        <span class="hsp-div"></span>
+        <div class="hsp-item">
+          <span class="hsp-k">ЦИКЛ</span>
+          <span class="hsp-v">ПОЛНЫЙ — ОТ КД ДО ОТК</span>
+        </div>
+      </div>
+
+      <!-- CTA arrow -->
+      <a href="tel:+79910979059" class="h-arrow" data-reveal data-delay="2" aria-label="Обсудить проект">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M7 17L17 7M9 7h8v8"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+
+</section>
+
+<style>
+  /* ── Root ── */
+  .hero {
+    min-height: 100vh;
+    padding-top: 72px;
+    background: #F3F3F3;
+    border-bottom: 1px solid #000;
+    display: grid;
+    grid-template-rows: 40px 1fr 88px;
+    position: relative;
+    z-index: 0;
+  }
+
+  /* ── Top strip ── */
+  .h-topstrip {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+  }
+  .h-topstrip-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  .hts-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hts-bar {
+    display: block;
+    width: 2px;
+    height: 16px;
+    background: #FF6A00;
+    flex-shrink: 0;
+  }
+  .hts-desc {
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #666;
+  }
+  .hts-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+  }
+  .hts-tag {
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #999;
+    line-height: 1.4;
+  }
+  .hts-tag-num {
+    font-weight: 700;
+    color: #000;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Main grid ── */
+  .h-main {
+    display: grid;
+    grid-template-columns: 45fr 55fr;
+    overflow: visible;
+  }
+
+  /* ── LEFT text column ── */
+  .h-textcol {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-right: 1px solid #000;
+    position: relative;
+    z-index: 1;
+  }
+  .h-textcol-inner {
+    padding: clamp(24px, 4vw, 56px)
+             clamp(20px, 3vw, 48px)
+             clamp(28px, 4vw, 56px)
+             max(var(--pad-x), calc((100vw - var(--max-w)) / 2 + var(--pad-x)));
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Giant title */
+  .h-title {
+    margin: 0 0 24px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.84;
+  }
+  .ht {
+    font-family: var(--font);
+    font-weight: 700;
+    font-stretch: expanded;
+    font-size: clamp(80px, 13vw, 200px);
+    letter-spacing: -0.04em;
+    line-height: 0.84;
+    color: #000;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  .h-tagline {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: clamp(18px, 2vw, 26px);
+    line-height: 1.3;
+    color: #111;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.01em;
+  }
+
+  .h-orange-line {
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #FF6A00;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+
+  .h-params {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .h-param {
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .h-param-sep {
+    color: #FF6A00;
+    font-size: 12px;
+  }
+
+  /* ── RIGHT visual column — photo bleeds over text column ── */
+  .h-visual {
+    position: relative;
+    overflow: visible;
+    background: #0A0A0A;
+    z-index: 2;
+  }
+
+  /* Giant "01" — white, bleeds top-right, z behind photo */
+  .h-bg-num {
+    position: absolute;
+    top: -0.18em;
+    right: -0.08em;
+    font-family: var(--font);
+    font-weight: 700;
+    font-stretch: expanded;
+    font-size: clamp(260px, 38vw, 560px);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: rgba(255,255,255,0.06);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    white-space: nowrap;
+  }
+
+  /* Foreground effect: scale() — предсказуемое увеличение */
+  .h-photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: translate(-50%, -50%) scale(2.25);
+    transform-origin: center center;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* ── Bottom spec bar ── */
+  .h-specbar {
+    border-top: 1px solid #000;
+    background: #F3F3F3;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+  }
+  .h-specbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Spec frame — bracket box */
+  .h-spec-frame {
+    position: relative;
+    padding: 8px 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hsf-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: #000;
+    border-style: solid;
+    border-width: 0;
+    pointer-events: none;
+  }
+  .hsf-tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+  .hsf-br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+  .hsf-plus {
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 10px;
+    color: #FF6A00;
+    position: absolute;
+    top: -6px; left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+  }
+  .hsf-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .hsf-brand {
+    font-family: var(--font);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #000;
+    text-transform: uppercase;
+  }
+  .hsf-sub {
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    color: #888;
+    text-transform: uppercase;
+  }
+
+  /* Spec items */
+  .h-specs {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    justify-content: center;
+  }
+  .hsp-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 20px;
+  }
+  .hsp-k {
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .hsp-v {
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: #000;
+    text-transform: uppercase;
+  }
+  .hsp-div {
+    width: 1px;
+    height: 28px;
+    background: rgba(0,0,0,0.15);
+    flex-shrink: 0;
+  }
+
+  /* Arrow CTA */
+  .h-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #FF6A00;
+    color: #FF6A00;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+  }
+  .h-arrow:hover { background: #FF6A00; color: #fff; }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    .hero { grid-template-rows: 40px auto 88px; }
+    .h-main { grid-template-columns: 1fr; }
+    .h-textcol { border-right: none; border-bottom: 1px solid #000; }
+    .h-visual { min-height: 320px; }
+    .h-textcol-inner { padding: 32px var(--pad-x); }
+    .h-bg-num { font-size: clamp(120px, 22vw, 200px); }
+  }
+  @media (max-width: 600px) {
+    .hero { grid-template-rows: 40px auto auto; }
+    .ht { font-size: clamp(64px, 18vw, 100px); }
+    .h-specbar { height: auto; }
+    .h-specbar-inner { flex-wrap: wrap; padding: 16px 0; gap: 12px; }
+    .h-specs { justify-content: flex-start; }
+    .hts-right { flex-direction: row; gap: 6px; }
+  }
+</style>

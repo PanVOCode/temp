@@ -1,0 +1,203 @@
+---
+const benefits = [
+  {
+    num: '01',
+    title: 'Аддитивные технологии',
+    spec: 'DMLS · SLM · ЧПУ — элементы любой сложности, включая конформное охлаждение',
+  },
+  {
+    num: '02',
+    title: 'Сроки — недели, не месяцы',
+    spec: 'Исключили из цикла всё, что не влияет на качество. Полный цикл от анализа до ОТК',
+  },
+  {
+    num: '03',
+    title: 'Дешевле и качественнее Китая',
+    spec: 'Российское производство · без таможенных рисков · предсказуемые сроки поставки',
+  },
+  {
+    num: '04',
+    title: 'Полный цикл под контролем',
+    spec: 'От КД по ЕСКД до пробных отливок на нашем оборудовании — без субподряда',
+  },
+];
+---
+
+<!-- PANEL: ПРЕИМУЩЕСТВА — text left, photo right -->
+<section id="benefits" class="ben-panel">
+
+  <div class="ben-text" data-reveal>
+    <div class="ben-inner">
+
+      <div class="sw-label">03 / ПРЕИМУЩЕСТВА</div>
+
+      <h2 class="ben-title">ПОЧЕМУ<br>МЫ</h2>
+
+      <div class="sw-rule"></div>
+
+      <div class="ben-list">
+        {benefits.map((b) => (
+          <div class="ben-row">
+            <span class="ben-num">{b.num}</span>
+            <div class="ben-body">
+              <span class="ben-name">{b.title}</span>
+              <span class="ben-spec">{b.spec}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ben-photo">
+    <img src="/photo-mold-industrial.png" alt="" aria-hidden="true" class="ben-img" loading="lazy">
+    <span class="ben-ghost" aria-hidden="true">04</span>
+  </div>
+
+</section>
+
+<style>
+  .ben-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    border-bottom: 1px solid #000;
+  }
+
+  .ben-text {
+    order: 1;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #000;
+    position: relative;
+    z-index: 1;
+  }
+  .ben-inner {
+    padding: clamp(48px, 7vw, 100px) clamp(40px, 5vw, 80px);
+    width: 100%;
+  }
+
+  .sw-label {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .sw-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #999;
+    flex-shrink: 0;
+  }
+
+  .ben-title {
+    font-family: var(--font);
+    font-weight: 800;
+    font-stretch: expanded;
+    font-size: clamp(64px, 9vw, 120px);
+    letter-spacing: -0.04em;
+    line-height: 0.88;
+    color: #000;
+    text-transform: uppercase;
+    margin: 0 0 32px;
+  }
+
+  .sw-rule {
+    height: 1px;
+    background: #000;
+    margin-bottom: 28px;
+  }
+
+  .ben-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .ben-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    transition: padding-left 0.2s, background 0.2s;
+  }
+  .ben-row:hover { padding-left: 8px; background: var(--accent-dim); }
+  .ben-num {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: #FF6A00;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .ben-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ben-name {
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: clamp(16px, 1.8vw, 22px);
+    letter-spacing: -0.01em;
+    color: #000;
+    text-transform: uppercase;
+  }
+  .ben-spec {
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: clamp(12px, 1vw, 14px);
+    letter-spacing: 0.04em;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .ben-photo {
+    order: 2;
+    position: relative;
+    background: #060606;
+    overflow: visible;
+    z-index: 10;
+  }
+  /* Foreground effect: bigger + pushed right */
+  .ben-img {
+    position: absolute;
+    top: -55%;
+    left: 5%;
+    width: 210%;
+    height: 210%;
+    object-fit: contain;
+    object-position: center;
+    z-index: 10;
+  }
+  .ben-ghost {
+    position: absolute;
+    bottom: -0.08em;
+    right: -0.04em;
+    font-family: var(--font);
+    font-weight: 800;
+    font-stretch: expanded;
+    font-size: clamp(180px, 26vw, 400px);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: rgba(255,255,255,0.04);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 768px) {
+    .ben-panel { grid-template-columns: 1fr; }
+    .ben-text { border-right: none; order: 2; border-top: 1px solid #000; }
+    .ben-photo { min-height: 55vh; order: 1; }
+  }
+</style>
