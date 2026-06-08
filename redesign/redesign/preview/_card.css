@@ -1,0 +1,25 @@
+/* Shared base for Design-System preview cards */
+@import url('../colors_and_type.css');
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--atpm-paper);
+  color: var(--atpm-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* faint brushed-metal cross-hatch, matches site */
+  background-image:
+    repeating-linear-gradient(45deg, transparent 0 18px, rgba(0,0,0,0.04) 18px 19px),
+    repeating-linear-gradient(-45deg, transparent 0 18px, rgba(0,0,0,0.04) 18px 19px);
+}
+.card {
+  padding: 22px 26px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; }

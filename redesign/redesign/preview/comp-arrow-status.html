@@ -1,0 +1,19 @@
+<!-- @dsCard group="Components" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .arrow { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border:1px solid var(--atpm-accent); color:var(--atpm-accent); }
+  .arrow.fill { background:var(--atpm-accent); color:#fff; }
+  .item { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .lab { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--atpm-grey-50); }
+  .note { display:flex; align-items:center; gap:8px; font-size:9px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--atpm-grey-50); }
+  .dot { width:5px; height:5px; border-radius:50%; background:var(--atpm-accent); animation:p 2.2s ease-in-out infinite; }
+  @keyframes p { 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+</style></head>
+<body><div class="card">
+  <div class="atpm-eyebrow">Icon CTA &amp; status</div>
+  <div class="row" style="gap:28px;">
+    <div class="item"><span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="lab">Default</span></div>
+    <div class="item"><span class="arrow fill"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="lab">Hover</span></div>
+    <div class="item"><span class="note"><span class="dot"></span>Круглосуточно · кроме выходных</span><span class="lab">Status note</span></div>
+  </div>
+</div></body></html>

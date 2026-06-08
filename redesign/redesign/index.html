@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АДДИТЕХПРОММАШ — Пресс-формы для литья пластмасс</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+*{hyphens:none;-webkit-hyphens:none}
+html{overflow-x:hidden}
+body{font-family:'Space Grotesk','Helvetica Neue',sans-serif;background:#0A0A0A;color:#000;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+ul{list-style:none}
+
+/* ─── TOKENS ─────────────────────────────────────────── */
+:root{
+  --paper:#CECECE;--white:#fff;--black:#000;--dark:#0A0A0A;--darker:#0A0A0A;
+  --orange:#FF6A00;--muted:#666;--grey-40:#999;--grey-20:#bbb;
+  --line:rgba(0,0,0,.1);--line-d:#1A1A1A;
+  --fd:'Barlow','Helvetica Neue',sans-serif;
+  --fs:'Space Grotesk','Helvetica Neue',sans-serif;
+  --pad:clamp(24px,5vw,80px);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ─── NAV ────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--pad);
+  background:rgba(0,0,0,.35);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);
+  transition:background .5s,border-color .5s,backdrop-filter .5s;
+  --nav-fg:rgba(255,255,255,.9);
+}
+.nav.on{background:rgba(206,206,206,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:rgba(0,0,0,.1);--nav-fg:#000}
+.nav-logo{display:flex;align-items:center}
+.nav-logo img{height:36px;width:auto;filter:brightness(0) invert(1);transition:filter .5s}
+.nav.on .nav-logo img{filter:brightness(0)}
+.nav-links{display:flex;gap:28px;font-size:18px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--nav-fg);transition:color .5s}
+.nav-links a{transition:color .2s;color:inherit}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--orange);color:#fff;
+  font-family:var(--fd);font-weight:800;font-size:18px;letter-spacing:.22em;text-transform:uppercase;
+  padding:10px 20px;transition:background .2s;
+}
+.nav-cta:hover{background:#e55a00}
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero{position:relative;z-index:10;background:var(--dark);height:100svh;padding-top:64px;overflow:visible;display:flex;flex-direction:column}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;flex:1;min-height:0}
+.hero-text{
+  padding:clamp(28px,4vw,56px) var(--pad) clamp(28px,4vw,56px);
+  display:flex;flex-direction:column;justify-content:center;gap:clamp(16px,2vw,28px);
+  position:relative;z-index:2;overflow:hidden;
+}
+.hero-eyebrow{
+  font-size:18px;font-weight:300;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:rgba(255,255,255,.2)}
+
+/* Clip-reveal for title lines */
+.clip{overflow:hidden;line-height:.88}
+.clip-inner{
+  display:block;
+  font-family:var(--fd);font-weight:900;
+  font-size:clamp(72px,min(10vw,14vh),180px);
+  letter-spacing:-.04em;text-transform:uppercase;
+  line-height:.88;
+  transform:translateY(110%);transition:transform 1.1s var(--ease);
+}
+body.loaded .clip-inner{transform:translateY(0)}
+.clip-inner--solid{color:#fff}
+.clip-inner--outline{-webkit-text-stroke:4.5px rgba(255,255,255,.45);color:transparent}
+.clip:nth-child(2) .clip-inner{transition-delay:.12s}
+
+.hero-sub{margin-top:0}
+.hero-tagline{font-family:var(--fd);font-weight:700;font-size:clamp(16px,2vw,26px);color:#fff;line-height:1.25;margin-bottom:8px}
+.hero-desc{font-size:clamp(14px,1.3vw,18px);color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:12px;max-width:480px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.hero-tag{font-size:18px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.38);border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:2px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ── Buttons ─ */
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--fd);font-weight:800;font-size:12px;letter-spacing:.22em;text-transform:uppercase;padding:13px 22px;transition:all .2s;cursor:pointer}
+.btn-white{background:#fff;color:#000}
+.btn-white:hover{background:var(--orange);color:#fff}
+.btn-black{background:#000;color:#fff}
+.btn-black:hover{background:var(--orange)}
+.btn-outline{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.22)}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+.btn-outline-d{background:transparent;color:#000;border:1px solid #000}
+.btn-outline-d:hover{background:#000;color:#fff}
+
+/* Corner brackets */
+.bk{position:absolute;width:18px;height:18px}
+.bk-tl{top:80px;left:var(--pad);border-top:1px solid rgba(255,106,0,.55);border-left:1px solid rgba(255,106,0,.55)}
+.bk-br{bottom:calc(110px + var(--pad));right:calc(50% + var(--pad));border-bottom:1px solid rgba(255,106,0,.55);border-right:1px solid rgba(255,106,0,.55)}
+
+/* Hero image column */
+.hero-img-col{position:relative;overflow:visible;background:#CECECE}
+.hero-float{
+  position:absolute;right:0;top:0;
+  bottom:-140px; /* bleeds into ticker */
+  width:150%;z-index:3;pointer-events:none;
+}
+.hero-float img{width:100%;height:100%;object-fit:contain;object-position:center center;opacity:1;filter:contrast(1.05);-webkit-mask-image:linear-gradient(to bottom,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,#000 90%,transparent 100%)}
+
+/* ─── HERO STATS STRIP ───────────────────────────────── */
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:4;background:#000}
+.hero-stat{padding:22px clamp(16px,2.5vw,40px);border-right:1px solid rgba(255,255,255,.08)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-n{font-family:var(--fd);font-weight:900;font-size:clamp(40px,5.2vw,72px);letter-spacing:-.04em;color:var(--orange);line-height:1}
+.hero-stat-l{font-size:18px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-top:7px}
+@media(max-width:640px){.hero-stats{grid-template-columns:repeat(3,1fr)}.hero-stat:nth-child(n+4){display:none}}
+
+/* ─── TICKER ─────────────────────────────────────────── */
+.ticker{position:relative;z-index:9;background:#0A0A0A;height:48px;overflow:hidden;display:flex;align-items:center}
+.ticker-track{display:flex;white-space:nowrap;animation:ticker 32s linear infinite}
+.ticker-item{font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.4);display:inline-flex;align-items:center}
+.ticker-dot{color:var(--orange);font-size:22px;margin:0 14px;opacity:.75}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SECTION SHARED ─────────────────────────────────── */
+.eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:18px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--grey-40)}
+.eyebrow::before{content:'';width:24px;height:1px;background:currentColor;flex-shrink:0}
+.eyebrow-d{color:rgba(255,255,255,.35)}
+
+/* ─── SERVICES ───────────────────────────────────────── */
+.services{position:relative;z-index:8;background:#CECECE;overflow:hidden;padding:clamp(48px,7vh,80px) var(--pad);padding-left:calc(50% + var(--pad));height:100svh;display:flex;flex-direction:column;justify-content:center}
+.services-ghost{
+  position:absolute;right:-.03em;top:50%;transform:translateY(-50%);
+  font-family:var(--fd);font-weight:900;font-size:clamp(200px,36vw,520px);
+  letter-spacing:-.06em;text-transform:uppercase;color:rgba(0,0,0,.03);
+  line-height:1;pointer-events:none;user-select:none;white-space:nowrap;z-index:0;
+}
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;position:relative;z-index:1}
+.services-list{position:relative;z-index:1}
+.svc-row{
+  display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:16px;
+  padding:clamp(10px,1.2vh,16px) 0;border-bottom:1px solid rgba(0,0,0,.08);
+  transition:padding-left .2s var(--ease),background .2s;cursor:default;
+}
+.svc-row:first-child{border-top:1px solid rgba(0,0,0,.08)}
+.svc-row:hover{padding-left:12px}
+.svc-num{font-weight:800;font-size:16px;letter-spacing:.2em;color:var(--orange)}
+.svc-name{font-family:var(--fd);font-weight:800;font-size:clamp(22px,2.6vw,40px);letter-spacing:-.02em;text-transform:uppercase;color:#000;line-height:1;white-space:nowrap}
+.svc-sub{font-size:clamp(13px,1vw,16px);color:var(--muted);margin-top:2px;letter-spacing:.03em}
+.svc-arrow{color:#ccc;font-size:28px;transition:color .2s,transform .2s}
+.svc-row:hover .svc-arrow{color:var(--orange);transform:translateX(4px)}
+
+/* Services float — left side, centred vertically */
+.services-float{
+  position:absolute;left:-15%;right:auto;top:0;bottom:0;
+  width:80%;z-index:2;pointer-events:none;
+  display:flex;align-items:center;
+}
+.services-float img{width:100%;height:100%;object-fit:contain;object-position:left center;mix-blend-mode:multiply;}
+
+/* ─── STATS ──────────────────────────────────────────── */
+.stats{position:relative;z-index:7;background:#0A0A0A;overflow:hidden;min-height:100svh;display:grid;grid-template-columns:1fr 1fr}
+.stats-left{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:clamp(40px,6vh,80px);padding:clamp(60px,10vh,120px) var(--pad)}
+.stats-big{font-family:var(--fd);font-weight:900;font-size:clamp(120px,18vw,260px);letter-spacing:-.06em;color:var(--orange);line-height:.85}
+.stats-lbl{font-family:var(--fd);font-weight:800;font-size:clamp(20px,2.4vw,34px);color:#fff;text-transform:uppercase;letter-spacing:.02em;margin-top:10px;line-height:1.2;white-space:nowrap}
+.stats-desc{font-size:18px;color:rgba(255,255,255,.38);line-height:1.75;margin-top:10px}
+.stats-sep{width:48px;height:1px;background:rgba(255,255,255,.15)}
+.stats-num-b{font-family:var(--fd);font-weight:900;font-size:clamp(80px,11vw,160px);letter-spacing:-.05em;color:#fff;line-height:.9}
+.stats-lbl-b{font-family:var(--fd);font-weight:500;font-size:clamp(11px,1.2vw,16px);letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:10px}
+.stats-right{background:#CECECE;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(40px,6vw,80px) clamp(24px,4vw,60px);gap:clamp(24px,4vh,48px)}
+.stats-partners-lbl{font-family:var(--fd);font-weight:700;font-size:clamp(10px,1vw,13px);letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);text-align:center}
+.stats-partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#0A0A0A;border:1px solid #0A0A0A;width:100%}
+.stats-partner{display:flex;align-items:center;justify-content:center;background:#CECECE;min-height:12.5vh;padding:clamp(12px,2vh,28px)}
+.stats-partner img{max-height:8vh;max-width:160px;width:auto;filter:grayscale(1);opacity:.5;transition:opacity .3s,filter .3s}
+.stats-partner:hover img{filter:grayscale(0);opacity:1}
+
+/* ─── PROCESS ────────────────────────────────────────── */
+.process{position:relative;z-index:6}
+.process-hdr{padding:80px var(--pad) 56px;background:var(--paper);display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #000}
+.process-note{font-size:26px;color:var(--grey-40)}
+.process-step{display:grid;grid-template-columns:1fr 1fr;min-height:100svh;border-bottom:1px solid #000}
+.pstep-text{padding:clamp(36px,5vw,60px) var(--pad);display:flex;flex-direction:column;justify-content:space-between;min-width:0;position:relative;z-index:2}
+.pstep-text.lt{background:var(--paper)}
+.pstep-text.dk{background:#0A0A0A}
+.pstep-n{font-size:18px;font-weight:400;letter-spacing:.35em;text-transform:uppercase}
+.pstep-title{font-family:var(--fd);font-weight:900;font-size:clamp(104px,15vw,192px);letter-spacing:-.04em;text-transform:uppercase;line-height:.88}
+.pstep-dur{font-family:var(--fd);font-weight:800;font-size:clamp(48px,6vw,80px);letter-spacing:-.03em;color:var(--orange);line-height:1;margin-top:8px}
+.pstep-items{border-top:1px solid;padding-top:18px;display:flex;flex-direction:column}
+.pstep-item{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid;font-size:26px;line-height:1.45}
+.pstep-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:6px}
+.pstep-photo{position:relative;overflow:hidden}
+.pstep-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pstep-ghost{
+  position:absolute;bottom:-.1em;right:-.05em;
+  font-family:var(--fd);font-weight:900;font-size:clamp(320px,44vw,560px);
+  letter-spacing:-.06em;line-height:1;pointer-events:none;user-select:none;
+}
+
+/* ─── SPECS / FAQ ────────────────────────────────────── */
+.specs{position:relative;z-index:5;display:flex;border-bottom:1px solid #000;min-height:100svh}
+.specs-l{padding:80px var(--pad);background:var(--paper);display:flex;flex-direction:column;justify-content:center;flex:1}
+.specs-r{padding:80px var(--pad);background:#CECECE;display:flex;flex-direction:column;justify-content:center}
+.specs-title{font-family:var(--fd);font-weight:900;font-size:clamp(56px,7vw,100px);letter-spacing:-.04em;text-transform:uppercase;color:#000;line-height:.92;margin:28px 0 36px;white-space:nowrap}
+.spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.07);gap:16px}
+.spec-k{font-size:20px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-40);flex-shrink:0}
+.spec-v{font-size:26px;font-weight:500;color:#000;text-align:right}
+.faq-title{font-family:var(--fd);font-weight:900;font-size:clamp(56px,7vw,100px);letter-spacing:-.04em;text-transform:uppercase;color:#000;line-height:.92;margin:28px 0 36px;white-space:nowrap}
+.faq-item{border-bottom:1px solid rgba(0,0,0,.1);overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0;cursor:pointer;user-select:none}
+.faq-qt{font-weight:700;font-size:28px;color:#000;line-height:1.3}
+.faq-ic{color:var(--orange);font-size:40px;font-weight:300;flex-shrink:0;transition:transform .35s var(--ease);line-height:1}
+.faq-item.open .faq-ic{transform:rotate(45deg)}
+.faq-a{font-size:26px;color:var(--muted);line-height:1.72;max-height:0;overflow:hidden;transition:max-height .4s var(--ease),padding-bottom .4s}
+.faq-item.open .faq-a{max-height:220px;padding-bottom:18px}
+
+/* ─── PARTNERS ───────────────────────────────────────── */
+.partners{position:relative;z-index:4;background:#CECECE;border-bottom:1px solid #000;padding:clamp(48px,8vh,100px) var(--pad);min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(32px,5vh,64px)}
+.partners-inner{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,56px);width:100%}
+.partners-lbl{font-size:18px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:#bbb;white-space:nowrap;text-align:center}
+.partners-logos{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#0A0A0A;border:1px solid #0A0A0A;width:100%}
+.partner{display:flex;align-items:center;justify-content:center;background:#CECECE;min-height:12.5vh;padding:clamp(16px,2vh,32px)}
+.partner img{max-height:8vh;max-width:200px;width:auto;filter:grayscale(1);opacity:.5;transition:opacity .3s,filter .3s}
+.partner:hover img{filter:grayscale(0);opacity:1}
+
+/* ─── CTA ────────────────────────────────────────────── */
+.cta{position:relative;z-index:3;background:#000;overflow:hidden;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between}
+.cta-title-wrap{padding:80px var(--pad) 0;position:relative;overflow:hidden}
+.cta-t{font-family:var(--fd);font-weight:900;font-size:clamp(128px,19vw,300px);letter-spacing:-.04em;text-transform:uppercase;line-height:.84}
+.cta-t--solid{color:#fff}
+.cta-t--outline{-webkit-text-stroke:4.5px rgba(255,255,255,.38);color:transparent}
+.cta-bg-img{position:absolute;right:-60px;top:-40px;height:130%;opacity:.08;filter:contrast(1.2);pointer-events:none}
+.cta-body{padding:48px var(--pad) 72px;border-top:1px solid var(--line-d);display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:48px}
+.cta-desc{font-size:clamp(28px,2.4vw,32px);color:rgba(255,255,255,.68);line-height:1.75;margin-bottom:28px}
+.cta-contacts{display:flex;flex-direction:column}
+.cta-cr{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line-d);gap:16px}
+.cta-ck{font-size:18px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32)}
+.cta-cv{font-size:28px;font-weight:700;color:#fff}
+.cta-cv a{color:#fff;transition:color .2s}
+.cta-cv a:hover{color:var(--orange)}
+.cta-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.cta-ch{display:flex;gap:8px}
+.cta-online{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-top:4px}
+.cta-online::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange)}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+
+/* ─── REVEAL ANIMATIONS ──────────────────────────────── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}.reveal.d4{transition-delay:.4s}
+
+/* ─── GRAIN OVERLAY ──────────────────────────────────── */
+.hero-text::after{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  background-size:180px;
+}
+.hero-text{position:relative;z-index:4}
+.hero-img-col{position:relative;z-index:3}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-img-col{display:none}
+  .services-float{display:none}
+  .stats-inner{grid-template-columns:1fr}
+  .stats-float{display:none}
+  .process-step{grid-template-columns:1fr}
+  .pstep-photo{min-height:280px}
+  .specs{grid-template-columns:1fr}
+  .specs-l{border-right:none;border-bottom:1px solid #000}
+  .cta-body{grid-template-columns:1fr;gap:40px}
+  .partners-logos{flex-wrap:wrap}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hero-inner{min-height:auto;padding-bottom:60px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="nav-logo"><img src="assets/logo-text.png" alt="АДДИТЕХПРОММАШ"></div>
+  <nav class="nav-links">
+    <a href="#services">Услуги</a>
+    <a href="#process">Процесс</a>
+    <a href="#specs">Технологии</a>
+    <a href="#cta">Контакты</a>
+  </nav>
+  <a href="#cta" class="btn nav-cta js-goto-cta">
+    Позвонить
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</header>
+
+<!-- ═══ HERO ════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <!-- Text -->
+    <div class="hero-text">
+      <div class="hero-eyebrow">ООО НПК АДДИТЕХПРОММАШ · ВЛАДИМИР · РОССИЯ</div>
+
+      <div class="hero-title-block">
+        <div class="clip"><span class="clip-inner clip-inner--solid">ПРЕСС</span></div>
+        <div class="clip"><span class="clip-inner clip-inner--outline">ФОРМЫ</span></div>
+      </div>
+
+      <div class="hero-sub reveal">
+        <div class="hero-tagline">Российское производство.<br>Дешевле, чем везти из Китая.</div>
+        <div class="hero-desc">Пресс-формы для литья пластмасс полного цикла. Аддитивные технологии, 5-осевое ЧПУ, конформное охлаждение. Дешевле импорта.</div>
+        <div class="hero-tags">
+          <span class="hero-tag">DMLS</span>
+          <span class="hero-tag">SLM</span>
+          <span class="hero-tag">5-осевое ЧПУ</span>
+          <span class="hero-tag">±0.01 мм</span>
+          <span class="hero-tag">1—32 гнезда</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#cta" class="btn btn-white">Рассчитать КП <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="tel:+79910979059" class="btn btn-outline">+7 (991) 097-90-59</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Float image column -->
+    <div class="hero-img-col">
+      <div class="hero-float" id="heroFloat">
+        <img src="assets/photo-atpm-mold.png" alt="Пресс-форма АДДИТЕХПРОММАШ">
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-n">14—30</div>
+      <div class="hero-stat-l">ДНЕЙ ПОД КЛЮЧ</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">±0.01</div>
+      <div class="hero-stat-l">ММ ТОЧНОСТЬ</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">−25%</div>
+      <div class="hero-stat-l">VS ИМПОРТ</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">1 000 000</div>
+      <div class="hero-stat-l">ЦИКЛОВ</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-n">30+</div>
+      <div class="hero-stat-l">ПРОЕКТОВ</div>
+    </div>
+  </div>
+
+  <!-- Corner brackets -->
+  <div class="bk bk-tl"></div>
+  <div class="bk bk-br"></div>
+</section>
+
+<!-- ═══ TICKER ══════════════════════════════════════════ -->
+<div class="ticker" style="position:relative;z-index:9">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item">ПРОЕКТИРОВАНИЕ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ПРОИЗВОДСТВО<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">DMLS · SLM · ЧПУ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">СРОКИ — НЕДЕЛИ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ДЕШЕВЛЕ КИТАЯ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">±0.01 ММ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ВЛАДИМИР · РОССИЯ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">30+ ПРОЕКТОВ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ПРОЕКТИРОВАНИЕ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ПРОИЗВОДСТВО<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">DMLS · SLM · ЧПУ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">СРОКИ — НЕДЕЛИ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ДЕШЕВЛЕ КИТАЯ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">±0.01 ММ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">ВЛАДИМИР · РОССИЯ<span class="ticker-dot">·</span></span>
+    <span class="ticker-item">30+ ПРОЕКТОВ<span class="ticker-dot">·</span></span>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ════════════════════════════════════════ -->
+<section class="services" id="services">
+  <div class="services-ghost" aria-hidden="true">УСЛУГИ</div>
+
+  <div class="services-header">
+    <span class="eyebrow reveal">01 / ЧТО МЫ ДЕЛАЕМ</span>
+    <span style="font-size:26px;color:var(--grey-40)" class="reveal d1">Полный цикл · без субподряда</span>
+  </div>
+
+  <div class="services-list">
+    <div class="svc-row reveal">
+      <span class="svc-num">01</span>
+      <div><div class="svc-name">Проектирование пресс-форм</div><div class="svc-sub">С нуля или по вашей КД · ЕСКД комплект</div></div>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-row reveal d1">
+      <span class="svc-num">02</span>
+      <div><div class="svc-name">Производство пресс-форм</div><div class="svc-sub">DMLS · SLM · 5-осевое ЧПУ · 1—32 гнезда</div></div>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-row reveal d2">
+      <span class="svc-num">03</span>
+      <div><div class="svc-name">Серийное литьё</div><div class="svc-sub">Мелко- и крупносерийное · до 1 000 000 циклов</div></div>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-row reveal d3">
+      <span class="svc-num">04</span>
+      <div><div class="svc-name">Металлообработка</div><div class="svc-sub">Инструментальные стали P20 · H13 · S136</div></div>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-row reveal d4">
+      <span class="svc-num">05</span>
+      <div><div class="svc-name">КД по ЕСКД</div><div class="svc-sub">Разработка от техзадания до ОТК</div></div>
+      <span class="svc-arrow">→</span>
+    </div>
+    <div class="svc-row reveal d4">
+      <span class="svc-num">06</span>
+      <div><div class="svc-name">Доработка и ремонт</div><div class="svc-sub">Обслуживание действующей оснастки</div></div>
+      <span class="svc-arrow">→</span>
+    </div>
+  </div>
+
+  <!-- Float image → bleeds into stats -->
+  <div class="services-float" id="svcFloat">
+    <img src="assets/photo-mold-closed.png" alt="Пресс-форма">
+  </div>
+</section>
+
+<!-- ═══ STATS ════════════════════════════════════════════ -->
+<section class="stats" id="stats">
+  <div class="stats-left">
+    <div class="reveal">
+      <div class="stats-big" data-count="30" data-suffix="+">30+</div>
+      <div class="stats-lbl">ПРОЕКТОВ В ЭКСПЛУАТАЦИИ</div>
+      <div class="stats-desc">Литьё пластмасс · упаковка · электротехника · авиация · БПЛА · медицина.</div>
+    </div>
+    <div class="stats-sep reveal d1"></div>
+    <div class="reveal d2">
+      <div class="stats-num-b">15</div>
+      <div class="stats-lbl-b">ИНЖЕНЕРОВ В КОМАНДЕ</div>
+    </div>
+  </div>
+  <div class="stats-right reveal d1">
+    <div class="stats-partners-lbl">Работаем с</div>
+    <div class="stats-partners-grid">
+      <div class="stats-partner"><img src="assets/partner-sibur.png" alt="СИБУР"></div>
+      <div class="stats-partner"><img src="assets/partner-mei.png" alt="МЭИ"></div>
+      <div class="stats-partner"><img src="assets/partner-keramet.png" alt="КЕРАМЕТ"></div>
+      <div class="stats-partner"><img src="assets/partner-mayak.png" alt="МАЯК"></div>
+      <div class="stats-partner"><img src="assets/partner-armakom.png" alt="АРМАКОМ"></div>
+      <div class="stats-partner"><img src="assets/partner-glavproekt.png" alt="ГЛАВПРОЕКТ"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ══════════════════════════════════════════ -->
+<section class="process" id="process">
+  <div class="process-hdr">
+    <span class="eyebrow reveal">02 / КАК МЫ РАБОТАЕМ</span>
+    <span class="process-note reveal d1">от анализа до ОТК · без субподряда</span>
+  </div>
+
+  <!-- Step 01 — АНАЛИЗ -->
+  <div class="process-step">
+    <div class="pstep-text lt reveal">
+      <div class="pstep-n eyebrow">01 / 04 · ЭТАП</div>
+      <div>
+        <div class="pstep-title">АНАЛИЗ</div>
+        <div class="pstep-dur">1—3 дня</div>
+      </div>
+      <ul class="pstep-items" style="border-color:rgba(0,0,0,.1)">
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Принимаем чертёж или 3D-модель изделия</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Определяем число гнёзд и точки впрыска</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Проектируем систему охлаждения</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Согласовываем ТЗ и стоимость</li>
+      </ul>
+    </div>
+    <div class="pstep-photo" style="background:#CECECE">
+      <img src="assets/photo-mold-exploded.png" alt="" style="opacity:1;mix-blend-mode:multiply">
+      <span class="pstep-ghost" style="color:rgba(0,0,0,.04)">01</span>
+    </div>
+  </div>
+
+  <!-- Step 02 — КД -->
+  <div class="process-step">
+    <div class="pstep-photo" style="background:var(--darker);order:1">
+      <img src="assets/photo-cad-wireframe.png" alt="" style="opacity:.9;filter:brightness(1)">
+      <span class="pstep-ghost" style="color:rgba(255,255,255,.04)">02</span>
+    </div>
+    <div class="pstep-text dk reveal" style="order:2">
+      <div class="pstep-n eyebrow eyebrow-d">02 / 04 · ЭТАП</div>
+      <div>
+        <div class="pstep-title" style="color:#fff">КД</div>
+        <div class="pstep-dur">5—14 дней</div>
+      </div>
+      <ul class="pstep-items" style="border-color:var(--line-d)">
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">3D-моделирование оснастки</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Расчёт топологии охлаждения</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Конструкторская документация по ЕСКД</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Согласование с заказчиком</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Step 03 — ВЫПУСК -->
+  <div class="process-step">
+    <div class="pstep-text dk reveal">
+      <div class="pstep-n eyebrow eyebrow-d">03 / 04 · ЭТАП</div>
+      <div>
+        <div class="pstep-title" style="color:#fff">ВЫПУСК</div>
+        <div class="pstep-dur">14—30 дней</div>
+      </div>
+      <ul class="pstep-items" style="border-color:var(--line-d)">
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">5-осевая ЧПУ-обработка инструментальной стали</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Аддитивные технологии DMLS / SLM</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Термообработка и слесарная сборка</li>
+      </ul>
+    </div>
+    <div class="pstep-photo" style="background:#0a0a0a">
+      <img src="assets/photo-machining.png" alt="" style="opacity:.85;filter:brightness(.8)">
+      <span class="pstep-ghost" style="color:rgba(255,255,255,.04)">03</span>
+    </div>
+  </div>
+
+  <!-- Step 04 — ОТК -->
+  <div class="process-step">
+    <div class="pstep-photo" style="background:#E4E4E2">
+      <img src="assets/photo-machine-01.jpg" alt="" style="opacity:.8">
+      <span class="pstep-ghost" style="color:rgba(0,0,0,.04)">04</span>
+    </div>
+    <div class="pstep-text lt reveal">
+      <div class="pstep-n eyebrow">04 / 04 · ЭТАП</div>
+      <div>
+        <div class="pstep-title">ОТК</div>
+        <div class="pstep-dur">2—5 дней</div>
+      </div>
+      <ul class="pstep-items" style="border-color:rgba(0,0,0,.1)">
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Пробные отливки на нашем оборудовании</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Контроль всех размеров по КД</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Передача полного комплекта документации</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPECS + FAQ ══════════════════════════════════════ -->
+<section class="specs" id="specs">
+  <div class="specs-l">
+    <span class="eyebrow reveal">03 / ТЕХНИЧЕСКИЕ ДАННЫЕ</span>
+    <div class="specs-title reveal d1">ТЕХНИЧЕСКИЕ ДАННЫЕ</div>
+    <div>
+      <div class="spec-row reveal"><span class="spec-k">Материал</span><span class="spec-v">P20 · H13 · S136</span></div>
+      <div class="spec-row reveal d1"><span class="spec-k">Гнёзд</span><span class="spec-v">1 — 32</span></div>
+      <div class="spec-row reveal d2"><span class="spec-k">Ресурс</span><span class="spec-v">до 1 000 000 циклов</span></div>
+      <div class="spec-row reveal d3"><span class="spec-k">Точность</span><span class="spec-v">±0.01 мм · IT6–IT7</span></div>
+      <div class="spec-row reveal d4"><span class="spec-k">Габариты</span><span class="spec-v">до 1000 × 800 × 600 мм</span></div>
+      <div class="spec-row reveal d4"><span class="spec-k">Тип литья</span><span class="spec-v">Горячий / холодный канал</span></div>
+      <div class="spec-row reveal d4"><span class="spec-k">Охлаждение</span><span class="spec-v">Конформное · каскадное</span></div>
+    </div>
+    <a href="#cta" class="btn btn-black reveal" style="margin-top:32px">
+      Запросить расчёт
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ PARTNERS ═════════════════════════════════════════ -->
+<!-- ═══ CTA ══════════════════════════════════════════════ -->
+<section class="cta" id="cta">
+  <img class="cta-bg-img" src="assets/photo-mold-industrial.png" alt="">
+  <div class="cta-title-wrap reveal">
+    <div class="cta-t cta-t--solid">РАССЧИТАТЬ</div>
+    <div class="cta-t cta-t--outline">ПРОЕКТ</div>
+  </div>
+  <div class="cta-body">
+    <div>
+      <div class="cta-desc reveal">Пришлите чертёж или 3D-модель — в течение суток подготовим КП с ценой и сроками под ваш проект.</div>
+      <div class="cta-contacts">
+        <div class="cta-cr reveal">
+          <span class="cta-ck">Александр Семенец</span>
+          <span class="cta-cv"><a href="tel:+79910979059">+7 (991) 097-90-59</a> · <a href="https://t.me/Alexandr_Semenets">TG</a></span>
+        </div>
+        <div class="cta-cr reveal d1">
+          <span class="cta-ck">Даниил Воробьев</span>
+          <span class="cta-cv"><a href="tel:+79060554525">+7 (906) 055-45-25</a> · <a href="https://t.me/ganucorl">TG</a></span>
+        </div>
+        <div class="cta-cr reveal d2">
+          <span class="cta-ck">Email</span>
+          <span class="cta-cv"><a href="mailto:additechprommash@yandex.ru">additechprommash@yandex.ru</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="cta-actions reveal d1">
+      <a href="tel:+79910979059" class="btn btn-white">
+        Позвонить
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="cta-ch">
+        <a href="https://t.me/Alexandr_Semenets" class="btn btn-outline">TG</a>
+        <a href="https://wa.me/79910979059" class="btn btn-outline">WA</a>
+      </div>
+      <div class="cta-online">Круглосуточно · кроме выходных</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════ -->
+
+<script>
+/* ── Load trigger ── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('loaded');
+});
+
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+const hero = document.getElementById('hero');
+function updateNav() {
+  const past = window.scrollY > (hero ? hero.offsetHeight * 0.7 : 400);
+  nav.classList.toggle('on', past);
+}
+window.addEventListener('scroll', updateNav, {passive: true});
+updateNav();
+
+/* ── Scroll reveal ── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); }
+  });
+}, {threshold: 0.05, rootMargin: '0px 0px 0px 0px'});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── Counter animation ── */
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1400;
+    const t0 = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    counterObs.unobserve(el);
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+/* ── Parallax floats ── */
+const floats = [
+  {el: document.getElementById('heroFloat'),  speed: 0.07},
+  {el: document.getElementById('svcFloat'),   speed: 0.09},
+  {el: document.getElementById('statsFloat'), speed: 0.08},
+];
+let ticking = false;
+function onScroll() {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const sy = window.scrollY;
+    floats.forEach(({el, speed}) => {
+      if (!el) return;
+      el.style.transform = `translateY(${sy * speed * -0.4}px)`;
+    });
+    ticking = false;
+  });
+}
+window.addEventListener('scroll', onScroll, {passive: true});
+
+/* ── FAQ ── */
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const was = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!was) item.classList.add('open');
+  });
+});
+
+// ── Full-page scroll hijack ──────────────────────────────
+(function(){
+  const SELECTORS = '.hero,.services,.stats,.process-step,.specs,.cta';
+  const DURATION  = 900;   // ms — длительность анимации
+  const COOLDOWN  = 1100;  // ms — пауза между переходами
+  let busy = false;
+
+  function getSlides(){ return Array.from(document.querySelectorAll(SELECTORS)); }
+
+  function scrollTo(target){
+    const start = window.scrollY;
+    const end   = target.getBoundingClientRect().top + start;
+    const diff  = end - start;
+    if(Math.abs(diff) < 2){ busy = false; return; }
+    let t0 = null;
+    busy = true;
+    function step(ts){
+      if(!t0) t0 = ts;
+      const p = Math.min((ts - t0) / DURATION, 1);
+      const e = 1 - Math.pow(1 - p, 4);
+      window.scrollTo(0, start + diff * e);
+      if(p < 1) requestAnimationFrame(step);
+      else setTimeout(() => { busy = false; }, 50);
+    }
+    requestAnimationFrame(step);
+    setTimeout(() => { busy = false; }, COOLDOWN);
+  }
+
+  function nearest(){
+    const slides = getSlides();
+    let best = 0, bestDist = Infinity;
+    slides.forEach((el, i) => {
+      const d = Math.abs(el.getBoundingClientRect().top);
+      if(d < bestDist){ bestDist = d; best = i; }
+    });
+    return best;
+  }
+
+  function go(dir){
+    if(busy) return;
+    const slides = getSlides();
+    const idx = Math.min(Math.max(nearest() + dir, 0), slides.length - 1);
+    scrollTo(slides[idx]);
+  }
+
+  window.addEventListener('wheel', e => { e.preventDefault(); go(e.deltaY > 0 ? 1 : -1); }, {passive:false});
+
+  let touchY = 0;
+  window.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
+  window.addEventListener('touchend', e => {
+    const dy = touchY - e.changedTouches[0].clientY;
+    if(Math.abs(dy) > 30) go(dy > 0 ? 1 : -1);
+  }, {passive:true});
+
+  window.addEventListener('keydown', e => {
+    if(e.key==='ArrowDown'||e.key==='PageDown'){ e.preventDefault(); go(1); }
+    if(e.key==='ArrowUp'  ||e.key==='PageUp')  { e.preventDefault(); go(-1); }
+  });
+
+  // Anchor buttons → smooth page scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if(!target) return;
+      e.preventDefault();
+      const slides = getSlides();
+      const idx = slides.indexOf(target);
+      if(idx !== -1) go(idx - nearest());
+      else scrollTo(target);
+    });
+  });
+})();
+</script>
+</body>
+</html>

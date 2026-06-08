@@ -1,0 +1,206 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "design-canvas.jsx",
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Space Grotesk|Barlow))/i]",
+        "message": "Font not provided by the design system. Available: Space Grotesk, Barlow."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--accent",
+      "--atpm-accent",
+      "--atpm-accent-dim",
+      "--atpm-black",
+      "--atpm-grey-20",
+      "--atpm-grey-40",
+      "--atpm-grey-50",
+      "--atpm-grey-60",
+      "--atpm-grey-70",
+      "--atpm-grey-90",
+      "--atpm-ink",
+      "--atpm-line",
+      "--atpm-line-08",
+      "--atpm-line-12",
+      "--atpm-line-on-dark",
+      "--atpm-paper",
+      "--atpm-steel",
+      "--atpm-steel-2",
+      "--atpm-white",
+      "--bg-1",
+      "--bg-2",
+      "--bg-inverse",
+      "--border",
+      "--dur-fast",
+      "--dur-med",
+      "--dur-slow",
+      "--ease-out",
+      "--ease-std",
+      "--fg-1",
+      "--fg-2",
+      "--fg-3",
+      "--font",
+      "--font-display",
+      "--font-sans",
+      "--max-w",
+      "--nav-h",
+      "--pad-x",
+      "--radius",
+      "--radius-pill",
+      "--section-y",
+      "--sp-1",
+      "--sp-2",
+      "--sp-3",
+      "--sp-4",
+      "--sp-5",
+      "--sp-6",
+      "--sp-7",
+      "--sp-8",
+      "--sp-9",
+      "--t-body",
+      "--t-cap",
+      "--t-d1",
+      "--t-d2",
+      "--t-eyebrow",
+      "--t-h1",
+      "--t-h2",
+      "--t-h3",
+      "--t-hero",
+      "--t-lead",
+      "--t-micro",
+      "--t-sm",
+      "--track-body",
+      "--track-display",
+      "--track-eyebrow",
+      "--track-tag",
+      "--w-bold",
+      "--w-light",
+      "--w-med",
+      "--w-reg",
+      "--w-super",
+      "--w-xbold"
+    ],
+    "tokenKinds": {
+      "--atpm-paper": "color",
+      "--atpm-black": "color",
+      "--atpm-ink": "color",
+      "--atpm-white": "color",
+      "--atpm-accent": "color",
+      "--atpm-accent-dim": "color",
+      "--atpm-steel": "color",
+      "--atpm-steel-2": "color",
+      "--atpm-grey-90": "color",
+      "--atpm-grey-70": "color",
+      "--atpm-grey-60": "color",
+      "--atpm-grey-50": "color",
+      "--atpm-grey-40": "color",
+      "--atpm-grey-20": "color",
+      "--atpm-line": "color",
+      "--atpm-line-12": "color",
+      "--atpm-line-08": "color",
+      "--atpm-line-on-dark": "color",
+      "--fg-1": "color",
+      "--fg-2": "color",
+      "--fg-3": "color",
+      "--bg-1": "color",
+      "--bg-2": "color",
+      "--bg-inverse": "color",
+      "--accent": "color",
+      "--border": "color",
+      "--font-sans": "font",
+      "--font-display": "font",
+      "--font": "font",
+      "--w-light": "font",
+      "--w-reg": "font",
+      "--w-med": "font",
+      "--w-bold": "font",
+      "--w-xbold": "font",
+      "--w-super": "font",
+      "--t-hero": "font",
+      "--t-d1": "font",
+      "--t-d2": "font",
+      "--t-h1": "font",
+      "--t-h2": "font",
+      "--t-h3": "font",
+      "--t-lead": "font",
+      "--t-body": "font",
+      "--t-sm": "font",
+      "--t-cap": "font",
+      "--t-eyebrow": "font",
+      "--t-micro": "font",
+      "--track-display": "font",
+      "--track-body": "font",
+      "--track-eyebrow": "font",
+      "--track-tag": "font",
+      "--max-w": "spacing",
+      "--pad-x": "spacing",
+      "--section-y": "spacing",
+      "--nav-h": "spacing",
+      "--sp-1": "spacing",
+      "--sp-2": "spacing",
+      "--sp-3": "spacing",
+      "--sp-4": "spacing",
+      "--sp-5": "spacing",
+      "--sp-6": "spacing",
+      "--sp-7": "spacing",
+      "--sp-8": "spacing",
+      "--sp-9": "spacing",
+      "--radius": "radius",
+      "--radius-pill": "radius",
+      "--ease-out": "other",
+      "--ease-std": "other",
+      "--dur-fast": "other",
+      "--dur-med": "other",
+      "--dur-slow": "other"
+    },
+    "fontFamilies": [
+      "Barlow",
+      "Space Grotesk"
+    ]
+  }
+}

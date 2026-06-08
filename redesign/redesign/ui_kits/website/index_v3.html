@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>АДДИТЕХПРОММАШ — Пресс-формы для литья</title>
+  <link rel="icon" href="../../assets/logo-mark.svg">
+  <link rel="stylesheet" href="v3_styles.css">
+  <style>
+    /* Bridge: floating product photo across section boundary */
+    .bridge { position: relative; z-index: 80; height: 0; overflow: visible; pointer-events: none; }
+    .bridge img { position: absolute; pointer-events: none; }
+    /* Mask: fade top so white-bg photo blends into dark section above */
+    .br-r {
+      right: clamp(24px,5vw,80px); top: 0;
+      transform: translateY(-22%);
+      width: clamp(280px,40vw,580px);
+      filter: drop-shadow(0 32px 80px rgba(0,0,0,.16));
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+    }
+    .br-l {
+      left: clamp(24px,5vw,80px); top: 0;
+      transform: translateY(-22%);
+      width: clamp(280px,40vw,580px);
+      filter: drop-shadow(0 32px 80px rgba(0,0,0,.16));
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+    }
+    .br-c {
+      left: 50%; top: 0;
+      transform: translate(-50%, -22%);
+      width: clamp(300px,44vw,620px);
+      filter: drop-shadow(0 32px 80px rgba(0,0,0,.16));
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 100%);
+    }
+    /* Receiving section: top padding to clear the overlapping photo */
+    .pt-br { padding-top: clamp(200px,28vw,360px) !important; }
+    /* ── FLOATING PRODUCT PHOTOS (K-tech overlap) ── */
+    .fp { position: absolute; z-index: 40; pointer-events: none; height: auto; }
+    .fp-r { right: -2%; bottom: -200px; width: clamp(280px,44vw,580px); filter: drop-shadow(-14px 22px 72px rgba(0,0,0,.22)); }
+    .fp-l { left: -2%; bottom: -200px; width: clamp(280px,44vw,580px); filter: drop-shadow(14px 22px 72px rgba(0,0,0,.22)); }
+
+    /* ── HERO — 2-col split, left text / right photo ── */
+    .v3-hero {
+      min-height: 100vh; background: #000;
+      display: grid; grid-template-columns: 52fr 48fr; grid-template-rows: 1fr auto;
+      position: relative; z-index: 10; overflow: visible;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    /* text column */
+    .v3-hinner {
+      grid-column: 1; grid-row: 1;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 80px max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad))) clamp(48px,5vw,72px) max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad)));
+      border-right: 1px solid rgba(255,255,255,.07);
+    }
+    /* right half white bg via pseudo */
+    .v3-hero::after {
+      content: ''; grid-column: 2; grid-row: 1 / 3;
+      background: #F4F4F2; display: block; z-index: 1;
+    }
+    /* ghost num */
+    .v3-hghost {
+      position: absolute; bottom: 4%; right: 2%;
+      font-family: var(--fd); font-weight: 900;
+      font-size: clamp(140px,22vw,340px); letter-spacing: -.06em; line-height: 1;
+      color: rgba(0,0,0,.06); pointer-events: none; z-index: 2; user-select: none;
+    }
+    /* product photo — free-floating, large, foreground */
+    .v3-hero-img {
+      position: absolute;
+      right: -3%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56vw;
+      height: auto;
+      z-index: 40;
+      pointer-events: none;
+      filter: drop-shadow(-16px 28px 80px rgba(0,0,0,.20));
+    }
+    .v3-hsuper {
+      font-family: var(--fd); font-weight: 900; line-height: .84;
+      font-size: clamp(80px,12vw,190px); letter-spacing: -.05em;
+      text-transform: uppercase; margin: 0 0 28px;
+      display: flex; flex-direction: column;
+    }
+    .v3-hsw { color: #fff; }
+    .v3-hso { -webkit-text-stroke: 1.5px rgba(255,255,255,.32); color: transparent; }
+    .v3-hrow { display: flex; align-items: center; gap: clamp(14px,2.5vw,40px); flex-wrap: wrap; }
+    .v3-hsub { font-family: var(--fb); font-size: clamp(14px,1.4vw,19px); line-height: 1.5; color: rgba(255,255,255,.48); max-width: 380px; flex-shrink: 0; }
+    /* KPI strip — bottom-left, under text column */
+    .v3-kpi {
+      grid-column: 1; grid-row: 2;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: stretch; flex-wrap: wrap;
+    }
+    .v3-kpi-item { display: flex; flex-direction: column; gap: 3px; padding: clamp(14px,1.8vw,24px) clamp(18px,2.5vw,38px); border-right: 1px solid rgba(255,255,255,.07); flex-shrink: 0; }
+    .v3-kpi-item:last-child { border-right: none; }
+    .v3-kpi-n { font-family: var(--fd); font-weight: 900; font-size: clamp(20px,2.5vw,34px); letter-spacing: -.03em; color: var(--accent); line-height: 1; }
+    .v3-kpi-l { font-family: var(--fb); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.34); white-space: nowrap; }
+    @media(max-width:860px) {
+      .v3-hero { grid-template-columns: 1fr; grid-template-rows: 55vw auto auto; }
+      .v3-hphoto { grid-column: 1; grid-row: 1; }
+      .v3-hinner { grid-column: 1; grid-row: 2; border-right: none; padding-top: 40px; }
+      .v3-kpi { grid-column: 1; grid-row: 3; }
+    }
+
+    /* ── ABOUT — white ── */
+    .v3-about { background: #fff; position: relative; z-index: 14; overflow: visible; border-bottom: 1px solid #E4E4E4; border-top: 1px solid #E4E4E4; }
+    .v3-about-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .v3-aleft { padding: clamp(48px,6vw,88px) clamp(40px,4vw,64px) clamp(48px,6vw,88px) max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad))); border-right: 1px solid #E4E4E4; display: flex; flex-direction: column; justify-content: center; }
+    .v3-aright { padding: clamp(48px,6vw,88px) max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad))) clamp(48px,6vw,88px) clamp(40px,4vw,64px); display: flex; flex-direction: column; justify-content: center; }
+    .v3-atitle { display: flex; flex-direction: column; line-height: .88; margin: 0 0 26px; }
+    .v3-as { font-family: var(--fd); font-weight: 900; font-size: clamp(52px,7vw,96px); letter-spacing: -.04em; line-height: .88; text-transform: uppercase; color: #000; }
+    .v3-aol { font-family: var(--fd); font-weight: 900; font-size: clamp(52px,7vw,96px); letter-spacing: -.04em; line-height: .88; text-transform: uppercase; -webkit-text-stroke: 1.5px #000; color: transparent; }
+    .v3-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,.06); gap: 16px; }
+    .v3-rk { font-family: var(--fb); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(0,0,0,.36); flex-shrink: 0; }
+    .v3-rv { font-family: var(--fb); font-size: 12px; font-weight: 600; color: #000; text-align: right; }
+    .v3-mrow { display: flex; align-items: stretch; margin-top: 28px; padding-top: 22px; border-top: 2px solid var(--accent); gap: 0; }
+    .v3-mitem { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .v3-mdiv { width: 1px; background: rgba(0,0,0,.1); margin: 0 18px; }
+    .v3-mval { font-family: var(--fd); font-weight: 900; font-size: clamp(28px,3.5vw,46px); letter-spacing: -.04em; color: var(--accent); line-height: 1; }
+    .v3-mlab { font-family: var(--fb); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(0,0,0,.36); margin-top: 2px; }
+    .v3-abody { font-family: var(--fb); font-size: clamp(14px,1.3vw,17px); line-height: 1.75; color: rgba(0,0,0,.52); margin: 0 0 24px; }
+    @media(max-width:860px) { .v3-about-grid { grid-template-columns: 1fr; } .v3-aleft { border-right: none; border-bottom: 1px solid #E4E4E4; } }
+
+    /* ── WHY — black, bg photo ── */
+    .v3-why { background: #000; position: relative; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .v3-wbg { position: absolute; inset: 0; pointer-events: none; }
+    .v3-wbg img { width: 100%; height: 100%; object-fit: cover; opacity: .13; filter: grayscale(1) contrast(1.2); }
+    .v3-wcon { position: relative; z-index: 1; padding: clamp(220px,28vw,360px) 0 clamp(64px,8vw,110px); }
+    .v3-whead { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); align-items: end; }
+    .v3-wtitle { font-family: var(--fd); font-weight: 900; font-size: clamp(64px,9vw,128px); letter-spacing: -.04em; line-height: .88; text-transform: uppercase; color: #fff; margin: 0; }
+    .v3-wol { -webkit-text-stroke: 1.5px rgba(255,255,255,.32); color: transparent; }
+    .v3-wdesc { font-family: var(--fb); font-size: clamp(14px,1.3vw,17px); line-height: 1.72; color: rgba(255,255,255,.46); margin: 0; }
+    .v3-wgrid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,.07); }
+    .v3-wcard { padding: clamp(22px,3vw,40px) clamp(16px,2vw,30px); border-right: 1px solid rgba(255,255,255,.07); display: flex; flex-direction: column; gap: 11px; transition: background .2s; }
+    .v3-wcard:last-child { border-right: none; }
+    .v3-wcard:hover { background: rgba(255,255,255,.028); }
+    .v3-wcn { font-family: var(--fd); font-weight: 900; font-size: 10px; letter-spacing: .3em; color: var(--accent); }
+    .v3-wcname { font-family: var(--fd); font-weight: 900; font-size: clamp(17px,2vw,24px); letter-spacing: -.01em; text-transform: uppercase; color: #fff; line-height: 1.1; }
+    .v3-wcbody { font-family: var(--fb); font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.42); }
+    @media(max-width:860px) { .v3-whead { grid-template-columns: 1fr; } .v3-wgrid { grid-template-columns: 1fr 1fr; } .v3-wcard:nth-child(2n) { border-right: none; } }
+    @media(max-width:520px) { .v3-wgrid { grid-template-columns: 1fr; } .v3-wcard { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); } }
+
+    /* ── SPECS — white ── */
+    .v3-specs { background: #fff; position: relative; z-index: 14; overflow: visible; border-bottom: 1px solid #E4E4E4; }
+    .v3-specs-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .v3-stxt { display: flex; flex-direction: column; justify-content: center; padding: clamp(48px,6vw,88px) clamp(40px,4vw,64px) clamp(48px,6vw,88px) max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad))); border-right: 1px solid #E4E4E4; }
+    .v3-stitle { font-family: var(--fd); font-weight: 900; font-size: clamp(44px,6vw,80px); letter-spacing: -.04em; line-height: .9; text-transform: uppercase; color: #000; margin: 0 0 26px; }
+    .v3-scta { display: flex; align-items: center; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+    .v3-sphnum { font-family: var(--fb); font-size: 12px; color: rgba(0,0,0,.38); background: none; border: none; cursor: pointer; transition: color .2s; letter-spacing: .04em; }
+    .v3-sphnum:hover { color: #000; }
+    .v3-svis { position: relative; background: #F4F4F2; display: flex; align-items: center; justify-content: center; overflow: hidden; min-height: 480px; }
+    .v3-svis img { width: 96%; height: 96%; object-fit: contain; filter: drop-shadow(0 24px 48px rgba(0,0,0,.12)); }
+    .v3-snum { position: absolute; bottom: -.06em; right: -.04em; font-family: var(--fd); font-weight: 900; font-size: clamp(140px,20vw,290px); letter-spacing: -.06em; line-height: 1; color: rgba(0,0,0,.04); pointer-events: none; z-index: 0; }
+    @media(max-width:860px) { .v3-specs-grid { grid-template-columns: 1fr; } .v3-svis { min-height: 55vw; order: -1; border-bottom: 1px solid #E4E4E4; } .v3-stxt { border-right: none; } }
+
+    /* ── PROCESS — black ── */
+    .v3-proc { background: #000; position: relative; z-index: 8; overflow: visible; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .v3-proc-inner { padding: clamp(220px,28vw,360px) 0 clamp(64px,8vw,100px); }
+    .v3-ph { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.07); gap: 20px; }
+    .v3-ptitle { font-family: var(--fd); font-weight: 900; font-size: clamp(56px,8vw,108px); letter-spacing: -.04em; line-height: .88; text-transform: uppercase; color: #fff; margin: 0; }
+    .v3-psub { font-family: var(--fb); font-size: 13px; color: rgba(255,255,255,.36); max-width: 240px; text-align: right; line-height: 1.6; margin: 0; }
+    .v3-pgrid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(255,255,255,.07); }
+    .v3-ps { padding: clamp(22px,3vw,38px) clamp(12px,1.8vw,24px); border-right: 1px solid rgba(255,255,255,.06); display: flex; flex-direction: column; gap: 11px; }
+    .v3-ps:last-child { border-right: none; }
+    .v3-psn { font-family: var(--fd); font-weight: 900; font-size: clamp(60px,9vw,110px); letter-spacing: -.04em; line-height: 1; color: rgba(255,255,255,.05); margin-bottom: -8px; }
+    .v3-pst { font-family: var(--fd); font-weight: 900; font-size: clamp(18px,2.2vw,26px); letter-spacing: -.01em; text-transform: uppercase; color: #fff; }
+    .v3-psdur { display: flex; align-items: baseline; gap: 6px; }
+    .v3-pdays { font-family: var(--fd); font-weight: 900; font-size: clamp(24px,3.2vw,40px); color: var(--accent); letter-spacing: -.03em; line-height: 1; }
+    .v3-punit { font-family: var(--fb); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.32); }
+    .v3-plist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+    .v3-pli { font-family: var(--fb); font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.5; padding-left: 13px; position: relative; }
+    .v3-pli::before { content: ''; position: absolute; left: 0; top: 7px; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
+    @media(max-width:860px) { .v3-pgrid { grid-template-columns: 1fr 1fr; } .v3-ps { border-bottom: 1px solid rgba(255,255,255,.06); } .v3-ps:nth-child(2n) { border-right: none; } }
+    @media(max-width:480px) { .v3-pgrid { grid-template-columns: 1fr; } .v3-ps { border-right: none; } }
+
+    /* ── WORKS — white ── */
+    .v3-works { background: #fff; position: relative; z-index: 6; border-bottom: 1px solid #E4E4E4; }
+    .v3-wkinner { padding-bottom: clamp(56px,7vw,88px); }
+    .v3-wkh { display: flex; align-items: flex-end; justify-content: space-between; padding: clamp(56px,7vw,88px) 0 30px; border-bottom: 1px solid #E4E4E4; gap: 20px; }
+    .v3-wktitle { font-family: var(--fd); font-weight: 900; font-size: clamp(52px,7.5vw,100px); letter-spacing: -.04em; line-height: .88; text-transform: uppercase; color: #000; margin: 0; }
+    .v3-wkol { -webkit-text-stroke: 1.5px rgba(0,0,0,.25); color: transparent; }
+    .v3-wksub { font-family: var(--fb); font-size: 13px; color: rgba(0,0,0,.38); max-width: 240px; text-align: right; line-height: 1.6; margin: 0; }
+    .v3-wkgrid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #E4E4E4; }
+    .v3-wkcard { border-right: 1px solid #E4E4E4; display: flex; flex-direction: column; transition: background .2s; }
+    .v3-wkcard:last-child { border-right: none; }
+    .v3-wkcard:hover { background: rgba(0,0,0,.025); }
+    .v3-wkthumb { background: #F4F4F2; overflow: hidden; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #E4E4E4; }
+    .v3-wkthumb img { width: 88%; height: 88%; object-fit: contain; transition: transform .4s; filter: drop-shadow(0 12px 32px rgba(0,0,0,.1)); }
+    .v3-wkcard:hover .v3-wkthumb img { transform: scale(1.07); }
+    .v3-wkmeta { padding: 18px 22px; display: flex; flex-direction: column; gap: 5px; }
+    .v3-wkn { font-family: var(--fb); font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+    .v3-wktname { font-family: var(--fd); font-weight: 900; font-size: clamp(14px,1.5vw,18px); letter-spacing: -.01em; text-transform: uppercase; color: #000; line-height: 1.15; }
+    .v3-wktags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+    .v3-wktag { font-family: var(--fb); font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: rgba(0,0,0,.33); border: 1px solid rgba(0,0,0,.1); padding: 3px 8px; }
+    @media(max-width:860px) { .v3-wkgrid { grid-template-columns: 1fr 1fr; } .v3-wkcard:nth-child(3) { grid-column:1/-1; border-right:none; } }
+    @media(max-width:520px) { .v3-wkgrid { grid-template-columns: 1fr; } .v3-wkcard { border-right: none; } }
+
+    /* ── CTA — black, bg photo ── */
+    .v3-cta { background: #000; position: relative; overflow: hidden; padding-top: clamp(72px,9vw,120px); z-index: 3; }
+    .v3-cbg { position: absolute; inset: 0; }
+    .v3-cbg img { width: 100%; height: 100%; object-fit: cover; opacity: .15; filter: grayscale(1) contrast(1.15); }
+    .v3-cgiant { position: relative; z-index: 1; padding-left: max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad))); margin-bottom: clamp(40px,5vw,64px); }
+    .v3-cg { font-family: var(--fd); font-weight: 900; font-size: clamp(64px,12vw,180px); letter-spacing: -.04em; line-height: .84; text-transform: uppercase; display: block; white-space: nowrap; }
+    .v3-cg-w { color: #fff; }
+    .v3-cg-o { color: var(--accent); }
+    .v3-cbot { position: relative; z-index: 1; border-top: 1px solid rgba(255,255,255,.07); padding: clamp(32px,4vw,52px) max(var(--pad),calc((100vw - var(--mw))/2 + var(--pad))); display: flex; align-items: flex-start; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+    .v3-cleft { display: flex; flex-direction: column; gap: 18px; max-width: 500px; }
+    .v3-cdesc { font-family: var(--fb); font-size: clamp(14px,1.3vw,17px); line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+    .v3-ccontacts { display: flex; flex-direction: column; }
+    .v3-ctac { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.07); gap: 14px; cursor: pointer; transition: padding-left .15s; }
+    .v3-ctac:first-child { border-top: 1px solid rgba(255,255,255,.07); }
+    .v3-ctac:hover { padding-left: 8px; }
+    .v3-ctack { font-family: var(--fb); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.32); }
+    .v3-ctacv { font-family: var(--fd); font-weight: 900; font-size: clamp(14px,1.4vw,18px); color: #fff; }
+    .v3-cright { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+    .v3-cstatus { display: flex; align-items: center; gap: 8px; font-family: var(--fb); font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.32); }
+    .v3-cdot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: v3p 2.2s ease-in-out infinite; }
+    @keyframes v3p { 0%,100%{opacity:1} 50%{opacity:.18} }
+
+    /* ── FOOTER ── */
+    .v3-footer { background: #000; border-top: 1px solid rgba(255,255,255,.07); }
+    .v3-ftop { display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; padding: clamp(40px,5vw,64px) 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .v3-fbrand { padding-right: clamp(24px,3vw,48px); border-right: 1px solid rgba(255,255,255,.06); display: flex; flex-direction: column; gap: 10px; }
+    .v3-flogo { font-family: var(--fd); font-weight: 900; font-size: clamp(18px,2vw,24px); letter-spacing: -.02em; text-transform: uppercase; color: #fff; }
+    .v3-ftag { font-family: var(--fb); font-size: 13px; color: rgba(255,255,255,.36); margin: 0; line-height: 1.6; }
+    .v3-fcol { padding: 0 clamp(14px,2vw,32px); border-right: 1px solid rgba(255,255,255,.06); display: flex; flex-direction: column; gap: 12px; }
+    .v3-fcol:last-child { border-right: none; }
+    .v3-fhead { font-family: var(--fb); font-weight: 500; font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.26); margin: 0; }
+    .v3-flist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+    .v3-flink { font-family: var(--fb); font-size: 13px; color: rgba(255,255,255,.48); transition: color .2s; }
+    .v3-flink:hover { color: var(--accent); }
+    .v3-fmute { font-family: var(--fb); font-size: 12px; color: rgba(255,255,255,.22); }
+    .v3-frow { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.04); gap: 8px; }
+    .v3-frk { font-family: var(--fb); font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.24); }
+    .v3-frv { font-family: var(--fb); font-size: 12px; color: rgba(255,255,255,.5); }
+    .v3-fbot { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 14px; flex-wrap: wrap; }
+    .v3-fcopy,.v3-fsite { font-family: var(--fb); font-size: 11px; color: rgba(255,255,255,.2); display: flex; align-items: center; gap: 8px; }
+    @media(max-width:860px){ .v3-ftop{grid-template-columns:1fr 1fr;} .v3-fbrand{grid-column:1/-1;border-right:none;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:22px;} }
+    @media(max-width:520px){ .v3-ftop{grid-template-columns:1fr;} .v3-fcol{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);padding:18px 0;} }
+
+    /* ── MODAL ── */
+    .v3-mroot { position: fixed; inset: 0; z-index: 600; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .v3-mbd { position: absolute; inset: 0; background: rgba(0,0,0,.88); }
+    .v3-mcard { position: relative; width: 100%; max-width: 420px; background: #0A0A0A; border: 1px solid rgba(255,255,255,.11); }
+    .v3-mh { display: flex; align-items: flex-start; justify-content: space-between; padding: 22px 22px 16px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .v3-mtitle { font-family: var(--fd); font-weight: 900; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #fff; margin: 0; }
+    .v3-msub { font-family: var(--fb); font-size: 11px; color: rgba(255,255,255,.34); margin: 4px 0 0; }
+    .v3-mclose { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.11); background: transparent; cursor: pointer; color: rgba(255,255,255,.5); transition: border-color .2s,color .2s; }
+    .v3-mclose:hover { border-color: #fff; color: #fff; }
+    .v3-mbody { padding: 16px; display: flex; flex-direction: column; gap: 11px; }
+    .v3-plink { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid rgba(255,255,255,.09); text-decoration: none; transition: border-color .2s; }
+    .v3-plink:hover { border-color: var(--accent); }
+    .v3-pnum { font-family: var(--fd); font-weight: 900; font-size: 16px; color: #fff; }
+    .v3-pname { font-family: var(--fb); font-size: 10px; color: rgba(255,255,255,.34); margin-top: 3px; letter-spacing: .1em; text-transform: uppercase; }
+    .v3-mfoot { padding: 0 22px 18px; text-align: center; }
+    .v3-mfoot p { font-family: var(--fb); font-size: 9px; color: rgba(255,255,255,.24); letter-spacing: .2em; text-transform: uppercase; margin: 0; }
+    .v3-field { display: flex; flex-direction: column; gap: 5px; }
+    .v3-field label { font-family: var(--fb); font-size: 9px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.34); }
+    .v3-field input { border: 1px solid rgba(255,255,255,.11); background: rgba(255,255,255,.04); padding: 12px 14px; font-family: var(--fb); font-size: 13px; color: #fff; }
+    .v3-field input:focus { outline: 1px solid var(--accent); outline-offset: 0; }
+    .v3-msuc { padding: 40px 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .v3-msic { width: 48px; height: 48px; border: 1px solid var(--accent); display: flex; align-items: center; justify-content: center; color: var(--accent); }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { useState, useEffect } = React;
+
+const Arr = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>;
+const ArrD = () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M7 17L17 7M9 7h8v8" /></svg>;
+const ClX = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>;
+const Chk = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6L9 17l-5-5" /></svg>;
+
+const A = '../../assets/';
+
+/* ─── NAV ─── */
+function Nav({ onPhone, onQuote }) {
+  const links = [['О компании', '#about'], ['Почему мы', '#why'], ['Процесс', '#proc'], ['Работы', '#works'], ['Контакты', '#cta']];
+  return (
+    <header className="v3-nav">
+      <div className="v3-ni cx">
+        <a href="#hero" className="v3-logo">
+          <span className="v3-ld"></span>
+          <span className="v3-lt">Аддитехпроммаш</span>
+        </a>
+        <nav className="v3-nl">
+          {links.map(([l, h]) => <a href={h} className="v3-na" key={h}>{l}</a>)}
+        </nav>
+        <div className="v3-nr">
+          <button className="v3-np" onClick={onPhone}>+7 (991) 097-90-59</button>
+          <button className="btn btn-a" style={{ padding: '10px 20px', fontSize: '10px' }} onClick={onQuote}>КП <Arr /></button>
+        </div>
+      </div>
+    </header>);
+
+}
+
+/* ─── HERO ─── 2-col: text left + white right, photo absolutely positioned foreground */
+function Hero({ onPhone, onQuote }) {
+  const kpi = [['14—30','дней под ключ'],['±0.01','мм точность'],['−25%','vs импорт'],['1 000 000','циклов'],['30+','проектов']];
+  return (
+    <section className="v3-hero" id="hero">
+      {/* text */}
+      <div className="v3-hinner">
+        <div className="ey ey-l">— Российское производство · Москва · Владимир</div>
+        <h1 className="v3-hsuper">
+          <span className="v3-hsw">ПРЕСС</span>
+          <span className="v3-hso">ФОРМЫ</span>
+        </h1>
+        <div className="v3-hrow">
+          <p className="v3-hsub">Производим оснастку для литья пластмасс.<br/>Быстрее Европы. Дешевле Китая. Без посредников.</p>
+          <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+            <button className="btn btn-a" onClick={onQuote}>Рассчитать проект <Arr/></button>
+            <button className="btn btn-gw" onClick={onPhone}>Позвонить</button>
+          </div>
+        </div>
+      </div>
+
+      {/* ghost number in white right half */}
+      <span className="v3-hghost" aria-hidden="true">01</span>
+
+      {/* product photo — free-floating, large foreground object */}
+      <img
+        className="v3-hero-img"
+        src={A + 'mold-07.png'}
+        alt="Пресс-форма АДДИТЕХПРОММАШ"
+      />
+
+      {/* KPI strip */}
+      <div className="v3-kpi">
+        {kpi.map(([n,l]) => (
+          <div className="v3-kpi-item" key={l}>
+            <span className="v3-kpi-n">{n}</span>
+            <span className="v3-kpi-l">{l}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── TICKER ─── */
+function Ticker() {
+  const items = ['ПРЕСС-ФОРМЫ ДЛЯ ЛИТЬЯ', 'DMLS · SLM · ЧПУ', 'АДДИТИВНЫЕ ТЕХНОЛОГИИ', 'СРОКИ — НЕДЕЛИ', '−25% VS ИМПОРТА', 'ПОЛНЫЙ ЦИКЛ', '±0.01 ММ', 'МОСКВА · ВЛАДИМИР'];
+  const all = [...items, ...items];
+  return (
+    <div className="v3-tick" aria-hidden="true">
+      <div className="v3-tmw"><div className="v3-tmt">
+        {all.map((t, i) => <span className="v3-ti" key={i}>{t}<span className="v3-ts">·</span></span>)}
+      </div></div>
+    </div>);
+
+}
+
+/* ─── ABOUT ─── white */
+const SPECS = [
+['Деятельность', 'Пресс-формы для литья пластмасс'],
+['Технологии', 'DMLS · SLM · 5-ось ЧПУ'],
+['Гнёзд', '1 — 32'],
+['Точность', '±0.01 мм · IT6–IT7'],
+['Ресурс', 'до 1 000 000 циклов'],
+['Производство', 'Владимир · собственное']];
+
+function About() {
+  return (
+    <section className="v3-about" id="about">
+      <div className="v3-about-grid">
+        <div className="v3-aleft">
+          <div className="ey ey-d">01 / О компании</div>
+          <h2 className="v3-atitle">
+            <span className="v3-as">АДДИТЕХ</span>
+            <span className="v3-aol">ПРОММАШ</span>
+          </h2>
+          <div>
+            {SPECS.map(([k, v]) =>
+            <div className="v3-row" key={k}>
+                <span className="v3-rk">{k}</span>
+                <span className="v3-rv">{v}</span>
+              </div>
+            )}
+          </div>
+          <div className="v3-mrow">
+            <div className="v3-mitem"><div className="v3-mval">30+</div><div className="v3-mlab">проектов</div></div>
+            <div className="v3-mdiv"></div>
+            <div className="v3-mitem"><div className="v3-mval">−25%</div><div className="v3-mlab">vs импорт</div></div>
+            <div className="v3-mdiv"></div>
+            <div className="v3-mitem"><div className="v3-mval">3 нед.</div><div className="v3-mlab">ср. срок</div></div>
+          </div>
+        </div>
+        <div className="v3-aright">
+          <p className="v3-abody">
+            Исключили из цикла всё, что не влияет на качество. Собственная конструкторская служба, 5-осевые обрабатывающие центры и аддитивное оборудование — под одной крышей.
+          </p>
+          <p className="v3-abody">
+            Проектируем пресс-формы любой сложности: от однокавернных до 32-гнёздных горячеканальных систем с конформным охлаждением.
+          </p>
+        </div>
+      </div>
+      <img className="fp fp-r" src={A + 'mold-02.png'} alt="" aria-hidden="true"/>
+    </section>);
+}
+
+/* ─── WHY ─── black, bg photo */
+const WHY_CARDS = [
+['01', 'СКОРОСТЬ', 'Полный цикл 14–30 дней. Анализ, КД, производство и ОТК — без субподряда.'],
+['02', 'ЦЕНА', 'На 25% дешевле импортных аналогов. Без таможенных задержек.'],
+['03', 'КОНТРОЛЬ', 'Собственное оборудование. Документация по ЕСКД. Пробные отливки у нас.'],
+['04', 'ТОЧНОСТЬ', 'DMLS для конформного охлаждения. ±0.01 мм. Ресурс до 1 000 000 циклов.']];
+
+function Why() {
+  return (
+    <section className="v3-why" id="why">
+      <div className="v3-wbg"><img src={A + 'bg-parts.jpg'} alt="" /></div>
+      <div className="v3-wcon cx">
+        <div className="v3-whead">
+          <div>
+            <div className="ey ey-l">02 / Почему мы</div>
+            <h2 className="v3-wtitle">ПОЧЕМУ<br /><span className="v3-wol">МЫ</span></h2>
+          </div>
+          <p className="v3-wdesc">Китайские и европейские пресс-формы — долго, с рисками. Мы производим быстрее, точнее и с полным контролем качества.</p>
+        </div>
+        <div className="v3-wgrid">
+          {WHY_CARDS.map(([n, name, body]) =>
+          <div className="v3-wcard" key={n}>
+              <span className="v3-wcn">{n}</span>
+              <span className="v3-wcname">{name}</span>
+              <span className="v3-wcbody">{body}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>);
+
+}
+
+/* ─── SPECS ─── white */
+const SPECS_DATA = [
+['Материал', 'P20 · H13 · S136', false],
+['Гнёзд', '1 — 32', false],
+['Ресурс', 'до 1 000 000 циклов', true],
+['Точность', '±0.01 мм · IT6–IT7', false],
+['Габариты', 'до 1000 × 800 × 600 мм', false],
+['Тип литья', 'Горячий / холодный канал', false],
+['Охлаждение', 'Конформное · DMLS · прямолинейное', false],
+['Сроки', '14 — 30 дней', true]];
+
+function SpecsSection({ onQuote, onPhone }) {
+  return (
+    <section className="v3-specs" id="specs">
+      <div className="v3-specs-grid">
+        <div className="v3-stxt">
+          <div className="ey ey-d">03 / Возможности</div>
+          <h2 className="v3-stitle">ТЕХНИ&shy;ЧЕСКИЕ<br />ХАРАК&shy;ТЕРИСТИКИ</h2>
+          <div>
+            {SPECS_DATA.map(([k, v, o]) =>
+            <div className="v3-row" key={k}>
+                <span className="v3-rk">{k}</span>
+                <span className="v3-rv" style={o ? { color: 'var(--accent)' } : {}}>{v}</span>
+              </div>
+            )}
+          </div>
+          <div className="v3-scta">
+            <button className="btn btn-gb" onClick={onQuote}>Запросить расчёт <Arr /></button>
+            <button className="v3-sphnum" onClick={onPhone}>+7 (991) 097-90-59</button>
+          </div>
+        </div>
+        <div className="v3-svis">
+          <span className="v3-snum" aria-hidden="true">03</span>
+          <img src={A + 'mold-04.png'} alt="Пресс-форма" />
+        </div>
+      </div>
+      <img className="fp fp-l" src={A + 'mold-05.png'} alt="" aria-hidden="true"/>
+    </section>);
+}
+
+/* ─── PROCESS ─── black */
+const PROC = [
+{ n: '01', t: 'АНАЛИЗ', d: '1—3', u: 'дня', items: ['Чертёж или 3D-модель', 'Число гнёзд и впрыск', 'Система охлаждения'] },
+{ n: '02', t: 'КД', d: '5—14', u: 'дней', items: ['3D-модель оснастки', 'Конформное охлаждение', 'Документация ЕСКД'] },
+{ n: '03', t: 'ПРОИЗВОДСТВО', d: '14—30', u: 'дней', items: ['5-осевая ЧПУ', 'DMLS/SLM элементы', 'Термообработка и сборка'] },
+{ n: '04', t: 'ОТК', d: '2—5', u: 'дней', items: ['Пробные отливки', 'Контроль по КД', 'Передача документации'] }];
+
+function Process() {
+  return (
+    <section className="v3-proc" id="proc">
+      <div className="v3-proc-inner cx">
+        <div className="v3-ph">
+          <div>
+            <div className="ey ey-l">04 / Процесс</div>
+            <h2 className="v3-ptitle">КАК МЫ<br /><span style={{ WebkitTextStroke: '1.5px rgba(255,255,255,.28)', color: 'transparent' }}>РАБОТАЕМ</span></h2>
+          </div>
+          <p className="v3-psub">Полный цикл под одной крышей. Без субподряда.</p>
+        </div>
+        <div className="v3-pgrid">
+          {PROC.map((s) =>
+          <div className="v3-ps" key={s.n}>
+              <span className="v3-psn" aria-hidden="true">{s.n}</span>
+              <span className="v3-pst">{s.t}</span>
+              <div className="v3-psdur"><span className="v3-pdays">{s.d}</span><span className="v3-punit">{s.u}</span></div>
+              <ul className="v3-plist">{s.items.map((it) => <li className="v3-pli" key={it}>{it}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      </div>
+      <img className="fp fp-r" src={A + 'mold-08.png'} alt="" aria-hidden="true"/>
+    </section>);
+}
+
+/* ─── WORKS ─── white */
+const WORKS = [
+{ n: '01', title: 'МНОГОГНЁЗДНАЯ ОСНАСТКА', tags: ['P20', '8 ГНЁЗД', 'ГОРЯЧИЙ КАНАЛ'], src: A + 'mold-01.png' },
+{ n: '02', title: 'АВТОМОБИЛЬНАЯ ПРЕСС-ФОРМА', tags: ['H13', 'DMLS', 'КОНФОРМНОЕ'], src: A + 'mold-03.png' },
+{ n: '03', title: 'ФОРМА ТРЁХПЛИТНАЯ', tags: ['S136', '1 ГНЕЗДО', 'ЧПУ'], src: A + 'mold-06.png' }];
+
+function Works() {
+  return (
+    <section className="v3-works pt-br" id="works">
+      <div className="v3-wkinner cx">
+        <div className="v3-wkh">
+          <div>
+            <div className="ey ey-d">05 / Работы</div>
+            <h2 className="v3-wktitle">РА<span className="v3-wkol">БОТЫ</span></h2>
+          </div>
+          <p className="v3-wksub">30+ проектов в эксплуатации.</p>
+        </div>
+        <div className="v3-wkgrid">
+          {WORKS.map((w) =>
+          <div className="v3-wkcard" key={w.n}>
+              <div className="v3-wkthumb"><img src={w.src} alt={w.title} /></div>
+              <div className="v3-wkmeta">
+                <span className="v3-wkn">ПРОЕКТ {w.n}</span>
+                <span className="v3-wktname">{w.title}</span>
+                <div className="v3-wktags">{w.tags.map((t) => <span className="v3-wktag" key={t}>{t}</span>)}</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>);
+
+}
+
+/* ─── CTA ─── */
+function CTA({ onPhone, onQuote }) {
+  return (
+    <section className="v3-cta" id="cta">
+      <div className="v3-cbg"><img src={A + 'bg-workshop.jpg'} alt="" /></div>
+      <div className="v3-cgiant">
+        <span className="v3-cg v3-cg-w">РАССЧИТАТЬ</span>
+        <span className="v3-cg v3-cg-o">ПРОЕКТ</span>
+      </div>
+      <div className="v3-cbot">
+        <div className="v3-cleft">
+          <p className="v3-cdesc">Пришлите чертёж или 3D-модель — в течение суток подготовим КП с ценой и сроками. Без обязательств.</p>
+          <div className="v3-ccontacts">
+            <div className="v3-ctac" onClick={onPhone}><span className="v3-ctack">Александр Семенец</span><span className="v3-ctacv">+7 (991) 097-90-59</span></div>
+            <div className="v3-ctac" onClick={onPhone}><span className="v3-ctack">Даниил Воробьев</span><span className="v3-ctacv">+7 (906) 055-45-25</span></div>
+            <div className="v3-ctac" onClick={onQuote}><span className="v3-ctack">Email</span><span className="v3-ctacv">additechprommash@yandex.ru</span></div>
+          </div>
+        </div>
+        <div className="v3-cright">
+          <button className="btn btn-a" style={{ padding: '16px 32px' }} onClick={onQuote}>Запросить КП <Arr /></button>
+          <div className="v3-cstatus"><span className="v3-cdot"></span>Круглосуточно · кроме выходных</div>
+        </div>
+      </div>
+    </section>);
+
+}
+
+/* ─── FOOTER ─── */
+function Footer({ onPhone }) {
+  return (
+    <footer className="v3-footer">
+      <div className="cx">
+        <div className="v3-ftop">
+          <div className="v3-fbrand">
+            <div className="v3-flogo">Аддитехпроммаш</div>
+            <p className="v3-ftag">Пресс-формы для литья пластмасс · Полный цикл</p>
+            <p className="v3-ftag" style={{ fontSize: 11, marginTop: 0 }}>ООО «НПК «АДДИТЕХПРОММАШ»</p>
+          </div>
+          <div className="v3-fcol">
+            <h3 className="v3-fhead">Контакты</h3>
+            <ul className="v3-flist">
+              <li><button onClick={onPhone} style={{ all: 'unset', cursor: 'pointer', fontSize: 13, color: 'rgba(255,255,255,.48)' }} className="v3-flink">+7 (991) 097-90-59</button></li>
+              <li><button onClick={onPhone} style={{ all: 'unset', cursor: 'pointer', fontSize: 13, color: 'rgba(255,255,255,.48)' }} className="v3-flink">+7 (906) 055-45-25</button></li>
+              <li><a href="mailto:additechprommash@yandex.ru" className="v3-flink">additechprommash@yandex.ru</a></li>
+              <li className="v3-fmute">Офис — Москва</li>
+              <li className="v3-fmute">Производство — г. Владимир</li>
+            </ul>
+          </div>
+          <div className="v3-fcol">
+            <h3 className="v3-fhead">Реквизиты</h3>
+            {[['ИНН', '7733472230'], ['ОГРН', '1257700330403'], ['КПП', '773301001']].map(([k, v]) =>
+            <div className="v3-frow" key={k}><span className="v3-frk">{k}</span><span className="v3-frv">{v}</span></div>
+            )}
+            <div className="v3-frow" style={{ borderBottom: 'none' }}><span className="v3-frk">Статус</span><span className="v3-frv" style={{ color: 'var(--accent)' }}>Действует</span></div>
+          </div>
+        </div>
+        <div className="v3-fbot">
+          <span className="v3-fcopy">© 2026 АДДИТЕХПРОММАШ. Все права защищены.</span>
+          <span className="v3-fsite"><span className="v3-cdot" style={{ width: 4, height: 4 }}></span>additechprom.ru</span>
+        </div>
+      </div>
+    </footer>);
+
+}
+
+/* ─── MODALS ─── */
+function PhoneModal({ onClose }) {
+  return (
+    <div className="v3-mroot" role="dialog" aria-modal="true">
+      <div className="v3-mbd" onClick={onClose}></div>
+      <div className="v3-mcard">
+        <div className="v3-mh">
+          <div><h2 className="v3-mtitle">Связаться</h2><p className="v3-msub">Выберите номер</p></div>
+          <button className="v3-mclose" onClick={onClose}><ClX /></button>
+        </div>
+        <div className="v3-mbody">
+          {[['+7 (991) 097-90-59', 'Александр Семенец'], ['+7 (906) 055-45-25', 'Даниил Воробьев']].map(([num, name]) =>
+          <a className="v3-plink" href={`tel:${num.replace(/[^\d+]/g, '')}`} key={num}>
+              <div style={{ flex: 1 }}><div className="v3-pnum">{num}</div><div className="v3-pname">{name}</div></div>
+              <ArrD />
+            </a>
+          )}
+        </div>
+        <div className="v3-mfoot"><p>Круглосуточно · кроме выходных</p></div>
+      </div>
+    </div>);
+
+}
+
+function QuoteModal({ onClose }) {
+  const [sent, setSent] = useState(false);
+  return (
+    <div className="v3-mroot" role="dialog" aria-modal="true">
+      <div className="v3-mbd" onClick={onClose}></div>
+      <div className="v3-mcard">
+        <div className="v3-mh">
+          <div><h2 className="v3-mtitle">Запросить КП</h2><p className="v3-msub">Ответим в течение суток</p></div>
+          <button className="v3-mclose" onClick={onClose}><ClX /></button>
+        </div>
+        {sent ?
+        <div className="v3-msuc">
+            <span className="v3-msic"><Chk /></span>
+            <div className="v3-mtitle">Заявка отправлена</div>
+            <p className="v3-msub" style={{ textAlign: 'center' }}>Свяжемся в ближайшее время.</p>
+            <button className="btn btn-a" style={{ marginTop: 8 }} onClick={onClose}>Закрыть</button>
+          </div> :
+
+        <form className="v3-mbody" onSubmit={(e) => {e.preventDefault();setSent(true);}}>
+            <div className="v3-field"><label>Имя</label><input required placeholder="Как к вам обращаться" /></div>
+            <div className="v3-field"><label>Телефон</label><input required placeholder="+7 (___) ___-__-__" /></div>
+            <div className="v3-field"><label>Задача</label><input placeholder="Корпус, 4 гнезда, горячий канал…" /></div>
+            <button className="btn btn-a" type="submit" style={{ justifyContent: 'center', marginTop: 4 }}>Отправить <Arr /></button>
+            <p className="v3-msub" style={{ textAlign: 'center', margin: 0 }}>additechprommash@yandex.ru</p>
+          </form>
+        }
+      </div>
+    </div>);
+
+}
+
+/* ─── APP ─── */
+function App() {
+  const [modal, setModal] = useState(null);
+  useEffect(() => {
+    const fn = (e) => {if (e.key === 'Escape') setModal(null);};
+    document.addEventListener('keydown', fn);
+    return () => document.removeEventListener('keydown', fn);
+  }, []);
+  useEffect(() => {document.body.style.overflow = modal ? 'hidden' : '';}, [modal]);
+  const openPhone = () => setModal('phone');
+  const openQuote = () => setModal('quote');
+
+  return (
+    <React.Fragment>
+      <Nav onPhone={openPhone} onQuote={openQuote} />
+      <main>
+        {/* ── 1. HERO (black) — photo in right white column ── */}
+        <Hero onPhone={openPhone} onQuote={openQuote} />
+
+        {/* ── 2. TICKER + ABOUT (white) — no bridge needed, hero has photo ── */}
+        <Ticker />
+        <About />
+
+        {/* ── 3. WHY (black, bg photo) ── */}
+        <Why />
+
+        {/* ── 4. SPECS (white) ── */}
+        <SpecsSection onQuote={openQuote} onPhone={openPhone} />
+
+        {/* ── 5. PROCESS (black) ── */}
+        <Process />
+
+        <Works/>
+
+        {/* ── 6. WORKS (white) — pt-br ── */}
+        <Works />
+
+        {/* ── 7. CTA (black) ── */}
+        <CTA onPhone={openPhone} onQuote={openQuote} />
+      </main>
+      <Footer onPhone={openPhone} />
+      {modal === 'phone' && <PhoneModal onClose={() => setModal(null)} />}
+      {modal === 'quote' && <QuoteModal onClose={() => setModal(null)} />}
+    </React.Fragment>);
+
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

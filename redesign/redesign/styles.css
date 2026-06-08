@@ -1,0 +1,6 @@
+/* ============================================================
+   АДДИТЕХПРОММАШ — root stylesheet
+   Import THIS file in consuming projects. It pulls in all
+   tokens, @font-face rules, and semantic type classes.
+   ============================================================ */
+@import './colors_and_type.css';
