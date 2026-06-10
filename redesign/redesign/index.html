@@ -25,7 +25,7 @@ ul{list-style:none}
   --line:rgba(0,0,0,.1);--line-d:#1A1A1A;
   --fd:'Barlow','Helvetica Neue',sans-serif;
   --fs:'Space Grotesk','Helvetica Neue',sans-serif;
-  --pad:clamp(24px,5vw,80px);
+  --pad:clamp(24px,max(5vw,50vw - 720px),400px);
   --ease:cubic-bezier(.22,1,.36,1);
 }
 
@@ -52,6 +52,9 @@ ul{list-style:none}
   padding:10px 20px;transition:background .2s;
 }
 .nav-cta:hover{background:#e55a00}
+.nav-phones{display:flex;flex-direction:column;gap:1px;text-align:right}
+.nav-phone{font-family:var(--fd);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--nav-fg);transition:color .2s;line-height:1.4}
+.nav-phone:hover{color:var(--orange)}
 
 /* ─── HERO ───────────────────────────────────────────── */
 .hero{position:relative;z-index:10;background:var(--dark);height:100svh;padding-top:64px;overflow:visible;display:flex;flex-direction:column}
@@ -83,8 +86,8 @@ body.loaded .clip-inner{transform:translateY(0)}
 .clip:nth-child(2) .clip-inner{transition-delay:.12s}
 
 .hero-sub{margin-top:0}
-.hero-tagline{font-family:var(--fd);font-weight:700;font-size:clamp(16px,2vw,26px);color:#fff;line-height:1.25;margin-bottom:8px}
-.hero-desc{font-size:clamp(14px,1.3vw,18px);color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:12px;max-width:480px}
+.hero-tagline{font-family:var(--fd);font-weight:700;font-size:clamp(18px,2.4vw,32px);color:#fff;line-height:1.25;margin-bottom:10px}
+.hero-desc{font-size:clamp(16px,1.6vw,22px);color:rgba(255,255,255,.8);line-height:1.6;margin-bottom:16px;max-width:520px}
 .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
 .hero-tag{font-size:18px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.38);border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:2px}
 .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
@@ -108,19 +111,14 @@ body.loaded .clip-inner{transform:translateY(0)}
 /* Hero image column */
 .hero-img-col{position:relative;overflow:visible;background:#CECECE}
 .hero-float{
-  position:absolute;right:0;top:0;
-  bottom:-140px; /* bleeds into ticker */
+  position:absolute;right:0;top:0;bottom:0;
   width:150%;z-index:3;pointer-events:none;
+  display:flex;align-items:center;
 }
-.hero-float img{width:100%;height:100%;object-fit:contain;object-position:center center;opacity:1;filter:contrast(1.05);-webkit-mask-image:linear-gradient(to bottom,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,#000 90%,transparent 100%)}
+.hero-float img{width:100%;height:100%;object-fit:contain;object-position:center center;filter:contrast(1.05);opacity:0;transform:scale(1.04);transition:opacity 1.4s cubic-bezier(.22,1,.36,1),transform 1.8s cubic-bezier(.22,1,.36,1)}
+.hero-float.ready img{opacity:1;transform:scale(1)}
 
 /* ─── HERO STATS STRIP ───────────────────────────────── */
-.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:4;background:#000}
-.hero-stat{padding:22px clamp(16px,2.5vw,40px);border-right:1px solid rgba(255,255,255,.08)}
-.hero-stat:last-child{border-right:none}
-.hero-stat-n{font-family:var(--fd);font-weight:900;font-size:clamp(40px,5.2vw,72px);letter-spacing:-.04em;color:var(--orange);line-height:1}
-.hero-stat-l{font-size:18px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-top:7px}
-@media(max-width:640px){.hero-stats{grid-template-columns:repeat(3,1fr)}.hero-stat:nth-child(n+4){display:none}}
 
 /* ─── TICKER ─────────────────────────────────────────── */
 .ticker{position:relative;z-index:9;background:#0A0A0A;height:48px;overflow:hidden;display:flex;align-items:center}
@@ -130,7 +128,7 @@ body.loaded .clip-inner{transform:translateY(0)}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ─── SECTION SHARED ─────────────────────────────────── */
-.eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:18px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--grey-40)}
+.eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:18px;font-weight:500;letter-spacing:.28em;color:var(--grey-40)}
 .eyebrow::before{content:'';width:24px;height:1px;background:currentColor;flex-shrink:0}
 .eyebrow-d{color:rgba(255,255,255,.35)}
 
@@ -161,9 +159,9 @@ body.loaded .clip-inner{transform:translateY(0)}
 .services-float{
   position:absolute;left:-15%;right:auto;top:0;bottom:0;
   width:80%;z-index:2;pointer-events:none;
-  display:flex;align-items:center;
+  display:flex;align-items:flex-end;
 }
-.services-float img{width:100%;height:100%;object-fit:contain;object-position:left center;mix-blend-mode:multiply;}
+.services-float img{width:100%;height:100%;object-fit:contain;object-position:left bottom;mix-blend-mode:multiply;}
 
 /* ─── STATS ──────────────────────────────────────────── */
 .stats{position:relative;z-index:7;background:#0A0A0A;overflow:hidden;min-height:100svh;display:grid;grid-template-columns:1fr 1fr}
@@ -177,9 +175,9 @@ body.loaded .clip-inner{transform:translateY(0)}
 .stats-right{background:#CECECE;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(40px,6vw,80px) clamp(24px,4vw,60px);gap:clamp(24px,4vh,48px)}
 .stats-partners-lbl{font-family:var(--fd);font-weight:700;font-size:clamp(10px,1vw,13px);letter-spacing:.3em;text-transform:uppercase;color:rgba(0,0,0,.35);text-align:center}
 .stats-partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#0A0A0A;border:1px solid #0A0A0A;width:100%}
-.stats-partner{display:flex;align-items:center;justify-content:center;background:#CECECE;min-height:12.5vh;padding:clamp(12px,2vh,28px)}
-.stats-partner img{max-height:8vh;max-width:160px;width:auto;filter:grayscale(1);opacity:.5;transition:opacity .3s,filter .3s}
-.stats-partner:hover img{filter:grayscale(0);opacity:1}
+.stats-partner{display:flex;align-items:center;justify-content:center;background:#fff;min-height:12.5vh;padding:clamp(12px,2vh,28px)}
+.stats-partner img{max-height:11vh;max-width:200px;width:auto;opacity:.55;transition:opacity .3s}
+.stats-partner:hover img{opacity:1}
 
 /* ─── PROCESS ────────────────────────────────────────── */
 .process{position:relative;z-index:6}
@@ -209,7 +207,7 @@ body.loaded .clip-inner{transform:translateY(0)}
 .specs-r{padding:80px var(--pad);background:#CECECE;display:flex;flex-direction:column;justify-content:center}
 .specs-title{font-family:var(--fd);font-weight:900;font-size:clamp(56px,7vw,100px);letter-spacing:-.04em;text-transform:uppercase;color:#000;line-height:.92;margin:28px 0 36px;white-space:nowrap}
 .spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.07);gap:16px}
-.spec-k{font-size:20px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-40);flex-shrink:0}
+.spec-k{font-size:20px;font-weight:400;letter-spacing:.18em;color:var(--grey-40);flex-shrink:0}
 .spec-v{font-size:26px;font-weight:500;color:#000;text-align:right}
 .faq-title{font-family:var(--fd);font-weight:900;font-size:clamp(56px,7vw,100px);letter-spacing:-.04em;text-transform:uppercase;color:#000;line-height:.92;margin:28px 0 36px;white-space:nowrap}
 .faq-item{border-bottom:1px solid rgba(0,0,0,.1);overflow:hidden}
@@ -225,28 +223,36 @@ body.loaded .clip-inner{transform:translateY(0)}
 .partners-inner{display:flex;flex-direction:column;align-items:center;gap:clamp(28px,4vh,56px);width:100%}
 .partners-lbl{font-size:18px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:#bbb;white-space:nowrap;text-align:center}
 .partners-logos{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#0A0A0A;border:1px solid #0A0A0A;width:100%}
-.partner{display:flex;align-items:center;justify-content:center;background:#CECECE;min-height:12.5vh;padding:clamp(16px,2vh,32px)}
-.partner img{max-height:8vh;max-width:200px;width:auto;filter:grayscale(1);opacity:.5;transition:opacity .3s,filter .3s}
-.partner:hover img{filter:grayscale(0);opacity:1}
+.partner{display:flex;align-items:center;justify-content:center;background:#fff;min-height:12.5vh;padding:clamp(16px,2vh,32px)}
+.partner img{max-height:13vh;max-width:280px;width:auto;opacity:.55;transition:opacity .3s}
+.partner:hover img{opacity:1}
 
 /* ─── CTA ────────────────────────────────────────────── */
 .cta{position:relative;z-index:3;background:#000;overflow:hidden;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between}
-.cta-title-wrap{padding:80px var(--pad) 0;position:relative;overflow:hidden}
-.cta-t{font-family:var(--fd);font-weight:900;font-size:clamp(128px,19vw,300px);letter-spacing:-.04em;text-transform:uppercase;line-height:.84}
+.cta-title-wrap{padding:clamp(48px,7vh,100px) var(--pad) 0;position:relative;overflow:hidden}
+.cta-t{font-family:var(--fd);font-weight:900;font-size:clamp(80px,15vw,240px);letter-spacing:-.04em;text-transform:uppercase;line-height:.84}
 .cta-t--solid{color:#fff}
 .cta-t--outline{-webkit-text-stroke:4.5px rgba(255,255,255,.38);color:transparent}
 .cta-bg-img{position:absolute;right:-60px;top:-40px;height:130%;opacity:.08;filter:contrast(1.2);pointer-events:none}
-.cta-body{padding:48px var(--pad) 72px;border-top:1px solid var(--line-d);display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:48px}
-.cta-desc{font-size:clamp(28px,2.4vw,32px);color:rgba(255,255,255,.68);line-height:1.75;margin-bottom:28px}
+.cta-body{padding:clamp(16px,2.5vh,32px) var(--pad) clamp(20px,3vh,40px);border-top:1px solid var(--line-d);display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:0}
+.cta-desc{font-size:clamp(18px,1.6vw,24px);color:rgba(255,255,255,.85);line-height:1.6;margin-bottom:16px}
 .cta-contacts{display:flex;flex-direction:column}
-.cta-cr{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line-d);gap:16px}
-.cta-ck{font-size:18px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32)}
-.cta-cv{font-size:28px;font-weight:700;color:#fff}
+.cta-cr{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line-d);gap:16px}
+.cta-ck{font-size:16px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);padding-top:4px;flex-shrink:0}
+.cta-cv-group{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.cta-cv{font-size:24px;font-weight:700;color:#fff}
 .cta-cv a{color:#fff;transition:color .2s}
 .cta-cv a:hover{color:var(--orange)}
-.cta-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.cta-tg{font-size:16px;font-weight:500;color:rgba(255,255,255,.48);letter-spacing:.01em;transition:color .2s}
+.cta-tg:hover{color:var(--orange)}
+.cta-messenger{display:flex;align-items:baseline;gap:10px;font-size:22px;font-weight:500;color:rgba(255,255,255,.75);transition:color .2s}
+.cta-messenger:hover{color:var(--orange)}
+.cta-ml{font-size:12px;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);flex-shrink:0}
+.cta-cv--email{font-size:22px;font-weight:500}
+.cta-requisites{margin-top:12px;font-size:17px;font-weight:400;color:rgba(255,255,255,.45);line-height:1.65}
+.cta-actions{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
 .cta-ch{display:flex;gap:8px}
-.cta-online{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-top:4px}
+.cta-online{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:2px}
 .cta-online::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange)}
 
 /* ─── FOOTER ─────────────────────────────────────────── */
@@ -267,22 +273,75 @@ body.loaded .clip-inner{transform:translateY(0)}
 .hero-img-col{position:relative;z-index:3}
 
 /* ─── RESPONSIVE ─────────────────────────────────────── */
-@media(max-width:960px){
+@media(max-width:1100px){
+  /* Nav */
+  .nav-links{display:none}
+  /* Hero */
   .hero-inner{grid-template-columns:1fr}
   .hero-img-col{display:none}
+  .bk-br{display:none}
+  /* Services: сброс 50%-отступа */
+  .services{padding:clamp(48px,7vh,80px) var(--pad)}
   .services-float{display:none}
-  .stats-inner{grid-template-columns:1fr}
-  .stats-float{display:none}
-  .process-step{grid-template-columns:1fr}
-  .pstep-photo{min-height:280px}
-  .specs{grid-template-columns:1fr}
-  .specs-l{border-right:none;border-bottom:1px solid #000}
-  .cta-body{grid-template-columns:1fr;gap:40px}
+  /* Stats: стек, числа сверху / партнёры снизу */
+  .stats{grid-template-columns:1fr;grid-template-rows:1fr 1fr;height:100svh;overflow:hidden}
+  .stats-left{padding:clamp(24px,4vh,60px) var(--pad);gap:clamp(20px,3vh,48px)}
+  .stats-right{padding:clamp(16px,3vh,40px) var(--pad)}
+  /* Process: flex-column, фото берёт остаток высоты */
+  .process-step{display:flex;flex-direction:column;height:100svh;overflow:hidden}
+  .pstep-photo{order:1 !important;flex:1;min-height:0}
+  .pstep-text{order:2 !important;flex:0 0 auto}
+  /* Specs */
+  .specs-title{font-size:clamp(36px,7vw,80px)}
+  /* CTA */
+  .cta-body{grid-template-columns:1fr;gap:32px}
+  .cta-t{font-size:clamp(72px,14vw,220px)}
+  /* Partners */
   .partners-logos{flex-wrap:wrap}
 }
 @media(max-width:640px){
-  .nav-links{display:none}
+  /* Hero: убираем лишнюю высоту, outline тоньше */
   .hero-inner{min-height:auto;padding-bottom:60px}
+  .clip-inner--outline{-webkit-text-stroke:1.5px rgba(255,255,255,.45)}
+  .cta-t--outline{-webkit-text-stroke:1.5px rgba(255,255,255,.38)}
+  /* Nav */
+  .nav-cta{display:none}
+  .nav-phones{display:none}
+  /* Services */
+  .svc-name{white-space:normal}
+  .services-header>*:last-child{display:none}
+  /* Stats: фикс overflow + масштаб шрифтов */
+  .stats-left{padding-top:72px;padding-bottom:32px;gap:clamp(10px,1.8vh,20px)}
+  .stats-right{min-width:0;overflow:hidden;padding:24px var(--pad) 32px}
+  .stats-big{font-size:clamp(56px,14vw,80px)}
+  .stats-num-b{font-size:clamp(44px,12vw,64px)}
+  .stats-lbl{white-space:normal;font-size:clamp(13px,3.5vw,17px)}
+  .stats-desc{display:none}
+  .stats-partners-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-partner{min-height:9vh;padding:8px}
+  .stats-partner img{max-width:100%;max-height:8vh}
+  /* Process */
+  .pstep-title{font-size:clamp(56px,15vw,110px)}
+  .pstep-item{font-size:19px}
+  /* Specs */
+  .specs-title{white-space:normal;font-size:clamp(36px,10vw,56px)}
+  .spec-row{flex-direction:column;align-items:flex-start;gap:2px;padding:10px 0}
+  .spec-k{font-size:11px;letter-spacing:.15em}
+  .spec-v{font-size:17px;text-align:left}
+  /* Process header */
+  .process-hdr{flex-direction:column;align-items:flex-start;gap:8px;padding:40px var(--pad) 28px}
+  .process-note{font-size:18px}
+  /* CTA contacts — стек вертикально */
+  .cta-t{font-size:clamp(44px,12vw,72px)}
+  .cta-desc{font-size:clamp(15px,4vw,18px);margin-bottom:16px}
+  .cta-cr{flex-direction:column;align-items:flex-start;gap:4px;padding:12px 0}
+  .cta-cv-group{align-items:flex-start}
+  .cta-ck{font-size:12px;letter-spacing:.15em;padding-top:0}
+  .cta-cv{font-size:20px}
+  .cta-messenger{font-size:17px}
+  .cta-cv--email{font-size:17px}
+  .cta-requisites{font-size:13px}
+  .cta-online{font-size:14px;letter-spacing:.1em}
 }
 </style>
 </head>
@@ -297,10 +356,10 @@ body.loaded .clip-inner{transform:translateY(0)}
     <a href="#specs">Технологии</a>
     <a href="#cta">Контакты</a>
   </nav>
-  <a href="#cta" class="btn nav-cta js-goto-cta">
-    Позвонить
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-  </a>
+  <div class="nav-phones">
+    <a href="tel:+79910979059" class="nav-phone">+7 (991) 097-90-59</a>
+    <a href="tel:+79060554525" class="nav-phone">+7 (906) 055-45-25</a>
+  </div>
 </header>
 
 <!-- ═══ HERO ════════════════════════════════════════════ -->
@@ -308,7 +367,7 @@ body.loaded .clip-inner{transform:translateY(0)}
   <div class="hero-inner">
     <!-- Text -->
     <div class="hero-text">
-      <div class="hero-eyebrow">ООО НПК АДДИТЕХПРОММАШ · ВЛАДИМИР · РОССИЯ</div>
+      <div class="hero-eyebrow">ООО НПК АДДИТЕХПРОММАШ</div>
 
       <div class="hero-title-block">
         <div class="clip"><span class="clip-inner clip-inner--solid">ПРЕСС</span></div>
@@ -317,14 +376,7 @@ body.loaded .clip-inner{transform:translateY(0)}
 
       <div class="hero-sub reveal">
         <div class="hero-tagline">Российское производство.<br>Дешевле, чем везти из Китая.</div>
-        <div class="hero-desc">Пресс-формы для литья пластмасс полного цикла. Аддитивные технологии, 5-осевое ЧПУ, конформное охлаждение. Дешевле импорта.</div>
-        <div class="hero-tags">
-          <span class="hero-tag">DMLS</span>
-          <span class="hero-tag">SLM</span>
-          <span class="hero-tag">5-осевое ЧПУ</span>
-          <span class="hero-tag">±0.01 мм</span>
-          <span class="hero-tag">1—32 гнезда</span>
-        </div>
+        <div class="hero-desc">Пресс-формы для литья пластмасс полного цикла. Аддитивные технологии, 3-осевое ЧПУ, каскадное литьё, конформное охлаждение.</div>
         <div class="hero-actions">
           <a href="#cta" class="btn btn-white">Рассчитать КП <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a href="tel:+79910979059" class="btn btn-outline">+7 (991) 097-90-59</a>
@@ -341,28 +393,6 @@ body.loaded .clip-inner{transform:translateY(0)}
   </div>
 
   <!-- Stats strip -->
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-n">14—30</div>
-      <div class="hero-stat-l">ДНЕЙ ПОД КЛЮЧ</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">±0.01</div>
-      <div class="hero-stat-l">ММ ТОЧНОСТЬ</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">−25%</div>
-      <div class="hero-stat-l">VS ИМПОРТ</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">1 000 000</div>
-      <div class="hero-stat-l">ЦИКЛОВ</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-n">30+</div>
-      <div class="hero-stat-l">ПРОЕКТОВ</div>
-    </div>
-  </div>
 
   <!-- Corner brackets -->
   <div class="bk bk-tl"></div>
@@ -393,27 +423,26 @@ body.loaded .clip-inner{transform:translateY(0)}
 
 <!-- ═══ SERVICES ════════════════════════════════════════ -->
 <section class="services" id="services">
-  <div class="services-ghost" aria-hidden="true">УСЛУГИ</div>
 
   <div class="services-header">
-    <span class="eyebrow reveal">01 / ЧТО МЫ ДЕЛАЕМ</span>
-    <span style="font-size:26px;color:var(--grey-40)" class="reveal d1">Полный цикл · без субподряда</span>
+    <span class="eyebrow reveal">01 / что мы делаем</span>
+    <span style="font-size:26px;color:var(--grey-40)" class="reveal d1">полный цикл · без субподряда</span>
   </div>
 
   <div class="services-list">
     <div class="svc-row reveal">
       <span class="svc-num">01</span>
-      <div><div class="svc-name">Проектирование пресс-форм</div><div class="svc-sub">С нуля или по вашей КД · ЕСКД комплект</div></div>
+      <div><div class="svc-name">Проектирование пресс-форм</div><div class="svc-sub">С нуля или по Вашей КД</div></div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc-row reveal d1">
       <span class="svc-num">02</span>
-      <div><div class="svc-name">Производство пресс-форм</div><div class="svc-sub">DMLS · SLM · 5-осевое ЧПУ · 1—32 гнезда</div></div>
+      <div><div class="svc-name">Производство пресс-форм</div><div class="svc-sub">DMLS · SLM · 3-х осевой ЧПУ · любая гнездность</div></div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc-row reveal d2">
       <span class="svc-num">03</span>
-      <div><div class="svc-name">Серийное литьё</div><div class="svc-sub">Мелко- и крупносерийное · до 1 000 000 циклов</div></div>
+      <div><div class="svc-name">Контрактное литьё</div><div class="svc-sub">Мелкая, средняя и крупная серия до 1 000 000 смыканий</div></div>
       <span class="svc-arrow">→</span>
     </div>
     <div class="svc-row reveal d3">
@@ -423,11 +452,6 @@ body.loaded .clip-inner{transform:translateY(0)}
     </div>
     <div class="svc-row reveal d4">
       <span class="svc-num">05</span>
-      <div><div class="svc-name">КД по ЕСКД</div><div class="svc-sub">Разработка от техзадания до ОТК</div></div>
-      <span class="svc-arrow">→</span>
-    </div>
-    <div class="svc-row reveal d4">
-      <span class="svc-num">06</span>
       <div><div class="svc-name">Доработка и ремонт</div><div class="svc-sub">Обслуживание действующей оснастки</div></div>
       <span class="svc-arrow">→</span>
     </div>
@@ -445,12 +469,13 @@ body.loaded .clip-inner{transform:translateY(0)}
     <div class="reveal">
       <div class="stats-big" data-count="30" data-suffix="+">30+</div>
       <div class="stats-lbl">ПРОЕКТОВ В ЭКСПЛУАТАЦИИ</div>
-      <div class="stats-desc">Литьё пластмасс · упаковка · электротехника · авиация · БПЛА · медицина.</div>
+      <div class="stats-desc">Упаковочные решения, корпусные детали электротехники, детали БПЛА, медицинские изделия.</div>
     </div>
     <div class="stats-sep reveal d1"></div>
     <div class="reveal d2">
       <div class="stats-num-b">15</div>
       <div class="stats-lbl-b">ИНЖЕНЕРОВ В КОМАНДЕ</div>
+      <div class="stats-desc">Разрабатываем оснастку для литья пластика, термовакуумного формования, клише для бумажной упаковки, специальную оснастку.</div>
     </div>
   </div>
   <div class="stats-right reveal d1">
@@ -469,22 +494,22 @@ body.loaded .clip-inner{transform:translateY(0)}
 <!-- ═══ PROCESS ══════════════════════════════════════════ -->
 <section class="process" id="process">
   <div class="process-hdr">
-    <span class="eyebrow reveal">02 / КАК МЫ РАБОТАЕМ</span>
+    <span class="eyebrow reveal">02 / как мы работаем</span>
     <span class="process-note reveal d1">от анализа до ОТК · без субподряда</span>
   </div>
 
   <!-- Step 01 — АНАЛИЗ -->
   <div class="process-step">
     <div class="pstep-text lt reveal">
-      <div class="pstep-n eyebrow">01 / 04 · ЭТАП</div>
+      <div class="pstep-n eyebrow">01 / 04 · этап</div>
       <div>
         <div class="pstep-title">АНАЛИЗ</div>
         <div class="pstep-dur">1—3 дня</div>
       </div>
       <ul class="pstep-items" style="border-color:rgba(0,0,0,.1)">
-        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Принимаем чертёж или 3D-модель изделия</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Создание КД с нуля или по Вашим материалам</li>
         <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Определяем число гнёзд и точки впрыска</li>
-        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Проектируем систему охлаждения</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Создаём проект оснастки</li>
         <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Согласовываем ТЗ и стоимость</li>
       </ul>
     </div>
@@ -501,15 +526,15 @@ body.loaded .clip-inner{transform:translateY(0)}
       <span class="pstep-ghost" style="color:rgba(255,255,255,.04)">02</span>
     </div>
     <div class="pstep-text dk reveal" style="order:2">
-      <div class="pstep-n eyebrow eyebrow-d">02 / 04 · ЭТАП</div>
+      <div class="pstep-n eyebrow eyebrow-d">02 / 04 · этап</div>
       <div>
         <div class="pstep-title" style="color:#fff">КД</div>
-        <div class="pstep-dur">5—14 дней</div>
+        <div class="pstep-dur">от 14 дней</div>
       </div>
       <ul class="pstep-items" style="border-color:var(--line-d)">
         <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">3D-моделирование оснастки</li>
-        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Расчёт топологии охлаждения</li>
-        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Конструкторская документация по ЕСКД</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Анализ литьевых потоков</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Комплект конструкторской документации</li>
         <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Согласование с заказчиком</li>
       </ul>
     </div>
@@ -518,15 +543,15 @@ body.loaded .clip-inner{transform:translateY(0)}
   <!-- Step 03 — ВЫПУСК -->
   <div class="process-step">
     <div class="pstep-text dk reveal">
-      <div class="pstep-n eyebrow eyebrow-d">03 / 04 · ЭТАП</div>
+      <div class="pstep-n eyebrow eyebrow-d">03 / 04 · этап</div>
       <div>
         <div class="pstep-title" style="color:#fff">ВЫПУСК</div>
         <div class="pstep-dur">14—30 дней</div>
       </div>
       <ul class="pstep-items" style="border-color:var(--line-d)">
-        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">5-осевая ЧПУ-обработка инструментальной стали</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Работа на высокоточном оборудовании</li>
         <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Аддитивные технологии DMLS / SLM</li>
-        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Термообработка и слесарная сборка</li>
+        <li class="pstep-item" style="border-color:var(--line-d);color:rgba(255,255,255,.65)">Сборка и наладка</li>
       </ul>
     </div>
     <div class="pstep-photo" style="background:#0a0a0a">
@@ -542,7 +567,7 @@ body.loaded .clip-inner{transform:translateY(0)}
       <span class="pstep-ghost" style="color:rgba(0,0,0,.04)">04</span>
     </div>
     <div class="pstep-text lt reveal">
-      <div class="pstep-n eyebrow">04 / 04 · ЭТАП</div>
+      <div class="pstep-n eyebrow">04 / 04 · этап</div>
       <div>
         <div class="pstep-title">ОТК</div>
         <div class="pstep-dur">2—5 дней</div>
@@ -550,7 +575,7 @@ body.loaded .clip-inner{transform:translateY(0)}
       <ul class="pstep-items" style="border-color:rgba(0,0,0,.1)">
         <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Пробные отливки на нашем оборудовании</li>
         <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Контроль всех размеров по КД</li>
-        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Передача полного комплекта документации</li>
+        <li class="pstep-item" style="border-color:rgba(0,0,0,.07);color:#444">Передача оснастки и комплекта документов</li>
       </ul>
     </div>
   </div>
@@ -559,19 +584,19 @@ body.loaded .clip-inner{transform:translateY(0)}
 <!-- ═══ SPECS + FAQ ══════════════════════════════════════ -->
 <section class="specs" id="specs">
   <div class="specs-l">
-    <span class="eyebrow reveal">03 / ТЕХНИЧЕСКИЕ ДАННЫЕ</span>
+    <span class="eyebrow reveal">03 / технические данные</span>
     <div class="specs-title reveal d1">ТЕХНИЧЕСКИЕ ДАННЫЕ</div>
     <div>
-      <div class="spec-row reveal"><span class="spec-k">Материал</span><span class="spec-v">P20 · H13 · S136</span></div>
-      <div class="spec-row reveal d1"><span class="spec-k">Гнёзд</span><span class="spec-v">1 — 32</span></div>
-      <div class="spec-row reveal d2"><span class="spec-k">Ресурс</span><span class="spec-v">до 1 000 000 циклов</span></div>
-      <div class="spec-row reveal d3"><span class="spec-k">Точность</span><span class="spec-v">±0.01 мм · IT6–IT7</span></div>
-      <div class="spec-row reveal d4"><span class="spec-k">Габариты</span><span class="spec-v">до 1000 × 800 × 600 мм</span></div>
-      <div class="spec-row reveal d4"><span class="spec-k">Тип литья</span><span class="spec-v">Горячий / холодный канал</span></div>
-      <div class="spec-row reveal d4"><span class="spec-k">Охлаждение</span><span class="spec-v">Конформное · каскадное</span></div>
+      <div class="spec-row reveal"><span class="spec-k">материал</span><span class="spec-v">под Вашу задачу</span></div>
+      <div class="spec-row reveal d1"><span class="spec-k">гнёзд</span><span class="spec-v">1 — 80</span></div>
+      <div class="spec-row reveal d2"><span class="spec-k">ресурс</span><span class="spec-v">до 1 000 000 смыканий</span></div>
+      <div class="spec-row reveal d3"><span class="spec-k">точность</span><span class="spec-v">±0.01 мм · IT6–IT7</span></div>
+      <div class="spec-row reveal d4"><span class="spec-k">габариты</span><span class="spec-v">любая геометрия</span></div>
+      <div class="spec-row reveal d4"><span class="spec-k">тип литья</span><span class="spec-v">горячий/холодный канал/каскадное</span></div>
+      <div class="spec-row reveal d4"><span class="spec-k">охлаждение</span><span class="spec-v">конформное</span></div>
     </div>
     <a href="#cta" class="btn btn-black reveal" style="margin-top:32px">
-      Запросить расчёт
+      Запросить расчёт формы под изделие
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </div>
@@ -587,19 +612,25 @@ body.loaded .clip-inner{transform:translateY(0)}
   </div>
   <div class="cta-body">
     <div>
-      <div class="cta-desc reveal">Пришлите чертёж или 3D-модель — в течение суток подготовим КП с ценой и сроками под ваш проект.</div>
+      <div class="cta-desc reveal">Пришлите чертёж или 3D-модель — в течение суток подготовим КП с ценой и сроками под Ваш проект.</div>
       <div class="cta-contacts">
         <div class="cta-cr reveal">
           <span class="cta-ck">Александр Семенец</span>
-          <span class="cta-cv"><a href="tel:+79910979059">+7 (991) 097-90-59</a> · <a href="https://t.me/Alexandr_Semenets">TG</a></span>
+          <span class="cta-cv-group">
+            <a class="cta-messenger" href="tel:+79910979059"><span class="cta-ml">Phone</span>+7 (991) 097-90-59</a>
+            <a class="cta-messenger" href="https://t.me/Alexandr_Semenets"><span class="cta-ml">Telegram</span>@Alexandr_Semenets</a>
+          </span>
         </div>
         <div class="cta-cr reveal d1">
-          <span class="cta-ck">Даниил Воробьев</span>
-          <span class="cta-cv"><a href="tel:+79060554525">+7 (906) 055-45-25</a> · <a href="https://t.me/ganucorl">TG</a></span>
+          <span class="cta-ck">Данила Воробьев</span>
+          <span class="cta-cv-group">
+            <a class="cta-messenger" href="tel:+79060554525"><span class="cta-ml">Phone</span>+7 (906) 055-45-25</a>
+            <a class="cta-messenger" href="https://t.me/ganucorl"><span class="cta-ml">Telegram</span>@ganucorl</a>
+          </span>
         </div>
         <div class="cta-cr reveal d2">
           <span class="cta-ck">Email</span>
-          <span class="cta-cv"><a href="mailto:additechprommash@yandex.ru">additechprommash@yandex.ru</a></span>
+          <span class="cta-cv cta-cv--email"><a href="mailto:additechprommash@yandex.ru">additechprommash@yandex.ru</a></span>
         </div>
       </div>
     </div>
@@ -608,22 +639,26 @@ body.loaded .clip-inner{transform:translateY(0)}
         Позвонить
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <div class="cta-ch">
-        <a href="https://t.me/Alexandr_Semenets" class="btn btn-outline">TG</a>
-        <a href="https://wa.me/79910979059" class="btn btn-outline">WA</a>
-      </div>
       <div class="cta-online">Круглосуточно · кроме выходных</div>
+      <div class="cta-requisites reveal d2">ООО «НПК «АДДИТЕХПРОММАШ»<br>ОГРН&nbsp;1257700330403 · ИНН&nbsp;7733472230 · КПП&nbsp;773301001</div>
     </div>
   </div>
 </section>
-
-<!-- ═══ FOOTER ════════════════════════════════════════════ -->
 
 <script>
 /* ── Load trigger ── */
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('loaded');
 });
+
+/* ── Hero image fade-in ── */
+(function(){
+  const img = document.querySelector('.hero-float img');
+  if(!img) return;
+  function reveal(){ img.closest('.hero-float').classList.add('ready'); }
+  if(img.complete && img.naturalWidth) reveal();
+  else img.addEventListener('load', reveal);
+})();
 
 /* ── Nav scroll ── */
 const nav = document.getElementById('nav');
@@ -740,11 +775,14 @@ document.querySelectorAll('.faq-q').forEach(q => {
     scrollTo(slides[idx]);
   }
 
-  window.addEventListener('wheel', e => { e.preventDefault(); go(e.deltaY > 0 ? 1 : -1); }, {passive:false});
+  const isMobile = () => window.innerWidth <= 900;
+
+  window.addEventListener('wheel', e => { if(isMobile()) return; e.preventDefault(); go(e.deltaY > 0 ? 1 : -1); }, {passive:false});
 
   let touchY = 0;
   window.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive:true});
   window.addEventListener('touchend', e => {
+    if(isMobile()) return;
     const dy = touchY - e.changedTouches[0].clientY;
     if(Math.abs(dy) > 30) go(dy > 0 ? 1 : -1);
   }, {passive:true});
