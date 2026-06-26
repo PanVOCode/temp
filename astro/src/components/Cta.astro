@@ -1,0 +1,439 @@
+---
+const contacts = [
+  {
+    name: "Александр Семенец",
+    phone: { href: "tel:+79910979059", label: "+7 (991) 097-90-59" },
+    tg: { href: "https://t.me/Alexandr_Semenets", label: "@Alexandr_Semenets" },
+  },
+  {
+    name: "Данила Воробьев",
+    phone: { href: "tel:+79060554525", label: "+7 (906) 055-45-25" },
+    tg: { href: "https://t.me/ganucorl", label: "@ganucorl" },
+  },
+];
+---
+
+<section class="cta" id="cta">
+  <img class="cta-bg-img" src="/assets/photo-mold-industrial.png" alt="" />
+
+  <div class="cta-title-wrap reveal">
+    <div class="cta-t cta-t--solid">РАССЧИТАТЬ</div>
+    <div class="cta-t cta-t--outline">ПРОЕКТ</div>
+  </div>
+
+  <div class="cta-bar reveal">
+    <a href="tel:+79910979059" class="cta-bar-btn cta-bar-btn--white">
+      <span class="cta-bar-label">Позвонить</span>
+      <span class="cta-bar-sub">+7 (991) 097-90-59</span>
+      <svg
+        class="cta-bar-arrow"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+      >
+    </a>
+    <a
+      href="/assets/oprosny-list.xlsx"
+      download
+      class="cta-bar-btn cta-bar-btn--outline"
+    >
+      <span class="cta-bar-label">Опросный лист</span>
+      <span class="cta-bar-sub">скачать .xlsx</span>
+      <svg
+        class="cta-bar-arrow"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
+      >
+    </a>
+  </div>
+
+  <div class="cta-btn-row reveal">
+    <a href="tel:+79910979059" class="btn btn-white">
+      Позвонить
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+      >
+    </a>
+    <a href="/assets/oprosny-list.xlsx" download class="btn btn-outline">
+      Опросный лист
+      <svg
+        width="13"
+        height="13"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
+      >
+    </a>
+    <div class="cta-online">Круглосуточно · кроме выходных</div>
+  </div>
+
+  <div class="cta-body">
+    <div class="cta-desc reveal">
+      Пришлите чертёж или 3D-модель — в течение суток подготовим КП с ценой и
+      сроками под Ваш проект.
+    </div>
+
+    <div class="cta-contacts">
+      {
+        contacts.map(({ name, phone, tg }, i) => (
+          <div class={`cta-cr reveal${i > 0 ? ` d${i}` : ""}`}>
+            <span class="cta-ck">{name}</span>
+            <span class="cta-cv-group">
+              <a class="cta-messenger" href={phone.href}>
+                <span class="cta-ml">Phone</span>
+                {phone.label}
+              </a>
+              <a class="cta-messenger" href={tg.href}>
+                <span class="cta-ml">Telegram</span>
+                {tg.label}
+              </a>
+            </span>
+          </div>
+        ))
+      }
+      <div class="cta-cr reveal d2">
+        <span class="cta-ck">Email</span>
+        <span class="cta-cv cta-cv--email">
+          <a href="mailto:additechprommash@yandex.ru"
+            >additechprommash@yandex.ru</a
+          >
+        </span>
+      </div>
+    </div>
+
+    <div class="cta-requisites reveal d1">
+      ООО «НПК «АДДИТЕХПРОММАШ»<br />
+      ОГРН&nbsp;1257700330403 · ИНН&nbsp;7733472230 · КПП&nbsp;773301001
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    z-index: 3;
+    background: #000;
+    overflow: hidden;
+    min-height: calc(100svh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cta-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0.08;
+    filter: contrast(1.2);
+    pointer-events: none;
+  }
+  .cta-title-wrap {
+    padding: clamp(48px, 7vh, 100px) var(--pad) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-t {
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(60px, 11vw, 180px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 0.84;
+  }
+  .cta-t--solid {
+    color: #fff;
+  }
+  .cta-t--outline {
+    -webkit-text-stroke: 4.5px rgba(255, 255, 255, 0.38);
+    color: transparent;
+  }
+  .cta-bar {
+    display: none;
+    flex-direction: row;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .cta-bar-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2vw, 32px);
+    padding: clamp(28px, 3.5vh, 48px) var(--pad);
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s;
+    text-decoration: none;
+  }
+  .cta-bar-btn--white {
+    background: #fff;
+    color: #000;
+  }
+  .cta-bar-btn--white:hover {
+    background: var(--orange);
+    color: #fff;
+  }
+  .cta-bar-btn--outline {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .cta-bar-btn--outline:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+  .cta-bar-label {
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(22px, 2vw, 36px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .cta-bar-sub {
+    font-family: var(--fd);
+    font-size: clamp(14px, 1.1vw, 18px);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    flex: 1;
+  }
+  .cta-bar-arrow {
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: transform 0.15s;
+  }
+  .cta-bar-btn:hover .cta-bar-arrow {
+    transform: translateX(6px);
+    opacity: 1;
+  }
+  .cta-btn-row {
+    padding: clamp(20px, 3.5vh, 36px) var(--pad) clamp(12px, 2vh, 24px);
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .cta-btn-row .btn {
+    font-size: 14px;
+    padding: 16px 36px;
+    letter-spacing: 0.2em;
+  }
+  .cta-online {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .cta-online::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+  .cta-body {
+    padding: clamp(16px, 2.5vh, 32px) var(--pad) clamp(20px, 3vh, 40px);
+    border-top: 1px solid var(--line-d);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(24px, 3vw, 48px);
+    align-items: start;
+  }
+  .cta-desc {
+    font-size: clamp(18px, 1.6vw, 24px);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .cta-contacts {
+    display: flex;
+    flex-direction: column;
+  }
+  .cta-cr {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-d);
+    gap: 8px;
+  }
+  .cta-ck {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    padding-top: 4px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .cta-cv-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .cta-cv a {
+    color: #fff;
+    transition: color 0.15s;
+  }
+  .cta-cv a:hover {
+    color: var(--orange);
+  }
+  .cta-messenger {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    transition: color 0.15s;
+  }
+  .cta-messenger:hover {
+    color: var(--orange);
+  }
+  .cta-ml {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    flex-shrink: 0;
+  }
+  .cta-cv--email {
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .cta-requisites {
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.65;
+  }
+
+  @media (min-width: 1920px) {
+    .cta-bar {
+      display: flex;
+    }
+    .cta-btn-row {
+      display: none;
+    }
+    .cta-body {
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: none;
+      padding-top: clamp(24px, 3vh, 40px);
+    }
+  }
+  @media (min-width: 1301px) and (max-width: 1919px) {
+    .cta-body {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cta-requisites {
+      grid-column: 1/-1;
+      padding-top: 8px;
+      border-top: 1px solid var(--line-d);
+    }
+  }
+  @media (max-width: 1300px) {
+    .cta {
+      justify-content: flex-start;
+      gap: 0;
+    }
+    .cta-title-wrap {
+      padding-bottom: 0;
+    }
+    .cta-btn-row {
+      padding: clamp(16px, 3vh, 28px) var(--pad);
+    }
+    .cta-body {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .cta-requisites {
+      grid-column: 1/-1;
+      padding-top: 8px;
+      border-top: 1px solid var(--line-d);
+    }
+    .cta-t {
+      font-size: clamp(52px, 11vw, 150px);
+    }
+  }
+  @media (max-width: 900px) {
+    .cta-body {
+      grid-template-columns: 1fr !important;
+      gap: 24px;
+    }
+    .cta-requisites {
+      grid-column: auto !important;
+      padding-top: 0 !important;
+      border-top: none !important;
+    }
+  }
+  @media (max-width: 767px) {
+    .cta-t {
+      font-size: clamp(44px, 12vw, 72px);
+    }
+    .cta-t--outline {
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38);
+    }
+    .cta-btn-row .btn {
+      font-size: 12px;
+      padding: 13px 22px;
+    }
+    .cta-desc {
+      font-size: clamp(15px, 4vw, 18px);
+      margin-bottom: 0;
+    }
+    .cta-cr {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 12px 0;
+    }
+    .cta-cv-group {
+      align-items: flex-start;
+    }
+    .cta-ck {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      padding-top: 0;
+    }
+    .cta-messenger {
+      font-size: 17px;
+    }
+    .cta-cv--email {
+      font-size: 17px;
+    }
+    .cta-requisites {
+      font-size: 13px;
+    }
+    .cta-online {
+      font-size: 14px;
+      letter-spacing: 0.1em;
+    }
+  }
+</style>

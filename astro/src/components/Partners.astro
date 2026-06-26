@@ -1,0 +1,327 @@
+---
+const partners = [
+  {
+    num: "01",
+    img: "/assets/partner-sibur.png",
+    alt: "СИБУР ПОЛИЛАБ",
+    desc: "Исследовательский центр полимерных материалов",
+  },
+  {
+    num: "02",
+    img: "/assets/partner-mei.png",
+    alt: "НИУ МЭИ",
+    desc: "Национальный исследовательский университет",
+  },
+  {
+    num: "03",
+    img: "/assets/partner-keramet.png",
+    alt: "КЕРАМЕТ",
+    desc: "Насосное производство",
+  },
+  {
+    num: "04",
+    img: "/assets/partner-mayak.png",
+    alt: "МАЯК",
+    desc: "Композитное производство",
+  },
+  {
+    num: "05",
+    img: "/assets/partner-armakom.png",
+    alt: "АРМАКОМ",
+    desc: "Трубопроводная арматура",
+  },
+  {
+    num: "06",
+    img: "/assets/partner-glavproekt.png",
+    alt: "ГЛАВПРОЕКТ",
+    desc: "Электротехника",
+  },
+  {
+    num: "07",
+    img: "/assets/partner-logikamoloka.png",
+    alt: "ЛОГИКА МОЛОКА",
+    desc: "Молочная продукция и детское питание",
+  },
+  {
+    num: "08",
+    img: "/assets/partner-inkor.png",
+    alt: "ИНКОР",
+    desc: "Производственное оборудование",
+  },
+  {
+    num: "09",
+    img: "/assets/partner-tmk.png",
+    alt: "ТМК",
+    desc: "Трубная металлургия и нефтегаз",
+  },
+  {
+    num: "10",
+    img: "/assets/partner-tenet.png",
+    alt: "TENET",
+    desc: "Производство автомобилей",
+  },
+];
+---
+
+<section class="pgrid" id="partners-c">
+  <div class="pgrid-left">
+    <div class="pgrid-eyebrow">ВЕДОМОСТЬ ПАРТНЁРОВ · ФОМ-2028</div>
+    <h2 class="pgrid-title">ПАРТНЁРЫ</h2>
+    <div class="pgrid-hr"></div>
+    <div class="pgrid-stats-row">
+      <div class="p-stat">
+        <div class="p-stat-n">30+</div>
+        <div class="p-stat-lbl">ПРОЕКТОВ В ЭКСПЛУАТАЦИИ</div>
+        <div class="p-stat-desc">
+          Упаковочные решения, корпусные детали электротехники, детали БПЛА,
+          медицинские изделия.
+        </div>
+      </div>
+      <div class="p-stat">
+        <div class="p-stat-n">15</div>
+        <div class="p-stat-lbl">ИНЖЕНЕРОВ В КОМАНДЕ</div>
+        <div class="p-stat-desc">
+          Разрабатываем оснастку для литья пластика, термовакуумного формования,
+          клише для бумажной упаковки, специальную оснастку.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pgrid-right">
+    <div class="pgrid-cells">
+      {
+        partners.map(({ num, img, alt, desc }) => (
+          <div class="pgrid-cell">
+            <div class="pgrid-n">{num}</div>
+            <div class="pgrid-logo">
+              <img src={img} alt={alt} />
+            </div>
+            <div class="pgrid-desc">{desc}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .pgrid {
+    position: relative;
+    z-index: 4;
+    background: #0a0a0a;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    height: calc(100svh - 64px);
+  }
+  .pgrid-left {
+    width: clamp(260px, 28vw, 420px);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(24px, 4vh, 48px) clamp(20px, 2.5vw, 40px);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+  .pgrid-eyebrow {
+    font-family: var(--fd);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    margin-bottom: 10px;
+  }
+  .pgrid-title {
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(32px, 3.5vw, 54px);
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 0.9;
+  }
+  .pgrid-hr {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: clamp(20px, 3vh, 36px) 0;
+    flex-shrink: 0;
+  }
+  .pgrid-stats-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .pgrid-left .p-stat {
+    margin-bottom: clamp(12px, 1.8vh, 22px);
+  }
+  .pgrid-left .p-stat-n {
+    font-size: clamp(40px, 5vw, 72px);
+  }
+  .pgrid-left .p-stat-lbl {
+    font-size: clamp(11px, 0.8vw, 13px);
+  }
+  .pgrid-left .p-stat-desc {
+    font-size: clamp(12px, 0.9vw, 14px);
+    max-width: none;
+  }
+  .pgrid-right {
+    flex: 1;
+    overflow: hidden;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .pgrid-cells {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.07);
+    height: 100%;
+  }
+  .pgrid-cell {
+    position: relative;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(16px, 2.5vh, 32px) clamp(12px, 2vw, 28px)
+      clamp(12px, 1.8vh, 22px);
+    min-height: 0;
+    transition:
+      background 0.15s,
+      box-shadow 0.15s,
+      transform 0.15s var(--ease);
+    cursor: default;
+    z-index: 0;
+  }
+  .pgrid-cell:hover {
+    background: #0f0f0f;
+    box-shadow: inset 0 0 0 1.5px var(--orange);
+    z-index: 1;
+    transform: scale(1.015);
+  }
+  .pgrid-n {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+    font-family: var(--fd);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.15);
+    transition: color 0.15s;
+  }
+  .pgrid-cell:hover .pgrid-n {
+    color: rgba(255, 106, 0, 0.5);
+  }
+  .pgrid-logo {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+  }
+  .pgrid-logo img {
+    max-width: 100%;
+    max-height: clamp(70px, 10vh, 120px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+  .pgrid-cell:hover .pgrid-logo img {
+    opacity: 1;
+  }
+  .pgrid-desc {
+    font-family: var(--fd);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.18);
+    margin-top: 14px;
+    text-align: center;
+    transition: color 0.15s;
+  }
+  .pgrid-cell:hover .pgrid-desc {
+    color: rgba(255, 106, 0, 0.7);
+  }
+
+  @media (max-width: 1300px) {
+    .pgrid {
+      flex-direction: column;
+      height: auto;
+      min-height: calc(100svh - 64px);
+      overflow-y: auto;
+    }
+    .pgrid-left {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px var(--pad);
+      justify-content: flex-start;
+      flex-shrink: 0;
+    }
+    .pgrid-hr {
+      margin: 10px 0;
+    }
+    .pgrid-stats-row {
+      flex-direction: row;
+      gap: clamp(24px, 5vw, 56px);
+    }
+    .pgrid-left .p-stat {
+      margin-bottom: 0;
+    }
+    .pgrid-left .p-stat-desc {
+      display: none;
+    }
+    .pgrid-cells {
+      grid-template-columns: repeat(3, 1fr);
+      height: auto;
+    }
+    .pgrid-cell {
+      min-height: clamp(110px, 14vw, 170px);
+    }
+    .pgrid-right {
+      overflow-y: auto;
+    }
+  }
+  @media (max-width: 767px) {
+    .pgrid-cells {
+      grid-template-columns: 1fr 1fr;
+    }
+    .pgrid-cell {
+      min-height: clamp(110px, 28vw, 170px);
+      padding: 20px 12px 14px;
+    }
+    .pgrid-logo img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .pgrid-desc {
+      font-size: 8px;
+      letter-spacing: 0.18em;
+      margin-top: 10px;
+    }
+    .pgrid-left .p-stat-n {
+      font-size: clamp(32px, 9vw, 52px);
+    }
+    .pgrid-title {
+      font-size: clamp(28px, 8vw, 48px);
+    }
+  }
+  @media (min-width: 3000px) {
+    .pgrid-left .p-stat-n {
+      font-size: clamp(40px, 5vw, 72px);
+    }
+  }
+</style>

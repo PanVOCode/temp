@@ -1,0 +1,118 @@
+---
+const specs = [
+  { k: "материал", v: "под Вашу задачу" },
+  { k: "гнёзд", v: "1 — 80" },
+  { k: "ресурс", v: "до 1 000 000 смыканий" },
+  { k: "точность", v: "±0.01 мм · IT6–IT7" },
+  { k: "габариты", v: "любая геометрия" },
+  { k: "тип литья", v: "горячий/холодный канал/каскадное" },
+  { k: "охлаждение", v: "конформное" },
+];
+---
+
+<section class="specs" id="specs">
+  <div class="specs-l">
+    <span class="eyebrow reveal">03 / технические данные</span>
+    <div class="specs-title reveal d1">ТЕХНИЧЕСКИЕ ДАННЫЕ</div>
+    <div>
+      {
+        specs.map(({ k, v }, i) => (
+          <div
+            class={`spec-row reveal${i > 0 && i < 5 ? ` d${i}` : i >= 5 ? " d4" : ""}`}
+          >
+            <span class="spec-k">{k}</span>
+            <span class="spec-v">{v}</span>
+          </div>
+        ))
+      }
+    </div>
+    <a href="#cta" class="btn btn-black reveal" style="margin-top:32px">
+      Запросить расчёт формы под изделие
+      <svg
+        width="11"
+        height="11"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+      >
+    </a>
+  </div>
+</section>
+
+<style>
+  .specs {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    border-bottom: 1px solid #000;
+    min-height: 100svh;
+    --pad: clamp(24px, max(5vw, 50vw - 560px), 400px);
+  }
+  .specs-l {
+    padding: 80px var(--pad);
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+  .specs-title {
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(56px, 7vw, 100px);
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: #000;
+    line-height: 0.92;
+    margin: 28px 0 36px;
+    white-space: nowrap;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    gap: 16px;
+  }
+  .spec-k {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--grey-40);
+    flex-shrink: 0;
+  }
+  .spec-v {
+    font-size: 26px;
+    font-weight: 500;
+    color: #000;
+    text-align: right;
+  }
+
+  @media (max-width: 767px) {
+    .specs-title {
+      white-space: normal;
+      font-size: clamp(36px, 10vw, 56px);
+    }
+    .spec-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 10px 0;
+    }
+    .spec-k {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+    }
+    .spec-v {
+      font-size: 17px;
+      text-align: left;
+    }
+  }
+  @media (max-width: 1300px) {
+    .specs-title {
+      font-size: clamp(36px, 7vw, 80px);
+    }
+  }
+</style>

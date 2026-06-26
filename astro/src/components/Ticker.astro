@@ -1,0 +1,66 @@
+---
+const items = [
+  "ПРОЕКТИРОВАНИЕ",
+  "ПРОИЗВОДСТВО",
+  "DMLS · SLM · ЧПУ",
+  "СРОКИ — НЕДЕЛИ",
+  "ДЕШЕВЛЕ КИТАЯ",
+  "±0.01 ММ",
+  "ВЛАДИМИР · РОССИЯ",
+  "30+ ПРОЕКТОВ",
+];
+---
+
+<div class="ticker">
+  <div class="ticker-track">
+    {
+      [...items, ...items].map((item) => (
+        <span class="ticker-item">
+          {item}
+          <span class="ticker-dot">·</span>
+        </span>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .ticker {
+    position: relative;
+    z-index: 9;
+    background: #0a0a0a;
+    height: 48px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .ticker-track {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-item {
+    font-family: var(--fd);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    display: inline-flex;
+    align-items: center;
+  }
+  .ticker-dot {
+    color: var(--orange);
+    font-size: 22px;
+    margin: 0 14px;
+    opacity: 0.75;
+  }
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+const services = [
+  {
+    num: "01",
+    name: "Проектирование пресс-форм",
+    sub: "С нуля или по Вашей КД",
+  },
+  {
+    num: "02",
+    name: "Производство пресс-форм",
+    sub: "DMLS · SLM · 3-х осевой ЧПУ · любая гнездность",
+  },
+  {
+    num: "03",
+    name: "Контрактное литьё",
+    sub: "Мелкая, средняя и крупная серия до 1 000 000 смыканий",
+  },
+  {
+    num: "04",
+    name: "Металлообработка",
+    sub: "Инструментальные стали P20 · H13 · S136",
+  },
+  {
+    num: "05",
+    name: "Доработка и ремонт",
+    sub: "Обслуживание действующей оснастки",
+  },
+];
+---
+
+<section class="services" id="services">
+  <div class="services-header">
+    <span class="eyebrow reveal">01 / список услуг</span>
+    <span class="services-note reveal d1">полный цикл · без субподряда</span>
+  </div>
+
+  <div class="services-list">
+    {
+      services.map(({ num, name, sub }, i) => (
+        <div class={`svc-row reveal${i > 0 ? ` d${i}` : ""}`}>
+          <span class="svc-num">{num}</span>
+          <div>
+            <div class="svc-name">{name}</div>
+            <div class="svc-sub">{sub}</div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="services-float" id="svcFloat">
+    <img src="/assets/photo-mold-closed.png" alt="Пресс-форма" />
+  </div>
+</section>
+
+<style>
+  .services {
+    position: relative;
+    z-index: 8;
+    background: var(--paper);
+    overflow: hidden;
+    padding: clamp(48px, 7vh, 80px) var(--pad);
+    padding-left: calc(50% + var(--pad));
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .services-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+  .services-note {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    color: var(--grey-40);
+  }
+  .services-list {
+    position: relative;
+    z-index: 1;
+  }
+  .svc-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: clamp(10px, 1.2vh, 16px) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: padding-left 0.15s var(--ease);
+    cursor: default;
+  }
+  .svc-row:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .svc-row:hover {
+    padding-left: 12px;
+  }
+  .svc-num {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    color: var(--orange);
+  }
+  .svc-name {
+    font-family: var(--fd);
+    font-weight: 800;
+    font-size: clamp(22px, 2.2vw, 42px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #000;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .svc-sub {
+    font-size: clamp(13px, 1vw, 16px);
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+  }
+  .services-float {
+    position: absolute;
+    left: -15%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 80%;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+  }
+  .services-float img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left bottom;
+    mix-blend-mode: multiply;
+  }
+
+  @media (max-width: 1300px) {
+    .services {
+      padding: clamp(48px, 7vh, 80px) var(--pad);
+    }
+    .services-float {
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .svc-name {
+      white-space: normal;
+    }
+    .services-header > *:last-child {
+      display: none;
+    }
+  }
+</style>

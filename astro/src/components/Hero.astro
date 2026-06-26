@@ -1,0 +1,195 @@
+---
+
+---
+
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <article class="hero-text">
+      <div class="hero-eyebrow">ООО НПК АДДИТЕХПРОММАШ</div>
+
+      <div class="hero-title-block">
+        <div class="clip">
+          <span class="clip-inner clip-inner--solid">ПРЕСС</span>
+        </div>
+        <div class="clip">
+          <span class="clip-inner clip-inner--outline">ФОРМЫ</span>
+        </div>
+      </div>
+
+      <div class="hero-sub reveal">
+        <div class="hero-tagline">
+          Российское производство.<br />Дешевле, чем везти из Китая.
+        </div>
+        <div class="hero-desc">
+          Пресс-формы для литья пластмасс полного цикла. Аддитивные технологии,
+          5-осевое ЧПУ, каскадное литье, инновационное конформное охлаждение.
+        </div>
+        <div class="hero-actions">
+          <a href="#cta" class="btn btn-white">
+            Рассчитать КП
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+            >
+          </a>
+          <a href="/assets/oprosny-list.xlsx" download class="btn btn-outline">
+            Опросный лист
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"
+              ></path></svg
+            >
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <figure class="hero-float" id="heroFloat">
+      <img src="/assets/new_hero.png" alt="Пресс-форма АДДИТЕХПРОММАШ" />
+    </figure>
+  </div>
+
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(to right, var(--dark) 60%, var(--paper) 60%);
+    height: 100svh;
+    padding-top: 64px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    flex: 1;
+    min-height: 0;
+  }
+  .hero-text {
+    padding: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(16px, 2vw, 28px);
+  }
+  .hero-eyebrow {
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .clip {
+    overflow: hidden;
+    line-height: 0.88;
+  }
+  .clip-inner {
+    display: block;
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(72px, min(10vw, 14vh), 180px);
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    line-height: 0.88;
+    transform: translateY(110%);
+    transition: transform 0.35s var(--ease);
+  }
+  :global(body.loaded) .clip-inner {
+    transform: translateY(0);
+  }
+  .clip:nth-child(2) .clip-inner {
+    transition-delay: 0.04s;
+  }
+  .clip-inner--solid {
+    color: #fff;
+  }
+  .clip-inner--outline {
+    -webkit-text-stroke: 4.5px rgba(255, 255, 255, 0.45);
+    color: transparent;
+  }
+  .hero-tagline {
+    font-family: var(--fd);
+    font-weight: 700;
+    font-size: clamp(18px, 2.4vw, 32px);
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .hero-desc {
+    font-size: clamp(16px, 1.6vw, 22px);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    max-width: 520px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-float {
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .hero-float img {
+    height:100%;
+    width: auto;
+    object-fit: contain;
+    filter: contrast(1.05);
+    transform: scale(1.04);
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-float.ready img {
+    transform: scale(1);
+  }
+  @media (max-width: 1300px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-float {
+      display: none;
+    }
+
+  }
+  @media (max-width: 767px) {
+    .hero-text {
+      padding-bottom: 60px;
+    }
+    .clip-inner--outline {
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.45);
+    }
+  }
+  @media (min-width: 2560px) {
+    .clip-inner {
+      font-size: clamp(120px, min(10vw, 14vh), 240px);
+    }
+  }
+  @media (min-width: 3000px) {
+    .clip-inner {
+      font-size: clamp(140px, min(10vw, 14vh), 300px);
+    }
+  }
+</style>

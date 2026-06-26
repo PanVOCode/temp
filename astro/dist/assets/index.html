@@ -1,0 +1,3399 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>АДДИТЕХПРОММАШ — Пресс-формы для литья пластмасс</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ─── RESET ─────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      * {
+        hyphens: none;
+        -webkit-hyphens: none;
+      }
+      html {
+        overflow-x: hidden;
+      }
+      body {
+        font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+        background: #0a0a0a;
+        color: #000;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      ul {
+        list-style: none;
+      }
+
+      /* ─── TOKENS ─────────────────────────────────────────── */
+      :root {
+        --paper: #c4c7ca;
+        --white: #fff;
+        --black: #000;
+        --dark: #0a0a0a;
+        --darker: #0a0a0a;
+        --orange: #f06000;
+        --muted: #666;
+        --grey-40: #999;
+        --grey-20: #bbb;
+        --line: rgba(0, 0, 0, 0.1);
+        --line-d: #1a1a1a;
+        --fd: "Barlow", "Helvetica Neue", sans-serif;
+        --fs: "Space Grotesk", "Helvetica Neue", sans-serif;
+        --pad: clamp(24px, 5vw, 80px);
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* ─── NAV ────────────────────────────────────────────── */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 var(--pad);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          backdrop-filter 0.15s;
+        --nav-fg: rgba(255, 255, 255, 0.9);
+      }
+      .nav.on {
+        background: rgba(206, 206, 206, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-color: rgba(0, 0, 0, 0.1);
+        --nav-fg: #000;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+      }
+      .nav-logo img {
+        height: 36px;
+        width: auto;
+        filter: brightness(0) invert(1);
+        transition: filter 0.15s;
+      }
+      .nav.on .nav-logo img {
+        filter: brightness(0);
+      }
+      .nav-links {
+        display: flex;
+        gap: clamp(14px, 1.8vw, 28px);
+        font-size: clamp(13px, 1.1vw, 18px);
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--nav-fg);
+        transition: color 0.15s;
+      }
+      .nav-links a {
+        transition: color 0.15s;
+        color: inherit;
+      }
+      .nav-links a:hover {
+        color: var(--orange);
+      }
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--orange);
+        color: #fff;
+        font-family: var(--fd);
+        font-weight: 800;
+        font-size: 18px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        transition: background 0.067s;
+      }
+      .nav-cta:hover {
+        background: #d85500;
+      }
+      .nav-phones {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        text-align: right;
+      }
+      .nav-phone {
+        font-family: var(--fd);
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        color: var(--nav-fg);
+        transition: color 0.15s;
+        line-height: 1.4;
+        white-space: nowrap;
+      }
+      .nav-phone:hover {
+        color: var(--orange);
+      }
+
+      /* ─── HERO ───────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        z-index: 10;
+        background: var(--dark);
+        height: 100svh;
+        padding-top: 64px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex: 1;
+        min-height: 0;
+      }
+      .hero-text {
+        padding: clamp(28px, 4vw, 56px) var(--pad) clamp(28px, 4vw, 56px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(16px, 2vw, 28px);
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(
+          to right,
+          var(--dark) 65%,
+          rgba(10, 10, 10, 0) 100%
+        );
+      }
+      .hero-text > * {
+        position: relative;
+        z-index: 6;
+      }
+      .hero-eyebrow {
+        font-size: 18px;
+        font-weight: 300;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Clip-reveal for title lines */
+      .clip {
+        overflow: hidden;
+        line-height: 0.88;
+      }
+      .clip-inner {
+        display: block;
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(72px, min(10vw, 14vh), 180px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        line-height: 0.88;
+        transform: translateY(110%);
+        transition: transform 0.35s var(--ease);
+      }
+      body.loaded .clip-inner {
+        transform: translateY(0);
+      }
+      .clip-inner--solid {
+        color: #fff;
+      }
+      .clip-inner--outline {
+        -webkit-text-stroke: 4.5px rgba(255, 255, 255, 0.45);
+        color: transparent;
+      }
+      .clip:nth-child(2) .clip-inner {
+        transition-delay: 0.04s;
+      }
+
+      .hero-sub {
+        margin-top: 0;
+      }
+      .hero-tagline {
+        font-family: var(--fd);
+        font-weight: 700;
+        font-size: clamp(18px, 2.4vw, 32px);
+        color: #fff;
+        line-height: 1.25;
+        margin-bottom: 10px;
+      }
+      .hero-desc {
+        font-size: clamp(16px, 1.6vw, 22px);
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        margin-bottom: 16px;
+        max-width: 520px;
+      }
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .hero-tag {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding-bottom: 2px;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      /* ── Buttons ─ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-family: var(--fd);
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 13px 22px;
+        transition: all 0.15s;
+        cursor: pointer;
+      }
+      .btn-white {
+        background: #fff;
+        color: #000;
+      }
+      .btn-white:hover {
+        background: var(--orange);
+        color: #fff;
+      }
+      .btn-black {
+        background: #000;
+        color: #fff;
+      }
+      .btn-black:hover {
+        background: var(--orange);
+      }
+      .btn-outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+      .btn-outline:hover {
+        border-color: var(--orange);
+        color: var(--orange);
+      }
+      .btn-outline-d {
+        background: transparent;
+        color: #000;
+        border: 1px solid #000;
+      }
+      .btn-outline-d:hover {
+        background: #000;
+        color: #fff;
+      }
+
+      /* Corner brackets */
+      .bk {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+      }
+      .bk-tl {
+        top: 80px;
+        left: var(--pad);
+        border-top: 1px solid rgba(255, 106, 0, 0.55);
+        border-left: 1px solid rgba(255, 106, 0, 0.55);
+      }
+      .bk-br {
+        bottom: calc(110px + var(--pad));
+        right: calc(50% + var(--pad));
+        border-bottom: 1px solid rgba(255, 106, 0, 0.55);
+        border-right: 1px solid rgba(255, 106, 0, 0.55);
+      }
+
+      /* Hero image column */
+      .hero-img-col {
+        position: relative;
+        overflow: visible;
+        background: transparent;
+      }
+      .hero-float {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 130%;
+        z-index: 3;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+      }
+      .hero-float img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right center;
+        filter: contrast(1.05);
+        opacity: 1;
+        transform: scale(1.04);
+        transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .hero-float::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, var(--dark) 0%, transparent 40%);
+        z-index: 2;
+        pointer-events: none;
+      }
+      .hero-float.ready img {
+        transform: scale(1);
+      }
+
+      /* ─── HERO STATS STRIP ───────────────────────────────── */
+
+      /* ─── TICKER ─────────────────────────────────────────── */
+      .ticker {
+        position: relative;
+        z-index: 9;
+        background: #0a0a0a;
+        height: 48px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+      .ticker-track {
+        display: flex;
+        white-space: nowrap;
+        animation: ticker 20s linear infinite;
+      }
+      .ticker-item {
+        font-family: var(--fd);
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        display: inline-flex;
+        align-items: center;
+      }
+      .ticker-dot {
+        color: var(--orange);
+        font-size: 22px;
+        margin: 0 14px;
+        opacity: 0.75;
+      }
+      @keyframes ticker {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ─── SECTION SHARED ─────────────────────────────────── */
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        color: var(--grey-40);
+      }
+      .eyebrow::before {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: currentColor;
+        flex-shrink: 0;
+      }
+      .eyebrow-d {
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* ─── SERVICES ───────────────────────────────────────── */
+      .services {
+        position: relative;
+        z-index: 8;
+        background: var(--paper);
+        overflow: hidden;
+        padding: clamp(48px, 7vh, 80px) var(--pad);
+        padding-left: calc(50% + var(--pad));
+        height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .services-ghost {
+        position: absolute;
+        right: -0.03em;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(200px, 36vw, 520px);
+        letter-spacing: -0.06em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.03);
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+        z-index: 0;
+      }
+      .services-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 48px;
+        position: relative;
+        z-index: 1;
+      }
+      .services-list {
+        position: relative;
+        z-index: 1;
+      }
+      .svc-row {
+        display: grid;
+        grid-template-columns: 28px 1fr auto;
+        align-items: center;
+        gap: 16px;
+        padding: clamp(10px, 1.2vh, 16px) 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        transition:
+          padding-left 0.15s var(--ease),
+          background 0.15s;
+        cursor: default;
+      }
+      .svc-row:first-child {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .svc-row:hover {
+        padding-left: 12px;
+      }
+      .svc-num {
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: 0.2em;
+        color: var(--orange);
+      }
+      .svc-name {
+        font-family: var(--fd);
+        font-weight: 800;
+        font-size: clamp(22px, 2.2vw, 42px);
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        color: #000;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .svc-sub {
+        font-size: clamp(13px, 1vw, 16px);
+        color: var(--muted);
+        margin-top: 2px;
+        letter-spacing: 0.03em;
+      }
+
+      /* Services float — left side, centred vertically */
+      .services-float {
+        position: absolute;
+        left: -15%;
+        right: auto;
+        top: 0;
+        bottom: 0;
+        width: 80%;
+        z-index: 2;
+        pointer-events: none;
+        display: flex;
+        align-items: flex-end;
+      }
+      .services-float img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: left bottom;
+        mix-blend-mode: multiply;
+      }
+
+      /* ─── CASES SHARED ───────────────────────────────────── */
+      .cases-concept-label {
+        position: absolute;
+        top: clamp(16px, 3vh, 32px);
+        right: var(--pad);
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        opacity: 0.3;
+        z-index: 2;
+      }
+
+      /* ─── CONCEPT 1: «ДЕЛО» — Blueprint / Technical doc ─── */
+      .c1 {
+        position: relative;
+        z-index: 6;
+        background: #ecebe4;
+        border-bottom: 2px solid #000;
+        padding: clamp(56px, 9vh, 110px) var(--pad);
+        min-height: 100svh;
+      }
+      .c1-hdr {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: clamp(40px, 7vh, 72px);
+      }
+      .c1-eyebrow {
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
+      .c1-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(52px, 7vw, 108px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        line-height: 0.9;
+        color: #000;
+      }
+      .c1-tabs {
+        display: flex;
+        gap: 2px;
+        margin-bottom: 2px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .c1-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .c1-tab {
+        flex-shrink: 0;
+        padding: 14px 28px;
+        background: #d8d7d0;
+        border: none;
+        cursor: pointer;
+        font-family: var(--fd);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.42);
+        transition:
+          background 0.15s,
+          color 0.15s;
+        white-space: nowrap;
+      }
+      .c1-tab.active {
+        background: #000;
+        color: #fff;
+      }
+      .c1-tab:hover:not(.active) {
+        background: #c8c7c0;
+        color: #000;
+      }
+      .c1-body {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        min-height: 400px;
+      }
+      .c1-col {
+        padding: clamp(28px, 4vw, 56px);
+        border-right: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .c1-col:last-child {
+        border-right: none;
+      }
+      .c1-col-lbl {
+        font-family: var(--fd);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.32);
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .c1-col-text {
+        font-family: var(--fs);
+        font-size: clamp(14px, 1.4vw, 16px);
+        line-height: 1.65;
+        color: #333;
+      }
+      .c1-metric {
+        margin-top: auto;
+        padding-top: 24px;
+      }
+      .c1-metric-n {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(36px, 5vw, 64px);
+        color: var(--orange);
+        line-height: 1;
+      }
+      .c1-metric-lbl {
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.42);
+        margin-top: 6px;
+      }
+      .c1-col.result {
+        display: flex;
+        flex-direction: column;
+      }
+      .c1-panel {
+        display: none;
+      }
+      .c1-panel.active {
+        display: flex;
+        flex-direction: column;
+      }
+      .c1-tagline {
+        padding: clamp(16px, 2.5vh, 24px) clamp(28px, 4vw, 56px);
+        background: #000;
+        color: rgba(255, 255, 255, 0.55);
+        font-family: var(--fd);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .c1-tagline span {
+        color: var(--orange);
+      }
+      .c1-img {
+        height: clamp(200px, 28vh, 320px);
+        overflow: hidden;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .c1-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        background: #ecebe4;
+      }
+
+      /* ─── CONCEPT 2: «РАЗВОРОТ» — Cinematic horizontal ──── */
+      .c2 {
+        position: relative;
+        z-index: 6;
+        background: #0a0a0a;
+        border-bottom: 2px solid #1a1a1a;
+        height: calc(100svh - 64px);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .c2-hdr {
+        padding: clamp(20px, 3.5vh, 40px) var(--pad) clamp(12px, 2vh, 24px);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-shrink: 0;
+      }
+      .c2-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(52px, 7vw, 108px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        line-height: 0.9;
+        color: #fff;
+      }
+      .c2-nav {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding-bottom: 8px;
+      }
+      .c2-dot {
+        width: 32px;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+        transition:
+          background 0.067s,
+          width 0.1s;
+      }
+      .c2-dot.active {
+        background: var(--orange);
+        width: 56px;
+      }
+      .c2-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        cursor: grab;
+        user-select: none;
+        flex: 1;
+        min-height: 0;
+        gap: 0;
+      }
+      .c2-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      .c2-scroll:active {
+        cursor: grabbing;
+      }
+      .c2-slide {
+        flex: 0 0 100vw;
+        scroll-snap-align: start;
+        height: 100%;
+        padding: 0 var(--pad) clamp(24px, 4vh, 48px);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(40px, 6vw, 96px);
+        align-items: center;
+      }
+      .c2-img-col {
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+      }
+      .c2-img-col img {
+        position: absolute;
+        inset: clamp(8px, 1.5vh, 20px) 0;
+        object-fit: contain;
+        opacity: 0.45;
+        mix-blend-mode: luminosity;
+      }
+      .c2-num {
+        position: relative;
+        z-index: 1;
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(120px, 20vw, 280px);
+        letter-spacing: -0.06em;
+        line-height: 1;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+        user-select: none;
+      }
+      .c2-content {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(20px, 3vh, 36px);
+      }
+      .c2-tag {
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--orange);
+      }
+      .c2-case-title {
+        font-family: var(--fd);
+        font-weight: 800;
+        font-size: clamp(22px, 2.8vw, 38px);
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+      }
+      .c2-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        width: 100%;
+      }
+      .c2-row {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 16px 24px;
+      }
+      .c2-row-lbl {
+        font-family: var(--fd);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        padding-top: 3px;
+        white-space: nowrap;
+      }
+      .c2-row-text {
+        font-family: var(--fs);
+        font-size: clamp(16px, 1.6vw, 20px);
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .c2-result-n {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(42px, 5.5vw, 72px);
+        color: var(--orange);
+        line-height: 1;
+      }
+      .c2-result-lbl {
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 8px;
+      }
+      .c2-progress {
+        height: 2px;
+        background: #1a1a1a;
+        position: relative;
+        margin: 0 var(--pad);
+        flex-shrink: 0;
+      }
+      .c2-progress-bar {
+        height: 100%;
+        background: var(--orange);
+        width: 25%;
+        transition: width 0.2s var(--ease);
+      }
+
+      /* ─── CONCEPT 3: «СТРОКА ДАННЫХ» — Accordion table ──── */
+      .c3 {
+        position: relative;
+        z-index: 6;
+        background: #fff;
+        border-bottom: 2px solid #000;
+        padding: clamp(56px, 9vh, 110px) var(--pad);
+        min-height: 100svh;
+      }
+      .c3-hdr {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: clamp(40px, 6vh, 64px);
+      }
+      .c3-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(52px, 7vw, 108px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        line-height: 0.9;
+        color: #000;
+      }
+      .c3-count {
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.3);
+        padding-bottom: 14px;
+      }
+      .c3-table {
+        border-top: 2px solid #000;
+      }
+      .c3-row {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .c3-head {
+        display: grid;
+        grid-template-columns: clamp(28px, 3vw, 48px) 1fr auto;
+        align-items: center;
+        gap: clamp(16px, 3vw, 48px);
+        padding: clamp(18px, 2.8vh, 28px) 0;
+        cursor: pointer;
+        transition: background 0.05s;
+      }
+      .c3-head:hover {
+        background: rgba(0, 0, 0, 0.02);
+      }
+      .c3-head:hover .c3-arrow {
+        transform: translateX(4px);
+      }
+      .c3-n {
+        font-family: var(--fd);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: rgba(0, 0, 0, 0.2);
+      }
+      .c3-head-title {
+        font-family: var(--fd);
+        font-weight: 800;
+        font-size: clamp(16px, 2vw, 26px);
+        text-transform: uppercase;
+        letter-spacing: -0.01em;
+        color: #000;
+      }
+      .c3-head-right {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 2.5vw, 40px);
+      }
+      .c3-badge {
+        font-family: var(--fd);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        background: rgba(0, 0, 0, 0.06);
+        color: rgba(0, 0, 0, 0.45);
+        white-space: nowrap;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .c3-row.open .c3-badge {
+        background: rgba(255, 106, 0, 0.1);
+        color: var(--orange);
+      }
+      .c3-arrow {
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.25);
+        transition:
+          transform 0.083s var(--ease),
+          color 0.067s;
+      }
+      .c3-row.open .c3-arrow {
+        transform: rotate(45deg);
+        color: var(--orange);
+      }
+      .c3-body {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.107s var(--ease);
+      }
+      .c3-row.open .c3-body {
+        grid-template-rows: 1fr;
+      }
+      .c3-body-inner {
+        overflow: hidden;
+      }
+      .c3-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 0.9fr;
+        gap: 1px;
+        background: rgba(0, 0, 0, 0.08);
+        margin-bottom: clamp(24px, 4vh, 48px);
+      }
+      .c3-cell {
+        background: #fff;
+        padding: clamp(20px, 3vw, 36px);
+      }
+      .c3-cell.img {
+        padding: 0;
+        overflow: hidden;
+      }
+      .c3-cell.img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        min-height: 220px;
+      }
+      .c3-cell-lbl {
+        font-family: var(--fd);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.3);
+        margin-bottom: 14px;
+      }
+      .c3-cell-text {
+        font-family: var(--fs);
+        font-size: clamp(13px, 1.3vw, 15px);
+        line-height: 1.65;
+        color: #444;
+      }
+      .c3-cell.metric {
+        background: #0a0a0a;
+      }
+      .c3-cell.metric .c3-cell-lbl {
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .c3-metric-n {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(48px, 6vw, 80px);
+        color: var(--orange);
+        line-height: 1;
+        margin-top: 8px;
+      }
+      .c3-metric-sub {
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 8px;
+      }
+
+      /* ─── PROCESS ────────────────────────────────────────── */
+      .process {
+        position: relative;
+        z-index: 6;
+      }
+      .process-hdr {
+        padding: 80px var(--pad) 56px;
+        background: var(--paper);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 1px solid #000;
+      }
+      .process-note {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        color: var(--grey-40);
+      }
+      .process-step {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100svh;
+        border-bottom: 1px solid #000;
+      }
+      .pstep-text {
+        padding: clamp(36px, 5vw, 60px) var(--pad);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(24px, 3vh, 40px);
+        min-width: 0;
+        position: relative;
+        z-index: 2;
+      }
+      .pstep-text.lt {
+        background: var(--paper);
+      }
+      .pstep-text.dk {
+        background: #0a0a0a;
+      }
+      .pstep-n {
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+      }
+      .pstep-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(52px, 7.5vw, 150px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        line-height: 0.88;
+      }
+      .pstep-dur {
+        font-family: var(--fd);
+        font-weight: 800;
+        font-size: clamp(48px, 6vw, 80px);
+        letter-spacing: -0.03em;
+        color: var(--orange);
+        line-height: 1;
+        margin-top: 8px;
+      }
+      .pstep-items {
+        border-top: 1px solid;
+        padding-top: 18px;
+        display: flex;
+        flex-direction: column;
+      }
+      .pstep-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 9px 0;
+        border-bottom: 1px solid;
+        font-size: 26px;
+        line-height: 1.45;
+      }
+      .pstep-item::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--orange);
+        flex-shrink: 0;
+        margin-top: 6px;
+      }
+      .pstep-photo {
+        position: relative;
+        overflow: hidden;
+      }
+      .pstep-photo img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .pstep-ghost {
+        position: absolute;
+        bottom: -0.1em;
+        right: -0.05em;
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(320px, 44vw, 560px);
+        letter-spacing: -0.06em;
+        line-height: 1;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      /* ─── SPECS / FAQ ────────────────────────────────────── */
+      .specs {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        border-bottom: 1px solid #000;
+        min-height: 100svh;
+        --pad: clamp(24px, max(5vw, 50vw - 560px), 400px);
+      }
+      .specs-l {
+        padding: 80px var(--pad);
+        background: var(--paper);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+      }
+      .specs-r {
+        padding: 80px var(--pad);
+        background: #cecece;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .specs-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(56px, 7vw, 100px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        color: #000;
+        line-height: 0.92;
+        margin: 28px 0 36px;
+        white-space: nowrap;
+      }
+      .spec-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 11px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+        gap: 16px;
+      }
+      .spec-k {
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        color: var(--grey-40);
+        flex-shrink: 0;
+      }
+      .spec-v {
+        font-size: 26px;
+        font-weight: 500;
+        color: #000;
+        text-align: right;
+      }
+      .faq-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(56px, 7vw, 100px);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+        color: #000;
+        line-height: 0.92;
+        margin: 28px 0 36px;
+        white-space: nowrap;
+      }
+      .faq-item {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .faq-q {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 0;
+        cursor: pointer;
+        user-select: none;
+      }
+      .faq-qt {
+        font-weight: 700;
+        font-size: 28px;
+        color: #000;
+        line-height: 1.3;
+      }
+      .faq-ic {
+        color: var(--orange);
+        font-size: 40px;
+        font-weight: 300;
+        flex-shrink: 0;
+        transition: transform 0.078s var(--ease);
+        line-height: 1;
+      }
+      .faq-item.open .faq-ic {
+        transform: rotate(45deg);
+      }
+      .faq-a {
+        font-size: 26px;
+        color: var(--muted);
+        line-height: 1.72;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.089s var(--ease),
+          padding-bottom 0.089s;
+      }
+      .faq-item.open .faq-a {
+        max-height: 220px;
+        padding-bottom: 18px;
+      }
+
+      /* ─── PARTNERS ───────────────────────────────────────── */
+      .partners {
+        position: relative;
+        z-index: 4;
+        background: #cecece;
+        border-bottom: 1px solid #000;
+        padding: clamp(48px, 8vh, 100px) var(--pad);
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(32px, 5vh, 64px);
+      }
+      .partners-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(28px, 4vh, 56px);
+        width: 100%;
+      }
+      .partners-lbl {
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #bbb;
+        white-space: nowrap;
+        text-align: center;
+      }
+      .partners-logos {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: #0a0a0a;
+        border: 1px solid #0a0a0a;
+        width: 100%;
+      }
+      .partner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        min-height: 12.5vh;
+        padding: clamp(16px, 2vh, 32px);
+      }
+      .partner img {
+        max-height: 13vh;
+        max-width: 280px;
+        width: auto;
+        opacity: 0.55;
+        transition: opacity 0.15s;
+      }
+      .partner:hover img {
+        opacity: 1;
+      }
+
+      /* ─── VARIANT LABEL ─────────────────────────────────── */
+      .v-lbl {
+        position: absolute;
+        bottom: clamp(14px, 2.2vh, 24px);
+        right: var(--pad);
+        font-family: var(--fd);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      /* ─── STATS BLOCK (shared across partner variants) ───── */
+      .p-stats {
+        display: flex;
+        gap: clamp(32px, 5vw, 72px);
+        padding: clamp(28px, 4vh, 52px) var(--pad);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .p-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .p-stat-n {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(44px, 6.5vw, 88px);
+        letter-spacing: -0.04em;
+        line-height: 0.88;
+        color: #fff;
+      }
+      .p-stat-lbl {
+        font-family: var(--fd);
+        font-size: clamp(14px, 0.95vw, 15px);
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: clamp(8px, 1.2vh, 14px);
+      }
+      .p-stat-desc {
+        font-size: clamp(14px, 1.05vw, 16px);
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.65);
+        margin-top: 5px;
+        max-width: clamp(200px, 22vw, 340px);
+      }
+      .pc .p-stat-n {
+        color: #000;
+      }
+      .pc .p-stat-lbl {
+        color: rgba(0, 0, 0, 0.38);
+      }
+      .pc .p-stat-desc {
+        color: rgba(0, 0, 0, 0.65);
+      }
+      .pa .p-stat-n {
+        color: var(--orange);
+      }
+      .pa .p-stats {
+        justify-content: center;
+      }
+
+      /* ─── PARTNERS GRID — ТЁМНАЯ СЕТКА ──────────────────── */
+      .pgrid {
+        position: relative;
+        z-index: 4;
+        background: #0a0a0a;
+        border-bottom: 1px solid #1a1a1a;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        height: calc(100svh - 64px);
+      }
+      .pgrid-left {
+        width: clamp(260px, 28vw, 420px);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(24px, 4vh, 48px) clamp(20px, 2.5vw, 40px);
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+      }
+      .pgrid-eyebrow {
+        font-family: var(--fd);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-bottom: 10px;
+      }
+      .pgrid-title {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(32px, 3.5vw, 54px);
+        letter-spacing: -0.03em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 0.9;
+      }
+      .pgrid-hr {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: clamp(20px, 3vh, 36px) 0;
+        flex-shrink: 0;
+      }
+      .pgrid-stats-row {
+        display: flex;
+        flex-direction: column;
+      }
+      .pgrid-left .p-stat {
+        margin-bottom: clamp(12px, 1.8vh, 22px);
+      }
+      .pgrid-left .p-stat-n {
+        font-size: clamp(40px, 5vw, 72px);
+      }
+      .pgrid-left .p-stat-lbl {
+        font-size: clamp(11px, 0.8vw, 13px);
+      }
+      .pgrid-left .p-stat-desc {
+        font-size: clamp(12px, 0.9vw, 14px);
+        max-width: none;
+      }
+      .pgrid-right {
+        flex: 1;
+        overflow: hidden;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .pgrid-cells {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1px;
+        background: rgba(255, 255, 255, 0.07);
+        height: 100%;
+      }
+      .pgrid-cell {
+        position: relative;
+        background: #0a0a0a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: clamp(16px, 2.5vh, 32px) clamp(12px, 2vw, 28px)
+          clamp(12px, 1.8vh, 22px);
+        min-height: 0;
+        transition:
+          background 0.15s,
+          box-shadow 0.15s,
+          transform 0.15s var(--ease);
+        cursor: default;
+        z-index: 0;
+      }
+      .pgrid-cell:hover {
+        background: #0f0f0f;
+        box-shadow: inset 0 0 0 1.5px var(--orange);
+        z-index: 1;
+        transform: scale(1.015);
+      }
+      .pgrid-n {
+        position: absolute;
+        top: 14px;
+        left: 18px;
+        font-family: var(--fd);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.15);
+        transition: color 0.15s;
+      }
+      .pgrid-cell:hover .pgrid-n {
+        color: rgba(255, 106, 0, 0.5);
+      }
+      .pgrid-logo {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 12px;
+      }
+      .pgrid-logo img {
+        max-width: 100%;
+        max-height: clamp(70px, 10vh, 120px);
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        opacity: 0.6;
+        transition: opacity 0.15s;
+      }
+      .pgrid-cell:hover .pgrid-logo img {
+        opacity: 1;
+      }
+      .pgrid-desc {
+        font-family: var(--fd);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.18);
+        margin-top: 14px;
+        text-align: center;
+        transition: color 0.15s;
+      }
+      .pgrid-cell:hover .pgrid-desc {
+        color: rgba(255, 106, 0, 0.7);
+      }
+
+      /* ─── CTA ────────────────────────────────────────────── */
+      .cta {
+        position: relative;
+        z-index: 3;
+        background: #000;
+        overflow: hidden;
+        min-height: calc(100svh - 64px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .cta-title-wrap {
+        padding: clamp(48px, 7vh, 100px) var(--pad) 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-t {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(60px, 11vw, 180px);
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        line-height: 0.84;
+      }
+      .cta-t--solid {
+        color: #fff;
+      }
+      .cta-t--outline {
+        -webkit-text-stroke: 4.5px rgba(255, 255, 255, 0.38);
+        color: transparent;
+      }
+      .cta-bg-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center center;
+        opacity: 0.08;
+        filter: contrast(1.2);
+        pointer-events: none;
+      }
+      .cta-btn-row {
+        padding: clamp(20px, 3.5vh, 36px) var(--pad) clamp(12px, 2vh, 24px);
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .cta-btn-row .btn {
+        font-size: 14px;
+        padding: 16px 36px;
+        letter-spacing: 0.2em;
+      }
+      /* ─── CTA large screen bar ─── */
+      .cta-bar {
+        display: none;
+        flex-direction: row;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .cta-bar-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 2vw, 32px);
+        padding: clamp(28px, 3.5vh, 48px) var(--pad);
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        text-decoration: none;
+      }
+      .cta-bar-btn--white {
+        background: #fff;
+        color: #000;
+      }
+      .cta-bar-btn--white:hover {
+        background: var(--orange);
+        color: #fff;
+      }
+      .cta-bar-btn--outline {
+        background: transparent;
+        color: rgba(255, 255, 255, 0.75);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .cta-bar-btn--outline:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #fff;
+      }
+      .cta-bar-label {
+        font-family: var(--fd);
+        font-weight: 900;
+        font-size: clamp(22px, 2vw, 36px);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+      }
+      .cta-bar-sub {
+        font-family: var(--fd);
+        font-size: clamp(14px, 1.1vw, 18px);
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.55;
+        flex: 1;
+      }
+      .cta-bar-arrow {
+        flex-shrink: 0;
+        opacity: 0.7;
+        transition: transform 0.15s;
+      }
+      .cta-bar-btn:hover .cta-bar-arrow {
+        transform: translateX(6px);
+        opacity: 1;
+      }
+      .cta-body {
+        padding: clamp(16px, 2.5vh, 32px) var(--pad) clamp(20px, 3vh, 40px);
+        border-top: 1px solid var(--line-d);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: clamp(24px, 3vw, 48px);
+        align-items: start;
+        margin-top: 0;
+      }
+      .cta-desc {
+        font-size: clamp(18px, 1.6vw, 24px);
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+      .cta-contacts {
+        display: flex;
+        flex-direction: column;
+      }
+      .cta-cr {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 9px 0;
+        border-bottom: 1px solid var(--line-d);
+        gap: 8px;
+      }
+      .cta-ck {
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        padding-top: 4px;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      .cta-cv-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+      }
+      .cta-cv {
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .cta-cv a {
+        color: #fff;
+        transition: color 0.15s;
+      }
+      .cta-cv a:hover {
+        color: var(--orange);
+      }
+      .cta-tg {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.48);
+        letter-spacing: 0.01em;
+        transition: color 0.15s;
+      }
+      .cta-tg:hover {
+        color: var(--orange);
+      }
+      .cta-messenger {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        font-size: 22px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.75);
+        transition: color 0.15s;
+      }
+      .cta-messenger:hover {
+        color: var(--orange);
+      }
+      .cta-ml {
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        flex-shrink: 0;
+      }
+      .cta-cv--email {
+        font-size: 22px;
+        font-weight: 500;
+      }
+      .cta-requisites {
+        font-size: 17px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.65;
+      }
+      .cta-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .cta-ch {
+        display: flex;
+        gap: 8px;
+      }
+      .cta-online {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 2px;
+      }
+      .cta-online::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--orange);
+      }
+
+      /* ─── FOOTER ─────────────────────────────────────────── */
+
+      /* ─── REVEAL ANIMATIONS ──────────────────────────────── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition:
+          opacity 0.5s var(--ease),
+          transform 0.5s var(--ease);
+      }
+      .reveal.vis {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal.d1 {
+        transition-delay: 0.08s;
+      }
+      .reveal.d2 {
+        transition-delay: 0.2s;
+      }
+      .reveal.d3 {
+        transition-delay: 0.36s;
+      }
+      .reveal.d4 {
+        transition-delay: 0.54s;
+      }
+
+      /* ─── GRAIN OVERLAY ──────────────────────────────────── */
+      .hero-text::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+        background-size: 180px;
+      }
+      .hero-text {
+        position: relative;
+        z-index: 6;
+      }
+      .hero-img-col {
+        position: relative;
+        z-index: 3;
+      }
+
+      /* ─── RESPONSIVE ─────────────────────────────────────── */
+      /* ─── Large screens: full-width CTA bar ─── */
+      @media (min-width: 1920px) {
+        .cta-bar {
+          display: flex;
+        }
+        .cta-btn-row {
+          display: none;
+        }
+        .cta-body {
+          grid-template-columns: 1fr 1fr 1fr;
+          border-top: none;
+          padding-top: clamp(24px, 3vh, 40px);
+        }
+      }
+
+      /* ─── 2560px ─── */
+      @media (min-width: 2560px) {
+        .pstep-title {
+          font-size: clamp(100px, 7.5vw, 220px);
+        }
+        .clip-inner {
+          font-size: clamp(120px, min(10vw, 14vh), 240px);
+        }
+      }
+
+      /* ─── 4K ─── */
+      @media (min-width: 3000px) {
+        .nav-links {
+          font-size: 22px;
+          gap: 40px;
+        }
+        .nav-logo img {
+          height: 48px;
+        }
+        .nav-phone {
+          font-size: 16px;
+        }
+        .pstep-title {
+          font-size: clamp(120px, 7.5vw, 280px);
+        }
+        .clip-inner {
+          font-size: clamp(140px, min(10vw, 14vh), 300px);
+        }
+      }
+
+      /* ─── 1301–1919: cta 2 col + requisites full-width ─── */
+      @media (min-width: 1301px) and (max-width: 1919px) {
+        .cta-body {
+          grid-template-columns: 1fr 1fr;
+        }
+        .cta-requisites {
+          grid-column: 1/-1;
+          padding-top: 8px;
+          border-top: 1px solid var(--line-d);
+        }
+      }
+
+      @media (max-width: 1300px) {
+        /* Nav */
+        .nav-links {
+          display: none;
+        }
+        /* Hero */
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+        .hero-img-col {
+          display: none;
+        }
+        .bk-br {
+          display: none;
+        }
+        /* Services: сброс 50%-отступа */
+        .services {
+          padding: clamp(48px, 7vh, 80px) var(--pad);
+        }
+        .services-float {
+          display: none;
+        }
+        /* Stats: стек, числа сверху / партнёры снизу */
+        .stats {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr 1fr;
+          height: 100svh;
+          overflow: hidden;
+        }
+        .stats-left {
+          padding: clamp(24px, 4vh, 60px) var(--pad);
+          gap: clamp(20px, 3vh, 48px);
+        }
+        .stats-right {
+          padding: clamp(16px, 3vh, 40px) var(--pad);
+        }
+        /* Process: flex-column, высота по контенту */
+        .process-step {
+          display: flex;
+          flex-direction: column;
+          height: auto;
+        }
+        .pstep-photo {
+          order: 1 !important;
+          height: 45svh;
+          flex: none;
+          min-height: 0;
+        }
+        .pstep-photo img {
+          object-position: center center;
+        }
+        .pstep-text {
+          order: 2 !important;
+          flex: none;
+          overflow-y: visible;
+        }
+        /* Specs */
+        .specs-title {
+          font-size: clamp(36px, 7vw, 80px);
+        }
+        /* CTA */
+        .cta {
+          justify-content: flex-start;
+          gap: 0;
+        }
+        .cta-title-wrap {
+          padding-bottom: 0;
+        }
+        .cta-btn-row {
+          padding: clamp(16px, 3vh, 28px) var(--pad);
+        }
+        .cta-body {
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+        .cta-requisites {
+          grid-column: 1/-1;
+          padding-top: 8px;
+          border-top: 1px solid var(--line-d);
+        }
+        .cta-t {
+          font-size: clamp(52px, 11vw, 150px);
+        }
+        /* Partners */
+        .partners-logos {
+          flex-wrap: wrap;
+        }
+        /* C1 */
+        .c1-body {
+          grid-template-columns: 1fr;
+        }
+        .c1-col {
+          border-right: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .c1-col:last-child {
+          border-bottom: none;
+        }
+        /* C2 */
+        .c2 {
+          height: auto;
+          min-height: calc(100svh - 64px);
+        }
+        .c2-slide {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+        .c2-img-col {
+          height: clamp(200px, 35vw, 360px);
+        }
+        .c2-num {
+          font-size: clamp(80px, 18vw, 160px);
+        }
+        /* C3 */
+        .c3-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .c3-cell.img {
+          display: none;
+        }
+        .c3-head {
+          grid-template-columns: auto 1fr auto;
+        }
+        .c3-head-right {
+          gap: 12px;
+        }
+        .c3-badge {
+          display: none;
+        }
+        /* ─── pgrid tablet ─── */
+        .pgrid {
+          flex-direction: column;
+          height: auto;
+          min-height: calc(100svh - 64px);
+          overflow-y: auto;
+        }
+        .pgrid-left {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 20px var(--pad);
+          justify-content: flex-start;
+          flex-shrink: 0;
+        }
+        .pgrid-hr {
+          margin: 10px 0;
+        }
+        .pgrid-stats-row {
+          flex-direction: row;
+          gap: clamp(24px, 5vw, 56px);
+        }
+        .pgrid-left .p-stat {
+          margin-bottom: 0;
+        }
+        .pgrid-left .p-stat-desc {
+          display: none;
+        }
+        .pgrid-cells {
+          grid-template-columns: repeat(3, 1fr);
+          height: auto;
+        }
+        .pgrid-cell {
+          min-height: clamp(110px, 14vw, 170px);
+        }
+        .pgrid-right {
+          overflow-y: auto;
+        }
+      }
+      @media (max-width: 900px) {
+        .cta-body {
+          grid-template-columns: 1fr !important;
+          gap: 24px;
+        }
+        .cta-requisites {
+          grid-column: auto !important;
+          padding-top: 0 !important;
+          border-top: none !important;
+        }
+      }
+      @media (max-width: 767px) {
+        /* Hero: убираем лишнюю высоту, outline тоньше */
+        .hero-inner {
+          min-height: auto;
+          padding-bottom: 60px;
+        }
+        .clip-inner--outline {
+          -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.45);
+        }
+        .cta-t--outline {
+          -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38);
+        }
+        /* Nav */
+        .nav-cta {
+          display: none;
+        }
+        .nav-phones {
+          display: none;
+        }
+        /* Services */
+        .svc-name {
+          white-space: normal;
+        }
+        .services-header > *:last-child {
+          display: none;
+        }
+        /* Stats: фикс overflow + масштаб шрифтов */
+        .stats-left {
+          padding-top: 72px;
+          padding-bottom: 32px;
+          gap: clamp(10px, 1.8vh, 20px);
+        }
+        .stats-right {
+          min-width: 0;
+          overflow: hidden;
+          padding: 24px var(--pad) 32px;
+        }
+        .stats-big {
+          font-size: clamp(56px, 14vw, 80px);
+        }
+        .stats-num-b {
+          font-size: clamp(44px, 12vw, 64px);
+        }
+        .stats-lbl {
+          white-space: normal;
+          font-size: clamp(13px, 3.5vw, 17px);
+        }
+        .stats-desc {
+          display: none;
+        }
+        .stats-partners-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-partner {
+          min-height: 9vh;
+          padding: 8px;
+        }
+        .stats-partner img {
+          max-width: 100%;
+          max-height: 8vh;
+        }
+        /* Process */
+        .pstep-title {
+          font-size: clamp(56px, 15vw, 110px);
+        }
+        .pstep-item {
+          font-size: 19px;
+        }
+        /* Specs */
+        .specs-title {
+          white-space: normal;
+          font-size: clamp(36px, 10vw, 56px);
+        }
+        .spec-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2px;
+          padding: 10px 0;
+        }
+        .spec-k {
+          font-size: 11px;
+          letter-spacing: 0.15em;
+        }
+        .spec-v {
+          font-size: 17px;
+          text-align: left;
+        }
+        /* Process header */
+        .process-hdr {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+          padding: 40px var(--pad) 28px;
+        }
+        .process-note {
+          font-size: 18px;
+        }
+        /* CTA contacts — стек вертикально */
+        .cta-t {
+          font-size: clamp(44px, 12vw, 72px);
+        }
+        .cta-btn-row .btn {
+          font-size: 12px;
+          padding: 13px 22px;
+        }
+        .cta-desc {
+          font-size: clamp(15px, 4vw, 18px);
+          margin-bottom: 0;
+        }
+        .cta-cr {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 2px;
+          padding: 12px 0;
+        }
+        .cta-cv-group {
+          align-items: flex-start;
+        }
+        .cta-ck {
+          font-size: 12px;
+          letter-spacing: 0.15em;
+          padding-top: 0;
+        }
+        .cta-cv {
+          font-size: 20px;
+        }
+        .cta-messenger {
+          font-size: 17px;
+        }
+        .cta-cv--email {
+          font-size: 17px;
+        }
+        .cta-requisites {
+          font-size: 13px;
+        }
+        .cta-online {
+          font-size: 14px;
+          letter-spacing: 0.1em;
+        }
+        /* ─── pgrid phone ─── */
+        .pgrid-cells {
+          grid-template-columns: 1fr 1fr;
+        }
+        .pgrid-cell {
+          min-height: clamp(110px, 28vw, 170px);
+          padding: 20px 12px 14px;
+        }
+        .pgrid-logo img {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+        }
+        .pgrid-desc {
+          font-size: 8px;
+          letter-spacing: 0.18em;
+          margin-top: 10px;
+        }
+        .pgrid-left .p-stat-n {
+          font-size: clamp(32px, 9vw, 52px);
+        }
+        .pgrid-title {
+          font-size: clamp(28px, 8vw, 48px);
+        }
+        /* ─── Projects ─── */
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .project-name {
+          font-size: clamp(14px, 3.5vw, 16px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══ NAV ═══════════════════════════════════════════ -->
+    <header class="nav" id="nav">
+      <div class="nav-logo">
+        <img src="assets/logo-text.png" alt="АДДИТЕХПРОММАШ" />
+      </div>
+      <nav class="nav-links">
+        <a href="#services">Услуги</a>
+        <a href="#projects">Кейсы</a>
+        <a href="#partners-c">Партнёры</a>
+        <a href="#process">Процесс</a>
+        <a href="#specs">Технологии</a>
+        <a href="#cta">Контакты</a>
+      </nav>
+      <div class="nav-phones">
+        <a href="tel:+79910979059" class="nav-phone">+7 (991) 097-90-59</a>
+        <a href="tel:+79060554525" class="nav-phone">+7 (906) 055-45-25</a>
+      </div>
+    </header>
+
+    <!-- ═══ HERO ════════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <!-- Text -->
+        <div class="hero-text">
+          <div class="hero-eyebrow">ООО НПК АДДИТЕХПРОММАШ</div>
+
+          <div class="hero-title-block">
+            <div class="clip">
+              <span class="clip-inner clip-inner--solid">ПРЕСС</span>
+            </div>
+            <div class="clip">
+              <span class="clip-inner clip-inner--outline">ФОРМЫ</span>
+            </div>
+          </div>
+
+          <div class="hero-sub reveal">
+            <div class="hero-tagline">
+              Российское производство.<br />Дешевле, чем везти из Китая.
+            </div>
+            <div class="hero-desc">
+              Пресс-формы для литья пластмасс полного цикла. Аддитивные
+              технологии, 5-осевое ЧПУ, каскадное литье, инновационное
+              конформное охлаждение.
+            </div>
+            <div class="hero-actions">
+              <a href="#cta" class="btn btn-white"
+                >Рассчитать КП
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg
+              ></a>
+              <a
+                href="assets/oprosny-list.xlsx"
+                download
+                class="btn btn-outline"
+                >Опросный лист
+                <svg
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <path d="M12 3v13M5 14l7 7 7-7" />
+                  <path d="M3 21h18" /></svg
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Float image column -->
+        <div class="hero-img-col">
+          <div class="hero-float" id="heroFloat">
+            <img
+              src="assets/photo-atpm-mold.png"
+              alt="Пресс-форма АДДИТЕХПРОММАШ"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+
+      <!-- Corner brackets -->
+      <div class="bk bk-tl"></div>
+      <div class="bk bk-br"></div>
+    </section>
+
+    <!-- ═══ TICKER ══════════════════════════════════════════ -->
+    <div class="ticker" style="position: relative; z-index: 9">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item"
+          >ПРОЕКТИРОВАНИЕ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ПРОИЗВОДСТВО<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >DMLS · SLM · ЧПУ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >СРОКИ — НЕДЕЛИ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ДЕШЕВЛЕ КИТАЯ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >±0.01 ММ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ВЛАДИМИР · РОССИЯ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >30+ ПРОЕКТОВ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ПРОЕКТИРОВАНИЕ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ПРОИЗВОДСТВО<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >DMLS · SLM · ЧПУ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >СРОКИ — НЕДЕЛИ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ДЕШЕВЛЕ КИТАЯ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >±0.01 ММ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >ВЛАДИМИР · РОССИЯ<span class="ticker-dot">·</span></span
+        >
+        <span class="ticker-item"
+          >30+ ПРОЕКТОВ<span class="ticker-dot">·</span></span
+        >
+      </div>
+    </div>
+
+    <!-- ═══ SERVICES ════════════════════════════════════════ -->
+    <section class="services" id="services">
+      <div class="services-header">
+        <span class="eyebrow reveal">01 / список услуг</span>
+        <span
+          style="
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.28em;
+            color: var(--grey-40);
+          "
+          class="reveal d1"
+          >полный цикл · без субподряда</span
+        >
+      </div>
+
+      <div class="services-list">
+        <div class="svc-row reveal">
+          <span class="svc-num">01</span>
+          <div>
+            <div class="svc-name">Проектирование пресс-форм</div>
+            <div class="svc-sub">С нуля или по Вашей КД</div>
+          </div>
+        </div>
+        <div class="svc-row reveal d1">
+          <span class="svc-num">02</span>
+          <div>
+            <div class="svc-name">Производство пресс-форм</div>
+            <div class="svc-sub">
+              DMLS · SLM · 3-х осевой ЧПУ · любая гнездность
+            </div>
+          </div>
+        </div>
+        <div class="svc-row reveal d2">
+          <span class="svc-num">03</span>
+          <div>
+            <div class="svc-name">Контрактное литьё</div>
+            <div class="svc-sub">
+              Мелкая, средняя и крупная серия до 1 000 000 смыканий
+            </div>
+          </div>
+        </div>
+        <div class="svc-row reveal d3">
+          <span class="svc-num">04</span>
+          <div>
+            <div class="svc-name">Металлообработка</div>
+            <div class="svc-sub">Инструментальные стали P20 · H13 · S136</div>
+          </div>
+        </div>
+        <div class="svc-row reveal d4">
+          <span class="svc-num">05</span>
+          <div>
+            <div class="svc-name">Доработка и ремонт</div>
+            <div class="svc-sub">Обслуживание действующей оснастки</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Float image → bleeds into stats -->
+      <div class="services-float" id="svcFloat">
+        <img src="assets/photo-mold-closed.png" alt="Пресс-форма" />
+      </div>
+    </section>
+
+    <!-- ═══ КЕЙСЫ ═══════════════════════════════════════════════ -->
+    <section class="c2" id="projects">
+      <div class="c2-hdr">
+        <h2 class="c2-title">КЕЙСЫ</h2>
+        <div class="c2-nav" id="c2nav">
+          <div class="c2-dot active" onclick="c2Go(0)"></div>
+          <div class="c2-dot" onclick="c2Go(1)"></div>
+          <div class="c2-dot" onclick="c2Go(2)"></div>
+          <div class="c2-dot" onclick="c2Go(3)"></div>
+        </div>
+      </div>
+      <div class="c2-scroll" id="c2scroll">
+        <!-- Slide 01 -->
+        <div class="c2-slide">
+          <div class="c2-img-col">
+            <img src="assets/case-1.png" alt="" />
+            <div class="c2-num">01</div>
+          </div>
+          <div class="c2-content">
+            <div class="c2-tag">Реверс-инжиниринг</div>
+            <div class="c2-case-title">
+              Реверс-инжиниринг КД на станок и пресс-форму
+            </div>
+            <div class="c2-divider"></div>
+            <div class="c2-row">
+              <div class="c2-row-lbl">Задача</div>
+              <div class="c2-row-text">
+                Высокая стоимость закупки, не устраивают сроки поставки из-за
+                рубежа, запрос на реверс-инжиниринг КД на станок и пресс-форму
+                отсутствуют
+              </div>
+              <div class="c2-row-lbl">Результат</div>
+              <div class="c2-row-text">
+                Готовое изделие со всем перечнем конструкторской документации,
+                оптимизацией сроков производства и закупки специальной оснастки
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 02 -->
+        <div class="c2-slide">
+          <div class="c2-img-col">
+            <img src="assets/case-2.png" alt="" />
+            <div class="c2-num">02</div>
+          </div>
+          <div class="c2-content">
+            <div class="c2-tag">Аддитивное производство</div>
+            <div class="c2-case-title">
+              Пресс-форма с конформным охлаждением
+            </div>
+            <div class="c2-divider"></div>
+            <div class="c2-row">
+              <div class="c2-row-lbl">Задача</div>
+              <div class="c2-row-text">
+                Потребность в оптимизации сроков поставки пресс-форм из-за
+                рубежа, оптимизации стоимости, создании устойчивого партнерства
+                с отечественными производителями специальной оснастки под
+                термовакуумную формовку
+              </div>
+              <div class="c2-row-lbl">Решение</div>
+              <div class="c2-row-text">
+                Полная разработка и проектирование пресс-формы, технологии
+                смыкания, системы каналов охлаждения, вырубки листа
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 03 -->
+        <div class="c2-slide">
+          <div class="c2-img-col">
+            <img src="assets/case-3.png" alt="" />
+            <div class="c2-num">03</div>
+          </div>
+          <div class="c2-content">
+            <div class="c2-tag">Авиация / БПЛА</div>
+            <div class="c2-case-title">Пресс-форма для оснастки БПЛА</div>
+            <div class="c2-divider"></div>
+            <div class="c2-row">
+              <div class="c2-row-lbl">Задача</div>
+              <div class="c2-row-text">
+                Потребность в пресс-форме для производства мелкой серии
+                специальной оснастки под БПЛА из полимерного полиамида
+              </div>
+              <div class="c2-row-lbl">Решение</div>
+              <div class="c2-row-text">
+                Разработка уникальной пресс-формы каскадного типа с переменным
+                открытием литников. Оптимальная экономика под производство
+                мелкой серии
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 04 -->
+        <div class="c2-slide">
+          <div class="c2-img-col">
+            <img src="assets/case-4.png" alt="" />
+            <div class="c2-num">04</div>
+          </div>
+          <div class="c2-content">
+            <div class="c2-tag">Импортозамещение / Пищепром</div>
+            <div class="c2-case-title">
+              Импортозамещение пластиковых поршней для производства детской
+              молочной продукции
+            </div>
+            <div class="c2-divider"></div>
+            <div class="c2-row">
+              <div class="c2-row-lbl">Задача</div>
+              <div class="c2-row-text">
+                Потребность в импортозамещении пластиковых поршней для
+                производства детской молочной продукции
+              </div>
+              <div class="c2-row-lbl">Решение</div>
+              <div class="c2-row-text">
+                Полный цикл разработки от 3D-сканирования импортного изделия и
+                проектирования пресс-формы, до разработки технологии сборки и
+                конечного производства
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="c2-progress">
+        <div class="c2-progress-bar" id="c2bar"></div>
+      </div>
+    </section>
+
+    <!-- ═══ PARTNERS ═══════════════════════════════════════════ -->
+    <section class="pgrid" id="partners-c">
+      <div class="pgrid-left">
+        <div class="pgrid-eyebrow">ВЕДОМОСТЬ ПАРТНЁРОВ · ФОМ-2028</div>
+        <h2 class="pgrid-title">ПАРТНЁРЫ</h2>
+        <div class="pgrid-hr"></div>
+        <div class="pgrid-stats-row">
+          <div class="p-stat">
+            <div class="p-stat-n">30+</div>
+            <div class="p-stat-lbl">ПРОЕКТОВ В ЭКСПЛУАТАЦИИ</div>
+            <div class="p-stat-desc">
+              Упаковочные решения, корпусные детали электротехники, детали БПЛА,
+              медицинские изделия.
+            </div>
+          </div>
+          <div class="p-stat">
+            <div class="p-stat-n">15</div>
+            <div class="p-stat-lbl">ИНЖЕНЕРОВ В КОМАНДЕ</div>
+            <div class="p-stat-desc">
+              Разрабатываем оснастку для литья пластика, термовакуумного
+              формования, клише для бумажной упаковки, специальную оснастку.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pgrid-right">
+        <div class="pgrid-cells">
+          <div class="pgrid-cell">
+            <div class="pgrid-n">01</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-sibur.png" alt="СИБУР ПОЛИЛАБ" />
+            </div>
+            <div class="pgrid-desc">
+              Исследовательский центр полимерных материалов
+            </div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">02</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-mei.png" alt="НИУ МЭИ" />
+            </div>
+            <div class="pgrid-desc">
+              Национальный исследовательский университет
+            </div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">03</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-keramet.png" alt="КЕРАМЕТ" />
+            </div>
+            <div class="pgrid-desc">Насосное производство</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">04</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-mayak.png" alt="МАЯК" />
+            </div>
+            <div class="pgrid-desc">Композитное производство</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">05</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-armakom.png" alt="АРМАКОМ" />
+            </div>
+            <div class="pgrid-desc">Трубопроводная арматура</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">06</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-glavproekt.png" alt="ГЛАВПРОЕКТ" />
+            </div>
+            <div class="pgrid-desc">Электротехника</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">07</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-logikamoloka.png" alt="ЛОГИКА МОЛОКА" />
+            </div>
+            <div class="pgrid-desc">Молочная продукция и детское питание</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">08</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-inkor.png" alt="ИНКОР" />
+            </div>
+            <div class="pgrid-desc">Производственное оборудование</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">09</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-tmk.png" alt="ТМК" />
+            </div>
+            <div class="pgrid-desc">Трубная металлургия и нефтегаз</div>
+          </div>
+          <div class="pgrid-cell">
+            <div class="pgrid-n">10</div>
+            <div class="pgrid-logo">
+              <img src="assets/partner-tenet.png" alt="TENET" />
+            </div>
+            <div class="pgrid-desc">Производство автомобилей</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PROCESS ══════════════════════════════════════════ -->
+    <section class="process" id="process">
+      <div class="process-hdr">
+        <span class="eyebrow reveal">02 / как мы работаем</span>
+        <span class="process-note reveal d1"
+          >от анализа до ОТК · без субподряда</span
+        >
+      </div>
+
+      <!-- Step 01 — АНАЛИЗ -->
+      <div class="process-step">
+        <div class="pstep-text lt">
+          <div class="pstep-n eyebrow reveal">01 / 04 · этап</div>
+          <div class="reveal d1">
+            <div class="pstep-title">АНАЛИЗ</div>
+            <div class="pstep-dur">1—3 дня</div>
+          </div>
+          <ul
+            class="pstep-items reveal d2"
+            style="border-color: rgba(0, 0, 0, 0.1)"
+          >
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Создание КД с нуля или по Вашим материалам
+            </li>
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Определяем число гнёзд и точки впрыска
+            </li>
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Создаём проект оснастки
+            </li>
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Согласовываем ТЗ и стоимость
+            </li>
+          </ul>
+        </div>
+        <div class="pstep-photo" style="background: #111">
+          <img
+            src="assets/process-analysis.jpg"
+            alt=""
+            style="opacity: 0.85; filter: brightness(0.9)"
+          />
+          <span class="pstep-ghost" style="color: rgba(255, 255, 255, 0.04)"
+            >01</span
+          >
+        </div>
+      </div>
+
+      <!-- Step 02 — КД -->
+      <div class="process-step">
+        <div class="pstep-photo" style="background: #000; order: 1">
+          <img
+            src="assets/process-ct.png"
+            alt=""
+            style="opacity: 1; filter: brightness(1)"
+          />
+          <span class="pstep-ghost" style="color: rgba(255, 255, 255, 0.04)"
+            >02</span
+          >
+        </div>
+        <div class="pstep-text dk" style="order: 2">
+          <div class="pstep-n eyebrow eyebrow-d reveal">02 / 04 · этап</div>
+          <div class="reveal d1">
+            <div class="pstep-title" style="color: #fff">КД</div>
+            <div class="pstep-dur">от 14 дней</div>
+          </div>
+          <ul class="pstep-items reveal d2" style="border-color: var(--line-d)">
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              3D-моделирование оснастки
+            </li>
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              Анализ литьевых потоков
+            </li>
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              Комплект конструкторской документации
+            </li>
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              Согласование с заказчиком
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Step 03 — ВЫПУСК -->
+      <div class="process-step">
+        <div class="pstep-text lt">
+          <div class="pstep-n eyebrow reveal">03 / 04 · этап</div>
+          <div class="reveal d1">
+            <div class="pstep-title">ВЫПУСК</div>
+            <div class="pstep-dur">14—30 дней</div>
+          </div>
+          <ul
+            class="pstep-items reveal d2"
+            style="border-color: rgba(0, 0, 0, 0.1)"
+          >
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Работа на высокоточном оборудовании
+            </li>
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Аддитивные технологии DMLS / SLM
+            </li>
+            <li
+              class="pstep-item"
+              style="border-color: rgba(0, 0, 0, 0.07); color: #444"
+            >
+              Сборка и наладка
+            </li>
+          </ul>
+        </div>
+        <div class="pstep-photo" style="background: #0a0a0a">
+          <img
+            src="assets/process-machining.jpg"
+            alt=""
+            style="opacity: 0.9; filter: brightness(0.85)"
+          />
+          <span class="pstep-ghost" style="color: rgba(255, 255, 255, 0.04)"
+            >03</span
+          >
+        </div>
+      </div>
+
+      <!-- Step 04 — ОТК -->
+      <div class="process-step">
+        <div class="pstep-photo" style="background: #0e0e0e">
+          <img
+            src="assets/process-otk.jpg"
+            alt=""
+            style="opacity: 0.9; filter: brightness(0.9)"
+          />
+          <span class="pstep-ghost" style="color: rgba(255, 255, 255, 0.04)"
+            >04</span
+          >
+        </div>
+        <div class="pstep-text dk">
+          <div class="pstep-n eyebrow eyebrow-d reveal">04 / 04 · этап</div>
+          <div class="reveal d1">
+            <div class="pstep-title" style="color: #fff">ОТК</div>
+            <div class="pstep-dur">2—5 дней</div>
+          </div>
+          <ul class="pstep-items reveal d2" style="border-color: var(--line-d)">
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              Пробные отливки на нашем оборудовании
+            </li>
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              Контроль всех размеров по КД
+            </li>
+            <li
+              class="pstep-item"
+              style="
+                border-color: var(--line-d);
+                color: rgba(255, 255, 255, 0.65);
+              "
+            >
+              Передача оснастки и комплекта документов
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SPECS + FAQ ══════════════════════════════════════ -->
+    <section class="specs" id="specs">
+      <div class="specs-l">
+        <span class="eyebrow reveal">03 / технические данные</span>
+        <div class="specs-title reveal d1">ТЕХНИЧЕСКИЕ ДАННЫЕ</div>
+        <div>
+          <div class="spec-row reveal">
+            <span class="spec-k">материал</span
+            ><span class="spec-v">под Вашу задачу</span>
+          </div>
+          <div class="spec-row reveal d1">
+            <span class="spec-k">гнёзд</span><span class="spec-v">1 — 80</span>
+          </div>
+          <div class="spec-row reveal d2">
+            <span class="spec-k">ресурс</span
+            ><span class="spec-v">до 1 000 000 смыканий</span>
+          </div>
+          <div class="spec-row reveal d3">
+            <span class="spec-k">точность</span
+            ><span class="spec-v">±0.01 мм · IT6–IT7</span>
+          </div>
+          <div class="spec-row reveal d4">
+            <span class="spec-k">габариты</span
+            ><span class="spec-v">любая геометрия</span>
+          </div>
+          <div class="spec-row reveal d4">
+            <span class="spec-k">тип литья</span
+            ><span class="spec-v">горячий/холодный канал/каскадное</span>
+          </div>
+          <div class="spec-row reveal d4">
+            <span class="spec-k">охлаждение</span
+            ><span class="spec-v">конформное</span>
+          </div>
+        </div>
+        <a href="#cta" class="btn btn-black reveal" style="margin-top: 32px">
+          Запросить расчёт формы под изделие
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══ CTA ══════════════════════════════════════════════ -->
+    <section class="cta" id="cta">
+      <img class="cta-bg-img" src="assets/photo-mold-industrial.png" alt="" />
+      <div class="cta-title-wrap reveal">
+        <div class="cta-t cta-t--solid">РАССЧИТАТЬ</div>
+        <div class="cta-t cta-t--outline">ПРОЕКТ</div>
+      </div>
+      <!-- Полноширинный бар для ≥1920px -->
+      <div class="cta-bar reveal">
+        <a href="tel:+79910979059" class="cta-bar-btn cta-bar-btn--white">
+          <span class="cta-bar-label">Позвонить</span>
+          <span class="cta-bar-sub">+7 (991) 097-90-59</span>
+          <svg
+            class="cta-bar-arrow"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+        <a
+          href="assets/oprosny-list.xlsx"
+          download
+          class="cta-bar-btn cta-bar-btn--outline"
+        >
+          <span class="cta-bar-label">Опросный лист</span>
+          <span class="cta-bar-sub">скачать .xlsx</span>
+          <svg
+            class="cta-bar-arrow"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M12 3v13M5 14l7 7 7-7" />
+            <path d="M3 21h18" />
+          </svg>
+        </a>
+      </div>
+      <div class="cta-btn-row reveal">
+        <a href="tel:+79910979059" class="btn btn-white">
+          Позвонить
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+        <a href="assets/oprosny-list.xlsx" download class="btn btn-outline">
+          Опросный лист
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M12 3v13M5 14l7 7 7-7" />
+            <path d="M3 21h18" />
+          </svg>
+        </a>
+        <div class="cta-online">Круглосуточно · кроме выходных</div>
+      </div>
+      <div class="cta-body">
+        <div class="cta-desc reveal">
+          Пришлите чертёж или 3D-модель — в течение суток подготовим КП с ценой
+          и сроками под Ваш проект.
+        </div>
+        <div class="cta-contacts">
+          <div class="cta-cr reveal">
+            <span class="cta-ck">Александр Семенец</span>
+            <span class="cta-cv-group">
+              <a class="cta-messenger" href="tel:+79910979059"
+                ><span class="cta-ml">Phone</span>+7 (991) 097-90-59</a
+              >
+              <a class="cta-messenger" href="https://t.me/Alexandr_Semenets"
+                ><span class="cta-ml">Telegram</span>@Alexandr_Semenets</a
+              >
+            </span>
+          </div>
+          <div class="cta-cr reveal d1">
+            <span class="cta-ck">Данила Воробьев</span>
+            <span class="cta-cv-group">
+              <a class="cta-messenger" href="tel:+79060554525"
+                ><span class="cta-ml">Phone</span>+7 (906) 055-45-25</a
+              >
+              <a class="cta-messenger" href="https://t.me/ganucorl"
+                ><span class="cta-ml">Telegram</span>@ganucorl</a
+              >
+            </span>
+          </div>
+          <div class="cta-cr reveal d2">
+            <span class="cta-ck">Email</span>
+            <span class="cta-cv cta-cv--email"
+              ><a href="mailto:additechprommash@yandex.ru"
+                >additechprommash@yandex.ru</a
+              ></span
+            >
+          </div>
+        </div>
+        <div class="cta-requisites reveal d1">
+          ООО «НПК «АДДИТЕХПРОММАШ»<br />ОГРН&nbsp;1257700330403 ·
+          ИНН&nbsp;7733472230 · КПП&nbsp;773301001
+        </div>
+      </div>
+    </section>
+
+    <script>
+      /* ── Load trigger ── */
+      document.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("loaded");
+      });
+
+      /* ── Hero image fade-in ── */
+      (function () {
+        const img = document.querySelector(".hero-float img");
+        if (!img) return;
+        function reveal() {
+          img.closest(".hero-float").classList.add("ready");
+        }
+        if (img.complete && img.naturalWidth) reveal();
+        else img.addEventListener("load", reveal);
+      })();
+
+      /* ── Nav scroll ── */
+      const nav = document.getElementById("nav");
+      const hero = document.getElementById("hero");
+      function updateNav() {
+        const past = window.scrollY > (hero ? hero.offsetHeight * 0.7 : 400);
+        nav.classList.toggle("on", past);
+      }
+      window.addEventListener("scroll", updateNav, { passive: true });
+      updateNav();
+
+      /* ── Scroll reveal ── */
+      const revealObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("vis");
+              revealObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.05, rootMargin: "0px 0px 0px 0px" },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => revealObs.observe(el));
+
+      /* ── Counter animation ── */
+      const counterObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            const target = parseInt(el.dataset.count);
+            const suffix = el.dataset.suffix || "";
+            const dur = 1400;
+            const t0 = performance.now();
+            const tick = (now) => {
+              const p = Math.min((now - t0) / dur, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(eased * target) + suffix;
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            counterObs.unobserve(el);
+          });
+        },
+        { threshold: 0.5 },
+      );
+      document
+        .querySelectorAll("[data-count]")
+        .forEach((el) => counterObs.observe(el));
+
+      /* ── Parallax floats ── */
+      const floats = [
+        { el: document.getElementById("heroFloat"), speed: 0.07 },
+        { el: document.getElementById("svcFloat"), speed: 0.09 },
+        { el: document.getElementById("statsFloat"), speed: 0.08 },
+      ];
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const sy = window.scrollY;
+          floats.forEach(({ el, speed }) => {
+            if (!el) return;
+            el.style.transform = `translateY(${sy * speed * -0.4}px)`;
+          });
+          ticking = false;
+        });
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      /* ── FAQ ── */
+      document.querySelectorAll(".faq-q").forEach((q) => {
+        q.addEventListener("click", () => {
+          const item = q.closest(".faq-item");
+          const was = item.classList.contains("open");
+          document
+            .querySelectorAll(".faq-item")
+            .forEach((i) => i.classList.remove("open"));
+          if (!was) item.classList.add("open");
+        });
+      });
+
+      // ── Full-page scroll hijack ──────────────────────────────
+      (function () {
+        const SELECTORS =
+          ".hero,.services,.stats,.c2,.process-step,.specs,.pgrid,.cta";
+        const DURATION = 550; // ms — длительность анимации
+        const COOLDOWN = 750; // ms — пауза между переходами
+        let busy = false;
+
+        function getSlides() {
+          return Array.from(document.querySelectorAll(SELECTORS));
+        }
+
+        const NAV_H = () => document.getElementById("nav")?.offsetHeight || 64;
+
+        function scrollTo(target) {
+          const start = window.scrollY;
+          const offset = target.classList.contains("hero") ? 0 : NAV_H();
+          const end = target.getBoundingClientRect().top + start - offset;
+          const diff = end - start;
+          if (Math.abs(diff) < 2) {
+            busy = false;
+            return;
+          }
+          let t0 = null;
+          busy = true;
+          function step(ts) {
+            if (!t0) t0 = ts;
+            const p = Math.min((ts - t0) / DURATION, 1);
+            const e = 1 - Math.pow(1 - p, 4);
+            window.scrollTo(0, start + diff * e);
+            if (p < 1) requestAnimationFrame(step);
+            else
+              setTimeout(() => {
+                busy = false;
+              }, 50);
+          }
+          requestAnimationFrame(step);
+          setTimeout(() => {
+            busy = false;
+          }, COOLDOWN);
+        }
+
+        function nearest() {
+          const slides = getSlides();
+          let best = 0,
+            bestDist = Infinity;
+          slides.forEach((el, i) => {
+            const d = Math.abs(el.getBoundingClientRect().top);
+            if (d < bestDist) {
+              bestDist = d;
+              best = i;
+            }
+          });
+          return best;
+        }
+
+        function go(dir) {
+          if (busy) return;
+          const slides = getSlides();
+          const idx = nearest();
+          const el = slides[idx];
+
+          if (el && el.classList.contains("c2")) {
+            const c2scroll = document.getElementById("c2scroll");
+            const totalSlides = document.querySelectorAll(".c2-dot").length;
+            const currentSlide = Math.round(
+              c2scroll.scrollLeft / c2scroll.clientWidth,
+            );
+            const nextSlide = currentSlide + dir;
+            if (nextSlide >= 0 && nextSlide < totalSlides) {
+              c2Go(nextSlide);
+              busy = true;
+              setTimeout(() => {
+                busy = false;
+              }, COOLDOWN);
+              return;
+            }
+          }
+
+          const newIdx = Math.min(Math.max(idx + dir, 0), slides.length - 1);
+          scrollTo(slides[newIdx]);
+        }
+
+        const isMobile = () => window.innerWidth <= 900;
+
+        window.addEventListener(
+          "wheel",
+          (e) => {
+            if (isMobile()) return;
+            e.preventDefault();
+            go(e.deltaY > 0 ? 1 : -1);
+          },
+          { passive: false },
+        );
+
+        let touchY = 0;
+        window.addEventListener(
+          "touchstart",
+          (e) => {
+            touchY = e.touches[0].clientY;
+          },
+          { passive: true },
+        );
+        window.addEventListener(
+          "touchend",
+          (e) => {
+            if (isMobile()) return;
+            const dy = touchY - e.changedTouches[0].clientY;
+            if (Math.abs(dy) > 30) go(dy > 0 ? 1 : -1);
+          },
+          { passive: true },
+        );
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowDown" || e.key === "PageDown") {
+            e.preventDefault();
+            go(1);
+          }
+          if (e.key === "ArrowUp" || e.key === "PageUp") {
+            e.preventDefault();
+            go(-1);
+          }
+        });
+
+        // Anchor buttons → smooth page scroll
+        document.querySelectorAll('a[href^="#"]').forEach((a) => {
+          a.addEventListener("click", (e) => {
+            const id = a.getAttribute("href").slice(1);
+            const target = document.getElementById(id);
+            if (!target) return;
+            e.preventDefault();
+            const slides = getSlides();
+            const idx = slides.indexOf(target);
+            if (idx !== -1) go(idx - nearest());
+            else scrollTo(target);
+          });
+        });
+      })();
+
+      /* ── Concept 2: horizontal scroll carousel ──────────────── */
+      (function () {
+        const scroll = document.getElementById("c2scroll");
+        const bar = document.getElementById("c2bar");
+        const dots = document.querySelectorAll(".c2-dot");
+        if (!scroll) return;
+
+        function updateUI() {
+          const idx = Math.round(scroll.scrollLeft / scroll.clientWidth);
+          dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+          if (bar) bar.style.width = ((idx + 1) / 4) * 100 + "%";
+        }
+
+        scroll.addEventListener("scroll", updateUI, { passive: true });
+
+        window.c2Go = function (idx) {
+          scroll.scrollTo({
+            left: idx * scroll.clientWidth,
+            behavior: "smooth",
+          });
+        };
+
+        // Drag to scroll
+        let isDown = false,
+          startX,
+          scrollLeft;
+        scroll.addEventListener("mousedown", (e) => {
+          isDown = true;
+          startX = e.pageX - scroll.offsetLeft;
+          scrollLeft = scroll.scrollLeft;
+          scroll.style.cursor = "grabbing";
+        });
+        scroll.addEventListener("mouseleave", () => {
+          isDown = false;
+          scroll.style.cursor = "grab";
+        });
+        scroll.addEventListener("mouseup", () => {
+          isDown = false;
+          scroll.style.cursor = "grab";
+        });
+        scroll.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          scroll.scrollLeft =
+            scrollLeft - (e.pageX - scroll.offsetLeft - startX);
+        });
+      })();
+    </script>
+  </body>
+</html>

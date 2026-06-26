@@ -1,0 +1,322 @@
+---
+const steps = [
+  {
+    n: "01 / 04 · этап",
+    title: "АНАЛИЗ",
+    dur: "1—3 дня",
+    theme: "lt",
+    img: "/assets/process-analysis.jpg",
+    imgStyle: "opacity:.85;filter:brightness(.9)",
+    items: [
+      "Создание КД с нуля или по Вашим материалам",
+      "Определяем число гнёзд и точки впрыска",
+      "Создаём проект оснастки",
+      "Согласовываем ТЗ и стоимость",
+    ],
+    itemColor: "#444",
+    borderColor: "rgba(0,0,0,.07)",
+    listBorder: "rgba(0,0,0,.1)",
+    ghost: "01",
+    imgBg: "#111",
+    imgOrder: 2,
+    textOrder: 1,
+  },
+  {
+    n: "02 / 04 · этап",
+    title: "КД",
+    titleColor: "#fff",
+    dur: "от 14 дней",
+    theme: "dk",
+    img: "/assets/process-ct.png",
+    imgStyle: "opacity:1;filter:brightness(1)",
+    items: [
+      "3D-моделирование оснастки",
+      "Анализ литьевых потоков",
+      "Комплект конструкторской документации",
+      "Согласование с заказчиком",
+    ],
+    itemColor: "rgba(255,255,255,.65)",
+    borderColor: "var(--line-d)",
+    listBorder: "var(--line-d)",
+    ghost: "02",
+    imgBg: "#000",
+    imgOrder: 1,
+    textOrder: 2,
+  },
+  {
+    n: "03 / 04 · этап",
+    title: "ВЫПУСК",
+    dur: "14—30 дней",
+    theme: "lt",
+    img: "/assets/process-machining.jpg",
+    imgStyle: "opacity:.9;filter:brightness(.85)",
+    items: [
+      "Работа на высокоточном оборудовании",
+      "Аддитивные технологии DMLS / SLM",
+      "Сборка и наладка",
+    ],
+    itemColor: "#444",
+    borderColor: "rgba(0,0,0,.07)",
+    listBorder: "rgba(0,0,0,.1)",
+    ghost: "03",
+    imgBg: "#0a0a0a",
+    imgOrder: 2,
+    textOrder: 1,
+  },
+  {
+    n: "04 / 04 · этап",
+    title: "ОТК",
+    titleColor: "#fff",
+    dur: "2—5 дней",
+    theme: "dk",
+    img: "/assets/process-otk.jpg",
+    imgStyle: "opacity:.9;filter:brightness(.9)",
+    items: [
+      "Пробные отливки на нашем оборудовании",
+      "Контроль всех размеров по КД",
+      "Передача оснастки и комплекта документов",
+    ],
+    itemColor: "rgba(255,255,255,.65)",
+    borderColor: "var(--line-d)",
+    listBorder: "var(--line-d)",
+    ghost: "04",
+    imgBg: "#0e0e0e",
+    imgOrder: 1,
+    textOrder: 2,
+  },
+];
+---
+
+<section class="process" id="process">
+  <div class="process-hdr">
+    <span class="eyebrow reveal">02 / как мы работаем</span>
+    <span class="process-note reveal d1"
+      >от анализа до ОТК · без субподряда</span
+    >
+  </div>
+
+  {
+    steps.map(
+      ({
+        n,
+        title,
+        titleColor,
+        dur,
+        theme,
+        img,
+        imgStyle,
+        items,
+        itemColor,
+        borderColor,
+        listBorder,
+        ghost,
+        imgBg,
+        imgOrder,
+        textOrder,
+      }) => (
+        <div class="process-step">
+          <div class={`pstep-text ${theme}`} style={`order:${textOrder}`}>
+            <div
+              class={`pstep-n eyebrow${theme === "dk" ? " eyebrow-d" : ""} reveal`}
+            >
+              {n}
+            </div>
+            <div class="reveal d1">
+              <div
+                class="pstep-title"
+                style={titleColor ? `color:${titleColor}` : ""}
+              >
+                {title}
+              </div>
+              <div class="pstep-dur">{dur}</div>
+            </div>
+            <ul
+              class="pstep-items reveal d2"
+              style={`border-color:${listBorder}`}
+            >
+              {items.map((item) => (
+                <li
+                  class="pstep-item"
+                  style={`border-color:${borderColor};color:${itemColor}`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div
+            class="pstep-photo"
+            style={`background:${imgBg};order:${imgOrder}`}
+          >
+            <img src={img} alt="" style={imgStyle} />
+            <span class="pstep-ghost" style="color:rgba(255,255,255,.04)">
+              {ghost}
+            </span>
+          </div>
+        </div>
+      ),
+    )
+  }
+</section>
+
+<style>
+  .process {
+    position: relative;
+    z-index: 6;
+  }
+  .process-hdr {
+    padding: 80px var(--pad) 56px;
+    background: var(--paper);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid #000;
+  }
+  .process-note {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    color: var(--grey-40);
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100svh;
+    border-bottom: 1px solid #000;
+  }
+  .pstep-text {
+    padding: clamp(36px, 5vw, 60px) var(--pad);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(24px, 3vh, 40px);
+    min-width: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .pstep-text.lt {
+    background: var(--paper);
+  }
+  .pstep-text.dk {
+    background: #0a0a0a;
+  }
+  .pstep-n {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+  }
+  .pstep-title {
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(52px, 7.5vw, 150px);
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    line-height: 0.88;
+  }
+  .pstep-dur {
+    font-family: var(--fd);
+    font-weight: 800;
+    font-size: clamp(48px, 6vw, 80px);
+    letter-spacing: -0.03em;
+    color: var(--orange);
+    line-height: 1;
+    margin-top: 8px;
+  }
+  .pstep-items {
+    border-top: 1px solid;
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .pstep-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid;
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .pstep-item::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--orange);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .pstep-photo {
+    position: relative;
+    overflow: hidden;
+  }
+  .pstep-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pstep-ghost {
+    position: absolute;
+    bottom: -0.1em;
+    right: -0.05em;
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(320px, 44vw, 560px);
+    letter-spacing: -0.06em;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (max-width: 1300px) {
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+    }
+    .pstep-photo {
+      order: 1 !important;
+      height: 45svh;
+      flex: none;
+      min-height: 0;
+    }
+    .pstep-photo img {
+      object-position: center center;
+    }
+    .pstep-text {
+      order: 2 !important;
+      flex: none;
+      overflow-y: visible;
+    }
+  }
+  @media (max-width: 767px) {
+    .pstep-title {
+      font-size: clamp(56px, 15vw, 110px);
+    }
+    .pstep-item {
+      font-size: 19px;
+    }
+    .process-hdr {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 40px var(--pad) 28px;
+    }
+    .process-note {
+      font-size: 18px;
+    }
+  }
+  @media (min-width: 2560px) {
+    .pstep-title {
+      font-size: clamp(100px, 7.5vw, 220px);
+    }
+  }
+  @media (min-width: 3000px) {
+    .pstep-title {
+      font-size: clamp(120px, 7.5vw, 280px);
+    }
+  }
+</style>

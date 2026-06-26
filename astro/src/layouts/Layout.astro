@@ -1,0 +1,204 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = "АДДИТЕХПРОММАШ — Пресс-формы для литья пластмасс" } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,700;0,800;0,900;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  * {
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+  html {
+    overflow-x: hidden;
+  }
+  body {
+    font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+    background: #0a0a0a;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  ul {
+    list-style: none;
+  }
+
+  :root {
+    --paper: #c4c7ca;
+    --white: #fff;
+    --black: #000;
+    --dark: #0a0a0a;
+    --orange: #f06000;
+    --muted: #666;
+    --grey-40: #999;
+    --grey-20: #bbb;
+    --line: rgba(0, 0, 0, 0.1);
+    --line-d: #1a1a1a;
+    --fd: "Barlow", "Helvetica Neue", sans-serif;
+    --fs: "Space Grotesk", "Helvetica Neue", sans-serif;
+    --pad: clamp(24px, 5vw, 80px);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--fd);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 13px 22px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .btn-white {
+    background: #fff;
+    color: #000;
+  }
+  .btn-white:hover {
+    background: var(--orange);
+    color: #fff;
+  }
+  .btn-black {
+    background: #000;
+    color: #fff;
+  }
+  .btn-black:hover {
+    background: var(--orange);
+  }
+  .btn-outline {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  .btn-outline:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+  }
+  .btn-outline-d {
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+  }
+  .btn-outline-d:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    color: var(--grey-40);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+  .eyebrow-d {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.5s var(--ease),
+      transform 0.5s var(--ease);
+  }
+  .reveal.vis {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal.d1 {
+    transition-delay: 0.08s;
+  }
+  .reveal.d2 {
+    transition-delay: 0.2s;
+  }
+  .reveal.d3 {
+    transition-delay: 0.36s;
+  }
+  .reveal.d4 {
+    transition-delay: 0.54s;
+  }
+
+  .p-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .p-stat-n {
+    font-family: var(--fd);
+    font-weight: 900;
+    font-size: clamp(44px, 6.5vw, 88px);
+    letter-spacing: -0.04em;
+    line-height: 0.88;
+    color: #fff;
+  }
+  .p-stat-lbl {
+    font-family: var(--fd);
+    font-size: clamp(14px, 0.95vw, 15px);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: clamp(8px, 1.2vh, 14px);
+  }
+  .p-stat-desc {
+    font-size: clamp(14px, 1.05vw, 16px);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.65);
+    margin-top: 5px;
+    max-width: clamp(200px, 22vw, 340px);
+  }
+</style>
