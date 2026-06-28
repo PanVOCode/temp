@@ -49,7 +49,7 @@ const services = [
   </div>
 
   <div class="services-float" id="svcFloat">
-    <img src="/assets/photo-mold-closed.png" alt="Пресс-форма" />
+    <img src="/assets/photo-mold-services.png" alt="Пресс-форма" />
   </div>
 </section>
 
@@ -101,9 +101,10 @@ const services = [
     padding-left: 12px;
   }
   .svc-num {
-    font-weight: 800;
-    font-size: 16px;
-    letter-spacing: 0.2em;
+    font-family: var(--fd);
+    font-weight: 700;
+    font-size: clamp(18px, 1.5vw, 26px);
+    letter-spacing: 0.22em;
     color: var(--orange);
   }
   .svc-name {
@@ -119,26 +120,26 @@ const services = [
   .svc-sub {
     font-size: clamp(13px, 1vw, 16px);
     color: var(--muted);
-    margin-top: 2px;
+    margin-top: 10px;
     letter-spacing: 0.03em;
   }
   .services-float {
     position: absolute;
-    left: -15%;
-    right: auto;
+    left: 0;
+    right: calc(50% - var(--pad));
     top: 0;
     bottom: 0;
-    width: 80%;
-    z-index: 2;
+    width: auto;
+    z-index: 1;
     pointer-events: none;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
   }
   .services-float img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: left bottom;
+    object-position: left center;
     mix-blend-mode: multiply;
   }
 

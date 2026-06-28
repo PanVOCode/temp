@@ -8,7 +8,7 @@ const contacts = [
   {
     name: "Данила Воробьев",
     phone: { href: "tel:+79060554525", label: "+7 (906) 055-45-25" },
-    tg: { href: "https://t.me/ganucorl", label: "@ganucorl" },
+    tg: { href: "https://t.me/Vorobev_Danila", label: "@Vorobev_Danila" },
   },
 ];
 ---
@@ -41,7 +41,7 @@ const contacts = [
       class="cta-bar-btn cta-bar-btn--outline"
     >
       <span class="cta-bar-label">Опросный лист</span>
-      <span class="cta-bar-sub">скачать .xlsx</span>
+      <span class="cta-bar-sub">заполните и отправьте на additechprommash@yandex.ru</span>
       <svg
         class="cta-bar-arrow"
         width="32"
@@ -67,18 +67,21 @@ const contacts = [
         stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
       >
     </a>
-    <a href="/assets/oprosny-list.xlsx" download class="btn btn-outline">
-      Опросный лист
-      <svg
-        width="13"
-        height="13"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
-      >
-    </a>
+    <div class="cta-oprosny-wrap">
+      <a href="/assets/oprosny-list.xlsx" download class="btn btn-outline">
+        Опросный лист
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
+        >
+      </a>
+      <span class="cta-oprosny-hint">заполните и отправьте на <a href="mailto:additechprommash@yandex.ru">additechprommash@yandex.ru</a></span>
+    </div>
     <div class="cta-online">Круглосуточно · кроме выходных</div>
   </div>
 
@@ -238,6 +241,24 @@ const contacts = [
     padding: 16px 36px;
     letter-spacing: 0.2em;
   }
+  .cta-oprosny-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cta-oprosny-hint {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.04em;
+  }
+  .cta-oprosny-hint a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .cta-oprosny-hint a:hover {
+    color: var(--orange);
+  }
   .cta-online {
     display: flex;
     align-items: center;
@@ -335,105 +356,119 @@ const contacts = [
     line-height: 1.65;
   }
 
-  @media (min-width: 1920px) {
-    .cta-bar {
-      display: flex;
-    }
-    .cta-btn-row {
-      display: none;
-    }
-    .cta-body {
-      grid-template-columns: 1fr 1fr 1fr;
-      border-top: none;
-      padding-top: clamp(24px, 3vh, 40px);
-    }
+@media (min-width: 1301px) {
+  .cta-bar {
+    display: flex;
   }
-  @media (min-width: 1301px) and (max-width: 1919px) {
-    .cta-body {
-      grid-template-columns: 1fr 1fr;
-    }
-    .cta-requisites {
-      grid-column: 1/-1;
-      padding-top: 8px;
-      border-top: 1px solid var(--line-d);
-    }
+  .cta-btn-row {
+    display: none;
   }
-  @media (max-width: 1300px) {
-    .cta {
-      justify-content: flex-start;
-      gap: 0;
-    }
-    .cta-title-wrap {
-      padding-bottom: 0;
-    }
-    .cta-btn-row {
-      padding: clamp(16px, 3vh, 28px) var(--pad);
-    }
-    .cta-body {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-    .cta-requisites {
-      grid-column: 1/-1;
-      padding-top: 8px;
-      border-top: 1px solid var(--line-d);
-    }
-    .cta-t {
-      font-size: clamp(52px, 11vw, 150px);
-    }
+}
+
+@media (min-width: 1920px) {
+  .cta-body {
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: none;
+    padding-top: clamp(24px, 3vh, 40px);
   }
-  @media (max-width: 900px) {
-    .cta-body {
-      grid-template-columns: 1fr !important;
-      gap: 24px;
-    }
-    .cta-requisites {
-      grid-column: auto !important;
-      padding-top: 0 !important;
-      border-top: none !important;
-    }
+}
+
+@media (min-width: 1301px) and (max-width: 1919px) {
+  .cta-body {
+    grid-template-columns: 1fr 1fr;
   }
-  @media (max-width: 767px) {
-    .cta-t {
-      font-size: clamp(44px, 12vw, 72px);
-    }
-    .cta-t--outline {
-      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38);
-    }
-    .cta-btn-row .btn {
-      font-size: 12px;
-      padding: 13px 22px;
-    }
-    .cta-desc {
-      font-size: clamp(15px, 4vw, 18px);
-      margin-bottom: 0;
-    }
-    .cta-cr {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-      padding: 12px 0;
-    }
-    .cta-cv-group {
-      align-items: flex-start;
-    }
-    .cta-ck {
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      padding-top: 0;
-    }
-    .cta-messenger {
-      font-size: 17px;
-    }
-    .cta-cv--email {
-      font-size: 17px;
-    }
-    .cta-requisites {
-      font-size: 13px;
-    }
-    .cta-online {
-      font-size: 14px;
-      letter-spacing: 0.1em;
-    }
+  .cta-requisites {
+    grid-column: 1/-1;
+    padding-top: 8px;
+    border-top: 1px solid var(--line-d);
   }
+}
+
+@media (max-width: 1300px) {
+  .cta-bar {
+    display: none;
+  }
+  .cta-btn-row {
+    display: flex;
+  }
+  .cta {
+    justify-content: flex-start;
+    gap: 0;
+  }
+  .cta-title-wrap {
+    padding-bottom: 0;
+  }
+  .cta-btn-row {
+    padding: clamp(16px, 3vh, 28px) var(--pad);
+  }
+  .cta-body {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .cta-requisites {
+    grid-column: 1/-1;
+    padding-top: 8px;
+    border-top: 1px solid var(--line-d);
+  }
+  .cta-t {
+    font-size: clamp(52px, 11vw, 150px);
+  }
+}
+
+@media (max-width: 900px) {
+  .cta-body {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+  .cta-requisites {
+    grid-column: auto !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .cta-t {
+    font-size: clamp(44px, 12vw, 72px);
+  }
+  .cta-t--outline {
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38);
+  }
+  .cta-btn-row .btn {
+    font-size: 12px;
+    padding: 13px 22px;
+  }
+  .cta-desc {
+    font-size: clamp(15px, 4vw, 18px);
+    margin-bottom: 0;
+  }
+  .cta-cr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 12px 0;
+  }
+  .cta-cv-group {
+    align-items: flex-start;
+  }
+  .cta-ck {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    padding-top: 0;
+  }
+  .cta-messenger {
+    font-size: 17px;
+  }
+  .cta-cv--email {
+    font-size: 17px;
+  }
+  .cta-requisites {
+    font-size: 13px;
+  }
+  .cta-online {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+}
+
 </style>
