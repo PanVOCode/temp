@@ -2,7 +2,7 @@
 const links = [
   { href: "#services", label: "Услуги" },
   { href: "#projects", label: "Кейсы" },
-  { href: "#partners-c", label: "Партнёры" },
+  { href: "#partners-c", label: "Партнеры" },
   { href: "#process", label: "Процесс" },
   { href: "#specs", label: "Параметры" },
   { href: "#cta", label: "Контакты" },
@@ -86,13 +86,14 @@ const links = [
     text-align: right;
   }
   .nav-phone {
-    font-family: var(--fd);
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.08em;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: clamp(13px, 1.1vw, 18px);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--nav-fg);
     transition: color 0.15s;
-    line-height: 1.4;
+    line-height: 1.2;
     white-space: nowrap;
   }
   .nav-phone:hover {
