@@ -2,13 +2,24 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("loaded");
 });
 
-// Hero image scale-in
+// Smooth image reveal — hide until fully decoded, then fade in
 (function () {
-  const img = document.querySelector<HTMLImageElement>(".hero-float img");
-  if (!img) return;
-  const reveal = () => img.closest(".hero-float")?.classList.add("ready");
-  if (img.complete && img.naturalWidth) reveal();
-  else img.addEventListener("load", reveal);
+  const reveal = async (img: HTMLImageElement) => {
+    try {
+      await img.decode();
+    } catch {
+      /* decode failed — still show whatever loaded */
+    }
+    img.classList.add("is-loaded");
+    img.closest(".hero-float")?.classList.add("ready");
+  };
+
+  document
+    .querySelectorAll<HTMLImageElement>("img.img-smooth, .hero-float img")
+    .forEach((img) => {
+      if (img.complete && img.naturalWidth) void reveal(img);
+      else img.addEventListener("load", () => void reveal(img), { once: true });
+    });
 })();
 
 // Nav scroll state
