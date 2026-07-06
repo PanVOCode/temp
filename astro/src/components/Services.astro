@@ -39,10 +39,8 @@ const services = [
       services.map(({ num, name, sub }, i) => (
         <div class={`svc-row reveal${i > 0 ? ` d${i}` : ""}`}>
           <span class="svc-num">{num}</span>
-          <div>
-            <div class="svc-name">{name}</div>
-            <div class="svc-sub">{sub}</div>
-          </div>
+          <div class="svc-name">{name}</div>
+          <div class="svc-sub">{sub}</div>
         </div>
       ))
     }
@@ -59,18 +57,18 @@ const services = [
     z-index: 8;
     background: var(--paper);
     overflow: hidden;
-    padding: clamp(48px, 7vh, 80px) var(--pad);
+    padding: clamp(32px, 5vh, 56px) var(--pad);
     padding-left: calc(50% + var(--pad));
     height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
   .services-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 48px;
+    margin-bottom: clamp(16px, 2vh, 24px);
     position: relative;
     z-index: 1;
   }
@@ -86,10 +84,11 @@ const services = [
   }
   .svc-row {
     display: grid;
-    grid-template-columns: 28px 1fr auto;
-    align-items: center;
-    gap: 16px;
-    padding: clamp(10px, 1.2vh, 16px) 0;
+    grid-template-columns: auto 1fr;
+    column-gap: clamp(18px, 2.4vw, 36px);
+    row-gap: clamp(6px, 0.8vh, 10px);
+    align-items: baseline;
+    padding: clamp(8px, 1vh, 12px) 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     transition: padding-left 0.15s var(--ease);
     cursor: default;
@@ -101,13 +100,18 @@ const services = [
     padding-left: 12px;
   }
   .svc-num {
+    grid-column: 1;
+    grid-row: 1;
     font-family: var(--fd);
-    font-weight: 700;
-    font-size: clamp(18px, 1.5vw, 26px);
-    letter-spacing: 0.22em;
+    font-weight: 800;
+    font-size: clamp(22px, 2.2vw, 42px);
+    letter-spacing: 0.06em;
+    line-height: 1;
     color: var(--orange);
   }
   .svc-name {
+    grid-column: 2;
+    grid-row: 1;
     font-family: var(--fd);
     font-weight: 800;
     font-size: clamp(22px, 2.2vw, 42px);
@@ -118,9 +122,11 @@ const services = [
     white-space: nowrap;
   }
   .svc-sub {
+    grid-column: 2;
+    grid-row: 2;
     font-size: clamp(13px, 1vw, 16px);
     color: var(--muted);
-    margin-top: 10px;
+    margin-top: 0;
     letter-spacing: 0.03em;
   }
   .services-float {
@@ -145,7 +151,7 @@ const services = [
 
   @media (max-width: 1300px) {
     .services {
-      padding: clamp(48px, 7vh, 80px) var(--pad);
+      padding: clamp(32px, 5vh, 56px) var(--pad);
     }
     .services-float {
       display: none;
