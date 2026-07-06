@@ -47,6 +47,8 @@ const specs = [
     display: flex;
     border-bottom: 1px solid #000;
     min-height: 100svh;
+    width: 100%;
+    overflow-x: clip;
     --pad: clamp(24px, max(5vw, 50vw - 560px), 400px);
   }
   .specs-l {
@@ -56,6 +58,9 @@ const specs = [
     flex-direction: column;
     justify-content: center;
     flex: 1;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .specs-title {
     font-family: var(--fd);
@@ -66,7 +71,8 @@ const specs = [
     color: #000;
     line-height: 0.92;
     margin: 28px 0 36px;
-    white-space: nowrap;
+    max-width: 100%;
+    overflow-wrap: anywhere;
   }
   .spec-row {
     display: flex;
@@ -75,29 +81,51 @@ const specs = [
     padding: 11px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
     gap: 16px;
+    min-width: 0;
   }
   .spec-k {
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 0.18em;
     color: var(--grey-40);
-    flex-shrink: 0;
+    flex: 0 0 auto;
   }
   .spec-v {
     font-size: 26px;
     font-weight: 500;
     color: #000;
     text-align: right;
+    min-width: 0;
+    flex: 1 1 50%;
+    overflow-wrap: anywhere;
+  }
+  .specs-l .btn {
+    align-self: flex-start;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.35;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1300px) {
     .specs-title {
-      white-space: normal;
-      font-size: clamp(36px, 10vw, 56px);
+      font-size: clamp(36px, 7vw, 80px);
     }
     .spec-row {
       flex-direction: column;
       align-items: flex-start;
+      gap: 4px;
+    }
+    .spec-v {
+      width: 100%;
+      text-align: left;
+      font-size: clamp(18px, 2.2vw, 24px);
+    }
+  }
+  @media (max-width: 767px) {
+    .specs-title {
+      font-size: clamp(36px, 10vw, 56px);
+    }
+    .spec-row {
       gap: 2px;
       padding: 10px 0;
     }
@@ -107,12 +135,6 @@ const specs = [
     }
     .spec-v {
       font-size: 17px;
-      text-align: left;
-    }
-  }
-  @media (max-width: 1300px) {
-    .specs-title {
-      font-size: clamp(36px, 7vw, 80px);
     }
   }
 </style>
