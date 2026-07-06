@@ -62,7 +62,7 @@ const services = [
     height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
   }
   .services-header {
     display: flex;
@@ -152,6 +152,7 @@ const services = [
   @media (max-width: 1300px) {
     .services {
       padding: clamp(32px, 5vh, 56px) var(--pad);
+      justify-content: flex-start;
     }
     .services-float {
       display: none;

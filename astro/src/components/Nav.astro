@@ -16,17 +16,6 @@ const links = [
   <nav class="nav-links">
     {links.map(({ href, label }) => <a href={href}>{label}</a>)}
   </nav>
-  <form class="nav-search" role="search">
-    <label class="nav-search-brand" for="mo-uld-search">Mo-Uld</label>
-    <input
-      id="mo-uld-search"
-      class="nav-search-input"
-      type="search"
-      name="q"
-      autocomplete="off"
-      spellcheck="false"
-    />
-  </form>
   <div class="nav-phones">
     <a href="tel:+79910979059" class="nav-phone">+7 (991) 097-90-59</a>
     <a href="tel:+79060554525" class="nav-phone">+7 (906) 055-45-25</a>
@@ -90,47 +79,6 @@ const links = [
   .nav-links a:hover {
     color: var(--orange);
   }
-  .nav-search {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 0;
-  }
-  .nav-search-brand {
-    font-family: var(--fd);
-    font-weight: 800;
-    font-size: clamp(12px, 1vw, 16px);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--nav-fg);
-    white-space: nowrap;
-    transition: color 0.15s;
-  }
-  .nav-search-input {
-    width: clamp(96px, 10vw, 160px);
-    min-width: 0;
-    height: 32px;
-    padding: 0 12px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--nav-fg);
-    font-family: var(--fs);
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    outline: none;
-    transition:
-      border-color 0.15s,
-      background 0.15s,
-      color 0.15s;
-  }
-  .nav-search-input:focus {
-    border-color: var(--orange);
-    background: rgba(255, 255, 255, 0.1);
-  }
-  .nav.on .nav-search-input {
-    border-color: rgba(0, 0, 0, 0.14);
-    background: rgba(255, 255, 255, 0.55);
-  }
   .nav-phones {
     display: flex;
     flex-direction: column;
@@ -154,15 +102,6 @@ const links = [
 
   @media (max-width: 1300px) {
     .nav-links {
-      display: none;
-    }
-    .nav-search {
-      margin-left: auto;
-      margin-right: 12px;
-    }
-  }
-  @media (max-width: 900px) {
-    .nav-search {
       display: none;
     }
   }
