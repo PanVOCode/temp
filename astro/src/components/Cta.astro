@@ -21,68 +21,74 @@ const contacts = [
     <div class="cta-t cta-t--outline">ПРОЕКТ</div>
   </div>
 
-  <div class="cta-bar reveal">
-    <a href="tel:+79910979059" class="cta-bar-btn cta-bar-btn--white">
-      <span class="cta-bar-label">Позвонить</span>
-      <span class="cta-bar-sub">+7 (991) 097-90-59</span>
-      <svg
-        class="cta-bar-arrow"
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+  <div class="cta-actions">
+    <div class="cta-bar reveal">
+      <a href="tel:+79910979059" class="cta-bar-btn cta-bar-btn--white">
+        <span class="cta-bar-label">Позвонить</span>
+        <span class="cta-bar-meta">
+          <span class="cta-bar-sub">+7 (991) 097-90-59</span>
+          <svg
+            class="cta-bar-arrow"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+          >
+        </span>
+      </a>
+      <a
+        href="/assets/oprosny-list.xlsx"
+        download
+        class="cta-bar-btn cta-bar-btn--outline"
       >
-    </a>
-    <a
-      href="/assets/oprosny-list.xlsx"
-      download
-      class="cta-bar-btn cta-bar-btn--outline"
-    >
-      <span class="cta-bar-label">Опросный лист</span>
-      <span class="cta-bar-sub">заполните и отправьте на additechprommash@yandex.ru</span>
-      <svg
-        class="cta-bar-arrow"
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
-      >
-    </a>
-  </div>
+        <span class="cta-bar-label">Опросный лист</span>
+        <span class="cta-bar-meta">
+          <span class="cta-bar-sub">заполните и отправьте на additechprommash@yandex.ru</span>
+          <svg
+            class="cta-bar-arrow"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
+          >
+        </span>
+      </a>
+    </div>
 
-  <div class="cta-btn-row reveal">
-    <a href="tel:+79910979059" class="btn btn-white">
-      Позвонить
-      <svg
-        width="13"
-        height="13"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
-      >
-    </a>
-    <div class="cta-oprosny-wrap">
-      <a href="/assets/oprosny-list.xlsx" download class="btn btn-outline">
-        Опросный лист
+    <div class="cta-btn-row reveal">
+      <a href="tel:+79910979059" class="btn btn-white">
+        Позвонить
         <svg
           width="13"
           height="13"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2.5"
-          ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
+          stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
         >
       </a>
-      <span class="cta-oprosny-hint">заполните и отправьте на <a href="mailto:additechprommash@yandex.ru">additechprommash@yandex.ru</a></span>
+      <div class="cta-oprosny-wrap">
+        <a href="/assets/oprosny-list.xlsx" download class="btn btn-outline">
+          Опросный лист
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            ><path d="M12 3v13M5 14l7 7 7-7"></path><path d="M3 21h18"></path></svg
+          >
+        </a>
+        <span class="cta-oprosny-hint">заполните и отправьте на <a href="mailto:additechprommash@yandex.ru">additechprommash@yandex.ru</a></span>
+      </div>
+      <div class="cta-online">Круглосуточно · кроме выходных</div>
     </div>
-    <div class="cta-online">Круглосуточно · кроме выходных</div>
   </div>
 
   <div class="cta-body">
@@ -131,11 +137,11 @@ const contacts = [
     position: relative;
     z-index: 3;
     background: #000;
-    overflow: hidden;
+    overflow-x: clip;
     min-height: calc(100svh - 64px);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   .cta-bg-img {
     position: absolute;
@@ -148,24 +154,32 @@ const contacts = [
     filter: contrast(1.2);
     pointer-events: none;
   }
+  .cta-actions {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 0;
+  }
   .cta-title-wrap {
-    padding: clamp(48px, 7vh, 100px) var(--pad) 0;
+    flex-shrink: 0;
+    padding: clamp(32px, min(5vw, 6svh), 80px) var(--pad) 0;
     position: relative;
     overflow: hidden;
   }
   .cta-t {
     font-family: var(--fd);
     font-weight: 900;
-    font-size: clamp(60px, 11vw, 180px);
+    font-size: var(--type-display);
     letter-spacing: -0.02em;
     text-transform: uppercase;
-    line-height: 0.84;
+    line-height: 0.88;
   }
   .cta-t--solid {
     color: #fff;
   }
   .cta-t--outline {
-    -webkit-text-stroke: 4.5px rgba(255, 255, 255, 0.38);
+    -webkit-text-stroke: 0.028em rgba(255, 255, 255, 0.38);
     color: transparent;
   }
   .cta-bar {
@@ -176,10 +190,11 @@ const contacts = [
   }
   .cta-bar-btn {
     flex: 1;
+    min-width: 0;
     display: flex;
     align-items: center;
-    gap: clamp(16px, 2vw, 32px);
-    padding: clamp(28px, 3.5vh, 48px) var(--pad);
+    gap: clamp(12px, min(1.5vw, 2svh), 28px);
+    padding: clamp(20px, min(2.5vw, 3.5svh), 44px) var(--pad);
     cursor: pointer;
     transition:
       background 0.15s,
@@ -206,22 +221,32 @@ const contacts = [
   .cta-bar-label {
     font-family: var(--fd);
     font-weight: 900;
-    font-size: clamp(22px, 2vw, 36px);
+    font-size: clamp(1.125rem, min(1.8vw, 2.4svh), 2rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     flex-shrink: 0;
   }
+  .cta-bar-meta {
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, min(1.2vw, 1.6svh), 24px);
+    flex: 1 1 auto;
+    min-width: 0;
+  }
   .cta-bar-sub {
     font-family: var(--fd);
-    font-size: clamp(14px, 1.1vw, 18px);
+    font-size: var(--type-caption);
     font-weight: 400;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     opacity: 0.55;
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
   }
   .cta-bar-arrow {
-    flex-shrink: 0;
+    flex: 0 0 auto;
     opacity: 0.7;
     transition: transform 0.15s;
   }
@@ -234,6 +259,7 @@ const contacts = [
     display: flex;
     gap: 14px;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
   }
   .cta-btn-row .btn {
@@ -277,15 +303,16 @@ const contacts = [
     background: var(--orange);
   }
   .cta-body {
-    padding: clamp(16px, 2.5vh, 32px) var(--pad) clamp(20px, 3vh, 40px);
+    padding: clamp(16px, 2.5vh, 32px) var(--pad) clamp(32px, 4vh, 64px);
     border-top: 1px solid var(--line-d);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: clamp(24px, 3vw, 48px);
     align-items: start;
+    flex-shrink: 0;
   }
   .cta-desc {
-    font-size: clamp(18px, 1.6vw, 24px);
+    font-size: var(--type-lead);
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     margin-bottom: 16px;
@@ -303,7 +330,7 @@ const contacts = [
     gap: 8px;
   }
   .cta-ck {
-    font-size: 16px;
+    font-size: var(--type-caption);
     font-weight: 400;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -329,7 +356,7 @@ const contacts = [
     display: flex;
     align-items: baseline;
     gap: 10px;
-    font-size: 22px;
+    font-size: var(--type-body-lg);
     font-weight: 500;
     color: rgba(255, 255, 255, 0.75);
     transition: color 0.15s;
@@ -346,15 +373,16 @@ const contacts = [
     flex-shrink: 0;
   }
   .cta-cv--email {
-    font-size: 22px;
+    font-size: var(--type-body-lg);
     font-weight: 500;
   }
   .cta-requisites {
-    font-size: 17px;
+    font-size: var(--type-body);
     font-weight: 400;
     color: rgba(255, 255, 255, 0.45);
     line-height: 1.65;
     text-align: right;
+    overflow-wrap: anywhere;
   }
 
 @media (min-width: 1301px) {
@@ -363,6 +391,10 @@ const contacts = [
   }
   .cta-btn-row {
     display: none;
+  }
+  .cta-actions {
+    justify-content: center;
+    justify-content: safe center;
   }
 }
 
@@ -392,10 +424,6 @@ const contacts = [
   .cta-btn-row {
     display: flex;
   }
-  .cta {
-    justify-content: flex-start;
-    gap: 0;
-  }
   .cta-title-wrap {
     padding-bottom: 0;
   }
@@ -412,7 +440,7 @@ const contacts = [
     border-top: 1px solid var(--line-d);
   }
   .cta-t {
-    font-size: clamp(52px, 11vw, 150px);
+    font-size: var(--type-display-sm);
   }
 }
 
@@ -429,11 +457,17 @@ const contacts = [
 }
 
 @media (max-width: 767px) {
+  .cta {
+    min-height: auto;
+  }
+  .cta-body {
+    padding-bottom: 48px;
+  }
   .cta-t {
-    font-size: clamp(44px, 12vw, 72px);
+    font-size: clamp(2.5rem, min(11vw, 9svh), 4.5rem);
   }
   .cta-t--outline {
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.38);
+    -webkit-text-stroke: 0.024em rgba(255, 255, 255, 0.38);
   }
   .cta-btn-row .btn {
     font-size: 12px;
@@ -465,6 +499,7 @@ const contacts = [
   }
   .cta-requisites {
     font-size: 13px;
+    text-align: left;
   }
   .cta-online {
     font-size: 14px;

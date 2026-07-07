@@ -52,25 +52,26 @@ const specs = [
     --pad: clamp(24px, max(5vw, 50vw - 560px), 400px);
   }
   .specs-l {
-    padding: 80px var(--pad);
+    padding: clamp(48px, 8vh, 80px) var(--pad);
     background: var(--paper);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     flex: 1;
     min-width: 0;
     width: 100%;
     box-sizing: border-box;
+    min-height: 100svh;
   }
   .specs-title {
     font-family: var(--fd);
     font-weight: 900;
-    font-size: clamp(56px, 7vw, 100px);
+    font-size: var(--type-display-sm);
     letter-spacing: -0.04em;
     text-transform: uppercase;
     color: #000;
     line-height: 0.92;
-    margin: 28px 0 36px;
+    margin: clamp(16px, min(2vw, 3svh), 28px) 0 clamp(20px, min(2.5vw, 3.5svh), 36px);
     max-width: 100%;
     overflow-wrap: anywhere;
   }
@@ -84,14 +85,14 @@ const specs = [
     min-width: 0;
   }
   .spec-k {
-    font-size: 20px;
+    font-size: var(--type-caption);
     font-weight: 400;
     letter-spacing: 0.18em;
     color: var(--grey-40);
     flex: 0 0 auto;
   }
   .spec-v {
-    font-size: 26px;
+    font-size: var(--type-body-lg);
     font-weight: 500;
     color: #000;
     text-align: right;
@@ -106,22 +107,43 @@ const specs = [
     line-height: 1.35;
   }
 
+  @media (min-width: 1301px) and (min-height: 920px) {
+    .specs-l {
+      justify-content: center;
+      justify-content: safe center;
+    }
+  }
+
   @media (max-width: 1300px) {
+    .specs-l {
+      justify-content: flex-start;
+      padding-top: clamp(40px, 7vh, 64px);
+      padding-bottom: clamp(40px, 7vh, 64px);
+    }
     .specs-title {
-      font-size: clamp(36px, 7vw, 80px);
+      font-size: var(--type-heading);
+      margin: 16px 0 20px;
     }
     .spec-row {
       flex-direction: column;
       align-items: flex-start;
       gap: 4px;
+      padding: 8px 0;
     }
     .spec-v {
       width: 100%;
       text-align: left;
-      font-size: clamp(18px, 2.2vw, 24px);
+      font-size: var(--type-body-lg);
     }
   }
   @media (max-width: 767px) {
+    .specs {
+      min-height: auto;
+    }
+    .specs-l {
+      min-height: auto;
+      padding: 40px var(--pad) 48px;
+    }
     .specs-title {
       font-size: clamp(36px, 10vw, 56px);
     }

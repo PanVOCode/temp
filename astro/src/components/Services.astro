@@ -104,7 +104,7 @@ const services = [
     grid-row: 1;
     font-family: var(--fd);
     font-weight: 800;
-    font-size: clamp(22px, 2.2vw, 42px);
+    font-size: clamp(1.25rem, min(2.2vw, 2.8svh), 2.625rem);
     letter-spacing: 0.06em;
     line-height: 1;
     color: var(--orange);
@@ -114,17 +114,16 @@ const services = [
     grid-row: 1;
     font-family: var(--fd);
     font-weight: 800;
-    font-size: clamp(22px, 2.2vw, 42px);
+    font-size: clamp(1.25rem, min(2.2vw, 2.8svh), 2.625rem);
     letter-spacing: -0.02em;
     text-transform: uppercase;
     color: #000;
     line-height: 1;
-    white-space: nowrap;
   }
   .svc-sub {
     grid-column: 2;
     grid-row: 2;
-    font-size: clamp(13px, 1vw, 16px);
+    font-size: var(--type-caption);
     color: var(--muted);
     margin-top: 0;
     letter-spacing: 0.03em;

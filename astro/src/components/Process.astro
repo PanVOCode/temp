@@ -213,7 +213,7 @@ const steps = [
   .pstep-title {
     font-family: var(--fd);
     font-weight: 900;
-    font-size: clamp(52px, 7.5vw, 150px);
+    font-size: var(--type-display-sm);
     letter-spacing: -0.04em;
     text-transform: uppercase;
     line-height: 0.88;
@@ -221,7 +221,7 @@ const steps = [
   .pstep-dur {
     font-family: var(--fd);
     font-weight: 800;
-    font-size: clamp(48px, 6vw, 80px);
+    font-size: clamp(2rem, min(5vw, 6svh), 5rem);
     letter-spacing: -0.03em;
     color: var(--orange);
     line-height: 1;
@@ -313,18 +313,18 @@ const steps = [
   }
   @media (min-width: 2560px) {
     .pstep-title {
-      font-size: clamp(100px, 7.5vw, 220px);
+      font-size: clamp(5rem, min(7.5vw, 9svh), 13.75rem);
     }
     .pstep-text .reveal.d1 {
-      gap: clamp(20px, 1.5vw, 48px);
+      gap: clamp(20px, min(1.5vw, 2svh), 48px);
     }
   }
   @media (min-width: 3000px) {
     .pstep-title {
-      font-size: clamp(120px, 7.5vw, 280px);
+      font-size: clamp(6rem, min(7.5vw, 9svh), 17.5rem);
     }
     .pstep-text .reveal.d1 {
-      gap: clamp(24px, 1.8vw, 56px);
+      gap: clamp(24px, min(1.8vw, 2.4svh), 56px);
     }
   }
 </style>
