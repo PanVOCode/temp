@@ -195,7 +195,7 @@ export const MOBILE_SCENARIOS = [
   "scroll up through entire site",
   "round trip through entire site",
   "full scroll keeps hijack disabled",
-  "full scroll visits all main sections and cases",
+  "each horizontal swipe moves exactly one case",
   "full scroll boundaries at top and bottom",
 ] as const;
 

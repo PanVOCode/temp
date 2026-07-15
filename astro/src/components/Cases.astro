@@ -3,7 +3,8 @@ const cases = [
   {
     num: "01",
     tag: "Реверс-инжиниринг",
-    title: "Производство детали и выпуск КД с использованием реверс-инжиниринга",
+    title:
+      "Производство детали и выпуск КД с использованием реверс-инжиниринга",
     img: "/assets/case-1.png",
     rows: [
       {
@@ -279,9 +280,14 @@ const cases = [
       height: auto;
       min-height: calc(100svh - 64px);
     }
+    .c2-scroll {
+      touch-action: pan-y pinch-zoom;
+      overscroll-behavior-x: contain;
+    }
     .c2-slide {
       grid-template-columns: 1fr;
       height: auto;
+      scroll-snap-stop: always;
     }
     .c2-img-col {
       height: clamp(200px, 35vw, 360px);

@@ -178,25 +178,57 @@ export async function scrollMobileCases(
 ) {
   const carousel = page.locator("#c2scroll");
   const caseCount = await page.locator(".c2-slide").count();
-  const indexes =
-    direction === "forward"
-      ? Array.from({ length: caseCount }, (_, i) => i)
-      : Array.from({ length: caseCount }, (_, i) => caseCount - 1 - i);
-  const visited: number[] = [];
+  const startIndex = await carousel.evaluate((el) =>
+    Math.round(el.scrollLeft / el.clientWidth),
+  );
+  const visited: number[] = [startIndex];
+  const steps =
+    direction === "forward" ? caseCount - 1 - startIndex : startIndex;
 
-  for (const index of indexes) {
-    await carousel.evaluate((el, targetIndex) => {
-      el.scrollTo({
-        left: el.clientWidth * targetIndex,
-        behavior: "smooth",
+  for (let step = 0; step < steps; step++) {
+    const previous = visited[visited.length - 1];
+    await carousel.evaluate((el, swipeDirection) => {
+      const rect = el.getBoundingClientRect();
+      const startX =
+        swipeDirection === "forward" ? rect.right - 20 : rect.left + 20;
+      const endX =
+        swipeDirection === "forward" ? rect.left + 20 : rect.right - 20;
+      const y = rect.top + Math.min(rect.height / 2, window.innerHeight / 2);
+      const startTouch = new Touch({
+        identifier: 1,
+        target: el,
+        clientX: startX,
+        clientY: y,
       });
-    }, index);
+      const endTouch = new Touch({
+        identifier: 1,
+        target: el,
+        clientX: endX,
+        clientY: y,
+      });
+
+      el.dispatchEvent(
+        new TouchEvent("touchstart", {
+          touches: [startTouch],
+          changedTouches: [startTouch],
+          bubbles: true,
+        }),
+      );
+      el.dispatchEvent(
+        new TouchEvent("touchend", {
+          touches: [],
+          changedTouches: [endTouch],
+          bubbles: true,
+        }),
+      );
+    }, direction);
     await waitHorizontalScrollIdle(page);
 
     const current = await carousel.evaluate((el) =>
       Math.round(el.scrollLeft / el.clientWidth),
     );
-    expect(current).toBe(index);
+    expect(Math.abs(current - previous)).toBe(1);
+    expect(current).toBe(direction === "forward" ? previous + 1 : previous - 1);
     visited.push(current);
   }
 
@@ -550,7 +582,7 @@ export async function runMobileScenario(
       );
       break;
     }
-    case "full scroll visits all main sections and cases": {
+    case "each horizontal swipe moves exactly one case": {
       await prepareMobilePage(page);
       const { state, cases } = await scrollMobileToEnd(page);
       const passed = await sectionsPassedByScroll(page);

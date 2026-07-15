@@ -23,8 +23,8 @@ const SCENARIO_LABELS = {
   "full scroll down with trackpad inertia bursts": "Весь сайт: инерция тачпада",
   "full scroll respects boundaries at top and bottom": "Весь сайт: границы",
   "full scroll keeps hijack disabled": "Весь сайт: hijack отключён",
-  "full scroll visits all main sections and cases":
-    "Весь сайт: все секции и горизонтальные кейсы",
+  "each horizontal swipe moves exactly one case":
+    "Один горизонтальный свайп: один кейс",
   "full scroll boundaries at top and bottom": "Весь сайт: границы (mobile)",
 };
 
@@ -36,7 +36,7 @@ const SCENARIO_SLUG = {
   "full scroll down with trackpad inertia bursts": "inertia",
   "full scroll respects boundaries at top and bottom": "boundaries",
   "full scroll keeps hijack disabled": "hijack-off",
-  "full scroll visits all main sections and cases": "all-sections-and-cases",
+  "each horizontal swipe moves exactly one case": "one-swipe-one-case",
   "full scroll boundaries at top and bottom": "boundaries-mobile",
 };
 

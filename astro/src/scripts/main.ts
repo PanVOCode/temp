@@ -126,8 +126,40 @@ document.querySelectorAll(".faq-q").forEach((q) => {
   scroll.addEventListener("scroll", updateUI, { passive: true });
 
   (window as any).c2Go = (idx: number) => {
-    scroll.scrollTo({ left: idx * scroll.clientWidth, behavior: "smooth" });
+    const next = Math.max(0, Math.min(dots.length - 1, idx));
+    scroll.scrollTo({ left: next * scroll.clientWidth, behavior: "smooth" });
   };
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartIndex = 0;
+
+  scroll.addEventListener(
+    "touchstart",
+    (e) => {
+      if (window.innerWidth > 900 || e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartIndex = Math.round(scroll.scrollLeft / scroll.clientWidth);
+    },
+    { passive: true },
+  );
+
+  scroll.addEventListener(
+    "touchend",
+    (e) => {
+      if (window.innerWidth > 900 || e.changedTouches.length !== 1) return;
+
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      const isHorizontal = Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy);
+      if (!isHorizontal) return;
+
+      const direction = dx > 0 ? 1 : -1;
+      (window as any).c2Go(touchStartIndex + direction);
+    },
+    { passive: true },
+  );
 
   let isDown = false,
     startX = 0,

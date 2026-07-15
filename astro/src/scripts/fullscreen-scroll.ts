@@ -8,11 +8,11 @@ export type FullscreenScrollDebug = {
   syncCurrent: () => void;
 };
 
-const SELECTORS =
-  ".hero,.services,.c2,.process-step,.specs,.pgrid,.cta";
+const SELECTORS = ".hero,.services,.c2,.process-step,.specs,.pgrid,.cta";
 const DELTA_THRESHOLD = 40;
 const STABLE_FRAMES = 12;
-const GESTURE_QUIET_MS = 400;
+const WHEEL_STREAM_GAP_MS = 90;
+const TRACKPAD_QUIET_MS = 140;
 
 export function initFullscreenScroll(): FullscreenScrollDebug {
   const getSlides = () =>
@@ -24,22 +24,66 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
   let locked = false;
   let gestureActive = false;
   let gestureTimer: ReturnType<typeof setTimeout> | null = null;
+  let wheelTransitionActive = false;
+  let wheelDirection = 0;
+  let wheelEventCount = 0;
+  let lastWheelAt = 0;
+  let continuousWheelStream = false;
   let transitionCount = 0;
   let targetScrollY: number | null = null;
-
-  function touchGesture() {
-    gestureActive = true;
-    if (gestureTimer) clearTimeout(gestureTimer);
-    gestureTimer = setTimeout(() => {
-      gestureActive = false;
-      gestureTimer = null;
-    }, GESTURE_QUIET_MS);
-  }
 
   function clearGesture() {
     if (gestureTimer) clearTimeout(gestureTimer);
     gestureActive = false;
     gestureTimer = null;
+    wheelEventCount = 0;
+    continuousWheelStream = false;
+  }
+
+  function scheduleTrackpadQuietEnd() {
+    if (gestureTimer) clearTimeout(gestureTimer);
+
+    const remaining = TRACKPAD_QUIET_MS - (performance.now() - lastWheelAt);
+    if (remaining <= 0) {
+      clearGesture();
+      return;
+    }
+
+    gestureActive = true;
+    gestureTimer = setTimeout(scheduleTrackpadQuietEnd, remaining);
+  }
+
+  function beginWheelTransition(dir: number, now: number) {
+    clearGesture();
+    wheelTransitionActive = true;
+    wheelDirection = dir;
+    wheelEventCount = 1;
+    lastWheelAt = now;
+  }
+
+  function noteWheelEvent(dir: number, now: number) {
+    const sameStream =
+      dir === wheelDirection && now - lastWheelAt <= WHEEL_STREAM_GAP_MS;
+
+    if (sameStream) {
+      wheelEventCount++;
+      continuousWheelStream = wheelEventCount >= 2;
+    }
+
+    if (dir === wheelDirection) {
+      lastWheelAt = now;
+    }
+  }
+
+  function finishWheelTransition() {
+    if (!wheelTransitionActive) return;
+    wheelTransitionActive = false;
+
+    if (continuousWheelStream) {
+      scheduleTrackpadQuietEnd();
+    } else {
+      clearGesture();
+    }
   }
 
   function slideTop(el: HTMLElement) {
@@ -87,14 +131,13 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
       locked = false;
       targetScrollY = null;
       syncCurrent();
+      finishWheelTransition();
     };
 
     const settle = () => {
       waitScrollStable(
         () =>
-          target instanceof HTMLElement
-            ? target.scrollLeft
-            : window.scrollY,
+          target instanceof HTMLElement ? target.scrollLeft : window.scrollY,
         unlock,
       );
     };
@@ -179,13 +222,17 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
     return scrollToIndex(nextIdx, true);
   }
 
-  function handleNavigate(dir: number) {
-    if (locked || gestureActive) return;
+  function handleNavigate(dir: number, source: "wheel" | "direct" = "direct") {
+    if (locked) return;
     locked = true;
-    touchGesture();
+    if (source !== "wheel") {
+      wheelTransitionActive = false;
+      clearGesture();
+    }
     const moved = performNavigate(dir);
     if (!moved) {
       locked = false;
+      wheelTransitionActive = false;
       clearGesture();
     }
   }
@@ -195,12 +242,31 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
     (e) => {
       if (isMobile()) return;
       e.preventDefault();
-      if (locked || gestureActive) {
-        touchGesture();
+      if (e.deltaY === 0) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const now = performance.now();
+
+      if (locked) {
+        if (wheelTransitionActive) noteWheelEvent(dir, now);
         return;
       }
+
+      if (gestureActive) {
+        if (dir !== wheelDirection) {
+          clearGesture();
+        } else if (now - lastWheelAt > TRACKPAD_QUIET_MS) {
+          clearGesture();
+        } else {
+          noteWheelEvent(dir, now);
+          scheduleTrackpadQuietEnd();
+          return;
+        }
+      }
+
       if (Math.abs(e.deltaY) < DELTA_THRESHOLD) return;
-      handleNavigate(e.deltaY > 0 ? 1 : -1);
+      beginWheelTransition(dir, now);
+      handleNavigate(dir, "wheel");
     },
     { passive: false },
   );
@@ -218,10 +284,7 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
     (e) => {
       if (isMobile()) return;
       const dy = touchY - e.changedTouches[0].clientY;
-      if (locked || gestureActive) {
-        touchGesture();
-        return;
-      }
+      if (locked) return;
       if (Math.abs(dy) < DELTA_THRESHOLD) return;
       handleNavigate(dy > 0 ? 1 : -1);
     },
@@ -229,7 +292,7 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
   );
 
   window.addEventListener("keydown", (e) => {
-    if (locked || gestureActive) return;
+    if (locked) return;
     if (e.key === "ArrowDown" || e.key === "PageDown") {
       e.preventDefault();
       handleNavigate(1);
@@ -245,7 +308,7 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
       const target = document.getElementById(a.getAttribute("href")!.slice(1));
       if (!target) return;
       e.preventDefault();
-      if (locked || gestureActive) return;
+      if (locked) return;
       const slides = getSlides();
       const idx = slides.indexOf(target);
       if (idx !== -1) scrollToIndex(idx);
