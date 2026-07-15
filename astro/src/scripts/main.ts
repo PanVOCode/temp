@@ -1,5 +1,8 @@
+import { initFullscreenScroll } from "./fullscreen-scroll";
+
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("loaded");
+  initFullscreenScroll();
 });
 
 // Smooth image reveal — hide until fully decoded, then fade in
@@ -106,137 +109,6 @@ document.querySelectorAll(".faq-q").forEach((q) => {
     if (!was) item.classList.add("open");
   });
 });
-
-// Full-page scroll hijack
-(function () {
-  const SELECTORS =
-    ".hero,.services,.stats,.c2,.process-step,.specs,.pgrid,.cta";
-  const DURATION = 550;
-  const COOLDOWN = 750;
-  let busy = false;
-
-  const getSlides = () =>
-    Array.from(document.querySelectorAll<HTMLElement>(SELECTORS));
-  const navH = () => document.getElementById("nav")?.offsetHeight ?? 64;
-
-  function smoothScrollTo(target: HTMLElement) {
-    const start = window.scrollY;
-    const offset = target.classList.contains("hero") ? 0 : navH();
-    const end = target.getBoundingClientRect().top + start - offset;
-    const diff = end - start;
-    if (Math.abs(diff) < 2) {
-      busy = false;
-      return;
-    }
-    let t0: number | null = null;
-    busy = true;
-    const step = (ts: number) => {
-      if (!t0) t0 = ts;
-      const p = Math.min((ts - t0) / DURATION, 1);
-      window.scrollTo(0, start + diff * (1 - Math.pow(1 - p, 4)));
-      if (p < 1) requestAnimationFrame(step);
-      else
-        setTimeout(() => {
-          busy = false;
-        }, 50);
-    };
-    requestAnimationFrame(step);
-    setTimeout(() => {
-      busy = false;
-    }, COOLDOWN);
-  }
-
-  function nearest() {
-    const slides = getSlides();
-    let best = 0,
-      bestDist = Infinity;
-    slides.forEach((el, i) => {
-      const d = Math.abs(el.getBoundingClientRect().top);
-      if (d < bestDist) {
-        bestDist = d;
-        best = i;
-      }
-    });
-    return best;
-  }
-
-  function go(dir: number) {
-    if (busy) return;
-    const slides = getSlides();
-    const idx = nearest();
-    const el = slides[idx];
-
-    if (el?.classList.contains("c2")) {
-      const c2scroll = document.getElementById("c2scroll") as HTMLElement;
-      const total = document.querySelectorAll(".c2-dot").length;
-      const cur = Math.round(c2scroll.scrollLeft / c2scroll.clientWidth);
-      const next = cur + dir;
-      if (next >= 0 && next < total) {
-        (window as any).c2Go(next);
-        busy = true;
-        setTimeout(() => {
-          busy = false;
-        }, COOLDOWN);
-        return;
-      }
-    }
-
-    smoothScrollTo(slides[Math.min(Math.max(idx + dir, 0), slides.length - 1)]);
-  }
-
-  const isMobile = () => window.innerWidth <= 900;
-
-  window.addEventListener(
-    "wheel",
-    (e) => {
-      if (isMobile()) return;
-      e.preventDefault();
-      go(e.deltaY > 0 ? 1 : -1);
-    },
-    { passive: false },
-  );
-
-  let touchY = 0;
-  window.addEventListener(
-    "touchstart",
-    (e) => {
-      touchY = e.touches[0].clientY;
-    },
-    { passive: true },
-  );
-  window.addEventListener(
-    "touchend",
-    (e) => {
-      if (isMobile()) return;
-      const dy = touchY - e.changedTouches[0].clientY;
-      if (Math.abs(dy) > 30) go(dy > 0 ? 1 : -1);
-    },
-    { passive: true },
-  );
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown" || e.key === "PageDown") {
-      e.preventDefault();
-      go(1);
-    }
-    if (e.key === "ArrowUp" || e.key === "PageUp") {
-      e.preventDefault();
-      go(-1);
-    }
-  });
-
-  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const target = document.getElementById(a.getAttribute("href")!.slice(1));
-      if (!target) return;
-      e.preventDefault();
-      const slides = getSlides();
-      const idx = slides.indexOf(target);
-      if (idx !== -1) go(idx - nearest());
-      else smoothScrollTo(target);
-    });
-  });
-})();
 
 // Cases carousel
 (function () {

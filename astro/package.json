@@ -5,12 +5,18 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test:e2e": "playwright test",
+    "test:e2e:audit": "playwright test fullscreen-scroll.spec.ts && node scripts/generate-scroll-audit.mjs",
+    "test:e2e:viewports": "playwright test -c playwright.viewports.config.ts; node scripts/generate-viewport-report.mjs",
+    "report:viewports:open": "node scripts/generate-viewport-report.mjs && node scripts/serve-viewport-report.mjs",
+    "test:e2e:viewports:retry": "node scripts/retry-failed-viewports.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.1",
     "prettier": "^3.8.5",
     "prettier-plugin-astro": "^0.14.1"
   }
