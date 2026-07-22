@@ -1,0 +1,1221 @@
+{
+  "config": {
+    "argv": [
+      "/home/vladimir/.nvm/versions/node/v22.12.0/bin/node",
+      "/home/vladimir/projects/additech/astro/node_modules/.bin/playwright",
+      "test",
+      "-c",
+      "playwright.viewports.config.ts",
+      "--grep",
+      "HD 1280×720.*trackpad inertia|WSXGA\\+ 1600×900|iPhone 15 Pro Max.*all main sections|iPhone SE.*scroll down through entire site|iPhone SE.*all main sections|Samsung Galaxy S24.*round trip|Google Pixel 8.*all main sections"
+    ],
+    "configFile": "/home/vladimir/projects/additech/astro/playwright.viewports.config.ts",
+    "rootDir": "/home/vladimir/projects/additech/astro/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/vladimir/projects/additech/astro/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/vladimir/projects/additech/astro/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "viewport-scroll.spec.ts"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/viewport-results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "playwright-report-viewports"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run build && npm run preview -- --host 127.0.0.1 --port 4173",
+      "port": 4173,
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "viewport-scroll.spec.ts",
+      "file": "viewport-scroll.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "viewport-scroll",
+          "file": "viewport-scroll.spec.ts",
+          "line": 39,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Windows",
+              "file": "viewport-scroll.spec.ts",
+              "line": 41,
+              "column": 10,
+              "specs": [],
+              "suites": [
+                {
+                  "title": "windows · HD 1280×720 (1280×720)",
+                  "file": "viewport-scroll.spec.ts",
+                  "line": 17,
+                  "column": 8,
+                  "specs": [
+                    {
+                      "title": "full scroll down with trackpad inertia bursts",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-hd"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "HD 1280×720"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1280×720"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "inertia: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 14881,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:15:25.225Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-hd"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "HD 1280×720"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1280×720"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "inertia: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-2a132-ith-trackpad-inertia-bursts-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-2a132-ith-trackpad-inertia-bursts-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-19a78bf8d175af88a080",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    }
+                  ]
+                },
+                {
+                  "title": "windows · WSXGA+ 1600×900 (1600×900)",
+                  "file": "viewport-scroll.spec.ts",
+                  "line": 17,
+                  "column": 8,
+                  "specs": [
+                    {
+                      "title": "scroll down through entire site",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-1600"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "WSXGA+ 1600×900"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1600×900"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "down: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 15441,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:15:41.682Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-1600"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "WSXGA+ 1600×900"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1600×900"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "down: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-8fe27-ll-down-through-entire-site-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-8fe27-ll-down-through-entire-site-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-93433ef03ea3fd301a76",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "scroll up through entire site",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-1600"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "WSXGA+ 1600×900"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1600×900"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "up: cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 118947,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:15:59.535Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-1600"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "WSXGA+ 1600×900"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1600×900"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "up: cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-1e13c-roll-up-through-entire-site-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-1e13c-roll-up-through-entire-site-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-ee43c634ae10ad993ed8",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "round trip through entire site",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-1600"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "WSXGA+ 1600×900"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1600×900"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "round-trip: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta ↑ cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 26287,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:18:00.831Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-1600"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "WSXGA+ 1600×900"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1600×900"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "round-trip: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta ↑ cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-864cb-nd-trip-through-entire-site-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-864cb-nd-trip-through-entire-site-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-669542d81d1b0c8a73b8",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "full scroll down with large wheel deltas",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-1600"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "WSXGA+ 1600×900"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1600×900"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "large-delta: 12 steps to cta"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 14653,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:18:29.225Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-1600"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "WSXGA+ 1600×900"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1600×900"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "large-delta: 12 steps to cta"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-9df08-own-with-large-wheel-deltas-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-9df08-own-with-large-wheel-deltas-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-009836fcee99653076fc",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "full scroll down with trackpad inertia bursts",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-1600"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "WSXGA+ 1600×900"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1600×900"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "inertia: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 16271,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:18:45.142Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-1600"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "WSXGA+ 1600×900"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1600×900"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "inertia: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-130d4-ith-trackpad-inertia-bursts-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-130d4-ith-trackpad-inertia-bursts-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-902f8757ebfa32a3f9cd",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "full scroll respects boundaries at top and bottom",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "windows"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "win-1600"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "WSXGA+ 1600×900"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "1600×900"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "boundaries: top=hero, bottom=cta"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 14319,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:19:02.913Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "windows"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "win-1600"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "WSXGA+ 1600×900"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "1600×900"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "boundaries: top=hero, bottom=cta"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-0e781-oundaries-at-top-and-bottom-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-0e781-oundaries-at-top-and-bottom-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-cb4ced8d7ef6402950a4",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "title": "Phone",
+              "file": "viewport-scroll.spec.ts",
+              "line": 41,
+              "column": 10,
+              "specs": [],
+              "suites": [
+                {
+                  "title": "phone · iPhone 15 Pro Max (430×932)",
+                  "file": "viewport-scroll.spec.ts",
+                  "line": 17,
+                  "column": 8,
+                  "specs": [
+                    {
+                      "title": "full scroll visits all main sections",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "phone"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "iphone-15-pro-max"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "iPhone 15 Pro Max"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "430×932"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "sections: all main sections passed"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 10194,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:19:18.464Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "phone"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "iphone-15-pro-max"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "iPhone 15 Pro Max"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "430×932"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "sections: all main sections passed"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-2129e-ll-visits-all-main-sections-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-2129e-ll-visits-all-main-sections-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-ccf0898f3c03dd6a88e4",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    }
+                  ]
+                },
+                {
+                  "title": "phone · iPhone SE (375×667)",
+                  "file": "viewport-scroll.spec.ts",
+                  "line": 17,
+                  "column": 8,
+                  "specs": [
+                    {
+                      "title": "scroll down through entire site",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "phone"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "iphone-se"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "iPhone SE"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "375×667"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "down: scrollY 0 → 7199 (18 swipes)"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 7307,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:19:29.637Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "phone"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "iphone-se"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "iPhone SE"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "375×667"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "down: scrollY 0 → 7199 (18 swipes)"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-e989e-ll-down-through-entire-site-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-e989e-ll-down-through-entire-site-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-3159fee9382a457ae4c1",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "full scroll visits all main sections",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "phone"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "iphone-se"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "iPhone SE"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "375×667"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "sections: all main sections passed"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 7251,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:19:37.716Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "phone"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "iphone-se"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "iPhone SE"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "375×667"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "sections: all main sections passed"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-6f19c-ll-visits-all-main-sections-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-6f19c-ll-visits-all-main-sections-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-5fddbeafbf193f1d8562",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    }
+                  ]
+                },
+                {
+                  "title": "phone · Samsung Galaxy S24 (360×780)",
+                  "file": "viewport-scroll.spec.ts",
+                  "line": 17,
+                  "column": 8,
+                  "specs": [
+                    {
+                      "title": "round trip through entire site",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "phone"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "galaxy-s24"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "Samsung Galaxy S24"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "360×780"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "round-trip: 0 ↓ 7600 ↑ 0"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 10975,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:19:45.699Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "phone"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "galaxy-s24"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "Samsung Galaxy S24"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "360×780"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "round-trip: 0 ↓ 7600 ↑ 0"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-5f543-nd-trip-through-entire-site-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-5f543-nd-trip-through-entire-site-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-c7f5dd85b06f6c44a741",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    }
+                  ]
+                },
+                {
+                  "title": "phone · Google Pixel 8 (412×915)",
+                  "file": "viewport-scroll.spec.ts",
+                  "line": 17,
+                  "column": 8,
+                  "specs": [
+                    {
+                      "title": "full scroll visits all main sections",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 300000,
+                          "annotations": [
+                            {
+                              "type": "platform",
+                              "description": "phone"
+                            },
+                            {
+                              "type": "viewport-id",
+                              "description": "pixel-8"
+                            },
+                            {
+                              "type": "viewport-name",
+                              "description": "Google Pixel 8"
+                            },
+                            {
+                              "type": "resolution",
+                              "description": "412×915"
+                            },
+                            {
+                              "type": "audit",
+                              "description": "sections: all main sections passed"
+                            }
+                          ],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "parallelIndex": 0,
+                              "status": "passed",
+                              "duration": 8411,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2026-07-14T20:19:57.661Z",
+                              "annotations": [
+                                {
+                                  "type": "platform",
+                                  "description": "phone"
+                                },
+                                {
+                                  "type": "viewport-id",
+                                  "description": "pixel-8"
+                                },
+                                {
+                                  "type": "viewport-name",
+                                  "description": "Google Pixel 8"
+                                },
+                                {
+                                  "type": "resolution",
+                                  "description": "412×915"
+                                },
+                                {
+                                  "type": "audit",
+                                  "description": "sections: all main sections passed"
+                                }
+                              ],
+                              "attachments": [
+                                {
+                                  "name": "video",
+                                  "contentType": "video/webm",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-6cc96-ll-visits-all-main-sections-chromium/video.webm"
+                                },
+                                {
+                                  "name": "trace",
+                                  "contentType": "application/zip",
+                                  "path": "/home/vladimir/projects/additech/astro/test-results/viewport-scroll-viewport-s-6cc96-ll-visits-all-main-sections-chromium/trace.zip"
+                                }
+                              ]
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "c5a7abdc2e2907c56f50-1f46fe823f3ded45f3b7",
+                      "file": "viewport-scroll.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-14T20:15:17.963Z",
+    "duration": 289223.021,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

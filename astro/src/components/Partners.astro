@@ -65,7 +65,6 @@ const partners = [
 
 <section class="pgrid" id="partners-c">
   <div class="pgrid-left">
-    <div class="pgrid-eyebrow">ВЕДОМОСТЬ ПАРТНЕРОВ · ФОМ-2028</div>
     <h2 class="pgrid-title">ПАРТНЕРЫ</h2>
     <div class="pgrid-hr"></div>
     <div class="pgrid-stats-row">
@@ -128,7 +127,7 @@ const partners = [
   }
   .pgrid-eyebrow {
     font-family: var(--fd);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -161,14 +160,15 @@ const partners = [
     font-size: clamp(40px, 5vw, 72px);
   }
   .pgrid-left .p-stat-lbl {
-    font-size: clamp(11px, 0.8vw, 13px);
+    font-size: clamp(14px, 0.8vw, 15px);
   }
   .pgrid-left .p-stat-desc {
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: clamp(14px, 0.9vw, 16px);
     max-width: none;
   }
   .pgrid-right {
     flex: 1;
+    min-width: 0;
     overflow: hidden;
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -177,7 +177,7 @@ const partners = [
   }
   .pgrid-cells {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 1px;
     background: rgba(255, 255, 255, 0.07);
     height: 100%;
@@ -191,6 +191,7 @@ const partners = [
     justify-content: flex-start;
     padding: clamp(16px, 2.5vh, 32px) clamp(12px, 2vw, 28px)
       clamp(12px, 1.8vh, 22px);
+    min-width: 0;
     min-height: 0;
     transition:
       background 0.15s,
@@ -210,7 +211,7 @@ const partners = [
     top: 14px;
     left: 18px;
     font-family: var(--fd);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.14em;
     color: rgba(255, 255, 255, 0.15);
@@ -243,7 +244,7 @@ const partners = [
   }
   .pgrid-desc {
     font-family: var(--fd);
-    font-size: 9px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -256,7 +257,70 @@ const partners = [
     color: rgba(255, 106, 0, 0.7);
   }
 
-  @media (max-width: 900px) {
+  /* Tablets: keep side-by-side layout, shrink grid so all 10 logos fit */
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .pgrid-left {
+      width: clamp(180px, 26vw, 260px);
+      padding: clamp(16px, 2.5vh, 28px) clamp(14px, 1.8vw, 24px);
+    }
+    .pgrid-title {
+      font-size: clamp(28px, 4vw, 40px);
+    }
+    .pgrid-hr {
+      margin: clamp(12px, 2vh, 20px) 0;
+    }
+    .pgrid-left .p-stat-n {
+      font-size: clamp(32px, 4.5vw, 48px);
+    }
+    .pgrid-left .p-stat-lbl {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+    .pgrid-left .p-stat-desc {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .pgrid-cells {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .pgrid-cell {
+      padding: 12px 8px 10px;
+    }
+    .pgrid-n {
+      top: 8px;
+      left: 10px;
+      font-size: 11px;
+    }
+    .pgrid-logo {
+      padding: 6px;
+    }
+    .pgrid-logo img {
+      max-height: clamp(40px, 7vh, 72px);
+    }
+    .pgrid-desc {
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      margin-top: 8px;
+      line-height: 1.25;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pgrid-eyebrow {
+      font-size: 10px;
+    }
+    .pgrid-left .p-stat-lbl {
+      font-size: clamp(11px, 0.8vw, 13px);
+    }
+    .pgrid-left .p-stat-desc {
+      font-size: clamp(12px, 0.9vw, 14px);
+    }
+    .pgrid-n {
+      font-size: 11px;
+    }
+    .pgrid-desc {
+      font-size: 9px;
+    }
     .pgrid {
       flex-direction: column;
       height: auto;

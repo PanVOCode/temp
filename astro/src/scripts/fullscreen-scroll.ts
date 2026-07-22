@@ -18,7 +18,8 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
   const getSlides = () =>
     Array.from(document.querySelectorAll<HTMLElement>(SELECTORS));
   const navH = () => document.getElementById("nav")?.offsetHeight ?? 64;
-  const isMobile = () => window.innerWidth <= 900;
+  /** Phones + tablets: native page scroll. Desktop (≥1200px): section hijack. */
+  const isTouchLayout = () => window.innerWidth <= 1199;
 
   let current = 0;
   let locked = false;
@@ -240,11 +241,18 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
   window.addEventListener(
     "wheel",
     (e) => {
-      if (isMobile()) return;
-      e.preventDefault();
-      if (e.deltaY === 0) return;
+      if (isTouchLayout()) return;
 
-      const dir = e.deltaY > 0 ? 1 : -1;
+      const c2 = document.querySelector<HTMLElement>(".c2");
+      const inCases = !!(c2 && isInView(c2));
+      const horizontal =
+        inCases && Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      const delta = horizontal ? e.deltaX : e.deltaY;
+      if (delta === 0) return;
+
+      e.preventDefault();
+
+      const dir = delta > 0 ? 1 : -1;
       const now = performance.now();
 
       if (locked) {
@@ -264,7 +272,7 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
         }
       }
 
-      if (Math.abs(e.deltaY) < DELTA_THRESHOLD) return;
+      if (Math.abs(delta) < DELTA_THRESHOLD) return;
       beginWheelTransition(dir, now);
       handleNavigate(dir, "wheel");
     },
@@ -282,7 +290,7 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
   window.addEventListener(
     "touchend",
     (e) => {
-      if (isMobile()) return;
+      if (isTouchLayout()) return;
       const dy = touchY - e.changedTouches[0].clientY;
       if (locked) return;
       if (Math.abs(dy) < DELTA_THRESHOLD) return;
@@ -292,7 +300,7 @@ export function initFullscreenScroll(): FullscreenScrollDebug {
   );
 
   window.addEventListener("keydown", (e) => {
-    if (locked) return;
+    if (isTouchLayout() || locked) return;
     if (e.key === "ArrowDown" || e.key === "PageDown") {
       e.preventDefault();
       handleNavigate(1);

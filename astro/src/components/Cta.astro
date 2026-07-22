@@ -273,7 +273,7 @@ const contacts = [
     gap: 6px;
   }
   .cta-oprosny-hint {
-    font-size: 13px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.4);
     letter-spacing: 0.04em;
   }
@@ -365,7 +365,7 @@ const contacts = [
     color: var(--orange);
   }
   .cta-ml {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -385,7 +385,7 @@ const contacts = [
     overflow-wrap: anywhere;
   }
 
-@media (min-width: 901px) {
+@media (min-width: 768px) {
   .cta-bar {
     display: flex;
   }
@@ -398,6 +398,53 @@ const contacts = [
   }
 }
 
+/* Tablets: prevent CTA bar subtitle from wrapping letter-by-letter / overflowing */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .cta-bar-btn {
+    padding: clamp(14px, 2vh, 22px) clamp(16px, 2vw, 28px);
+    gap: 12px;
+  }
+  .cta-bar-label {
+    font-size: clamp(0.95rem, 2vw, 1.25rem);
+    letter-spacing: 0.12em;
+  }
+  .cta-bar-sub {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .cta-bar-btn--outline .cta-bar-sub {
+    display: none;
+  }
+  .cta-t {
+    font-size: clamp(2.75rem, 8vw, 4.5rem);
+  }
+  .cta-body {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+  .cta-requisites {
+    grid-column: auto !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    text-align: left;
+  }
+  .cta-cv-group {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .cta-messenger {
+    flex-wrap: wrap;
+    font-size: 15px;
+    max-width: 100%;
+  }
+  .cta-cr {
+    gap: 12px;
+  }
+}
+
 @media (min-width: 1920px) {
   .cta-body {
     grid-template-columns: 1fr 1fr 1fr;
@@ -406,7 +453,7 @@ const contacts = [
   }
 }
 
-@media (min-width: 901px) and (max-width: 1919px) {
+@media (min-width: 1200px) and (max-width: 1919px) {
   .cta-body {
     grid-template-columns: 1fr 1fr;
   }
@@ -417,7 +464,7 @@ const contacts = [
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .cta-bar {
     display: none;
   }
@@ -444,7 +491,7 @@ const contacts = [
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .cta-body {
     grid-template-columns: 1fr !important;
     gap: 24px;

@@ -9,27 +9,27 @@ const cases = [
     rows: [
       {
         label: "Задача",
-        text: "Высокая стоимость закупки, не устраивают сроки поставки из-за рубежа, запрос на локализацию производства детали",
+        text: "Высокая стоимость закупки, не устраивают сроки поставки из-за рубежа, запрос на локализацию производства детали.",
       },
       {
         label: "Решение",
-        text: "Освоенная технология производства серии с оптимизацией стоимости на 85% в сравнении с китайским производителем",
+        text: "Освоенная технология производства серии с оптимизацией стоимости на 85% в сравнении с китайским производителем.",
       },
     ],
   },
   {
     num: "02",
-    tag: "Аддитивное производство",
-    title: "Пресс-форма с конформным охлаждением",
+    tag: "Импортозамещение зарубежной оснастки",
+    title: "Пресс-форма с конформным охлаждением для производства твердой упаковки",
     img: "/assets/case-2.png",
     rows: [
       {
         label: "Задача",
-        text: "Потребность в оптимизации сроков поставки пресс-форм из-за рубежа, оптимизации стоимости, создании устойчивого партнерства с отечественными производителями специальной оснастки под термовакуумную формовку",
+        text: "Потребность в оптимизации сроков поставки пресс-форм из-за рубежа, оптимизации стоимости, создании устойчивого партнерства с отечественными производителями специальной оснастки под термовакуумную формовку.",
       },
       {
         label: "Решение",
-        text: "Проектирование и разработка пресс-формы с уникальной системой каналов охлаждения с ускоренным втрое циклом формования изделия в отличие от традиционной технологии. Импортозамещение с сокращением сроков и стоимости производства.",
+        text: "Проектирование и разработка пресс-формы с уникальной системой каналов охлаждения на базе аддитивных технологий с ускоренным втрое циклом формования изделия в отличие от традиционной технологии. Импортозамещение с сокращением сроков и стоимости производства.",
       },
     ],
   },
@@ -41,28 +41,28 @@ const cases = [
     rows: [
       {
         label: "Задача",
-        text: "Поставка на предприятие винтов большого диаметра из угленаполненного пластика",
+        text: "Поставка на предприятие винтов большого диаметра из угленаполненного пластика.",
       },
       {
         label: "Решение",
-        text: "Проектирование оснастки с каскадной системой литья для обеспечения проливаемости вязким материалом большого диаметра детали",
+        text: "Проектирование оснастки с каскадной системой литья для обеспечения проливаемости вязким материалом большого диаметра детали.",
       },
     ],
   },
   {
     num: "04",
-    tag: "Импортозамещение / Пищепром",
+    tag: "импортозамещение/многокомпонентное литье",
     title:
-      "Импортозамещение пластиковых поршней для производства детской молочной продукции",
+      "Импортозамещение пластиковых поршней для производства молочной продукции",
     img: "/assets/case-4.png",
     rows: [
       {
         label: "Задача",
-        text: "Потребность в импортозамещении пластиковых поршней для производства детской молочной продукции",
+        text: "Потребность в импортозамещении пластиковых поршней для производства молочной продукции.",
       },
       {
         label: "Решение",
-        text: "Разработка оснастки и технологии производства наиболее выгодной по стоимости для мелкой серии с учетом сложности геометрии деталей",
+        text: "Разработка оснастки и технологии производства наиболее выгодной по стоимости для мелкой серии с учетом сложности геометрии деталей.",
       },
     ],
   },
@@ -92,17 +92,19 @@ const cases = [
             <img src={img} alt="" class="img-smooth" />
             <div class="c2-num">{num}</div>
           </div>
-          <div class="c2-content">
-            <div class="c2-tag">{tag}</div>
-            <div class="c2-case-title">{title}</div>
-            <div class="c2-divider" />
-            <div class="c2-row">
-              {rows.map(({ label, text }) => (
-                <>
-                  <div class="c2-row-lbl">{label}</div>
-                  <div class="c2-row-text">{text}</div>
-                </>
-              ))}
+          <div class="c2-content-wrap">
+            <div class="c2-content">
+              <div class="c2-tag">{tag}</div>
+              <div class="c2-case-title">{title}</div>
+              <div class="c2-divider" />
+              <div class="c2-row">
+                {rows.map(({ label, text }) => (
+                  <>
+                    <div class="c2-row-lbl">{label}</div>
+                    <div class="c2-row-text">{text}</div>
+                  </>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -197,11 +199,14 @@ const cases = [
     position: absolute;
     inset: clamp(8px, 1.5vh, 20px) 0;
     object-fit: contain;
-    opacity: 0;
+    opacity: 0.45;
     mix-blend-mode: luminosity;
     transition: opacity 0.55s var(--ease);
   }
-  .c2-img-col img.is-loaded {
+  :global(html.js) .c2-img-col img {
+    opacity: 0;
+  }
+  :global(html.js) .c2-img-col img.is-loaded {
     opacity: 0.45;
   }
   .c2-num {
@@ -215,6 +220,9 @@ const cases = [
     color: #fff;
     user-select: none;
   }
+  .c2-content-wrap {
+    display: contents;
+  }
   .c2-content {
     display: flex;
     flex-direction: column;
@@ -222,7 +230,7 @@ const cases = [
   }
   .c2-tag {
     font-family: var(--fd);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -248,7 +256,7 @@ const cases = [
   }
   .c2-row-lbl {
     font-family: var(--fd);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -275,25 +283,90 @@ const cases = [
     transition: width 0.2s var(--ease);
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .c2 {
       height: auto;
-      min-height: calc(100svh - 64px);
+      min-height: 0;
+      overflow: visible;
+    }
+    .c2-hdr {
+      padding: 16px var(--pad) 10px;
+      align-items: center;
+    }
+    .c2-title {
+      font-size: clamp(32px, 9vw, 40px);
+    }
+    .c2-nav {
+      padding-bottom: 0;
+    }
+    .c2-dot {
+      width: 24px;
+    }
+    .c2-dot.active {
+      width: 40px;
     }
     .c2-scroll {
-      touch-action: pan-y pinch-zoom;
+      flex: none;
+      touch-action: auto;
       overscroll-behavior-x: contain;
     }
     .c2-slide {
       grid-template-columns: 1fr;
+      grid-template-rows: auto;
       height: auto;
+      min-height: 0;
+      padding: 0 var(--pad) 20px;
+      gap: 12px;
+      align-items: stretch;
       scroll-snap-stop: always;
     }
     .c2-img-col {
-      height: clamp(200px, 35vw, 360px);
+      height: clamp(120px, 22vw, 160px);
+      flex-shrink: 0;
+      align-items: flex-end;
+    }
+    .c2-img-col img {
+      inset: 0;
+      opacity: 0.35;
+    }
+    :global(html.js) .c2-img-col img.is-loaded {
+      opacity: 0.35;
     }
     .c2-num {
-      font-size: clamp(80px, 18vw, 160px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: clamp(40px, 11vw, 52px);
+      line-height: 1;
+      opacity: 0.9;
+    }
+    .c2-content {
+      gap: 12px;
+    }
+    .c2-tag {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+    }
+    .c2-case-title {
+      font-size: clamp(17px, 4.5vw, 20px);
+      line-height: 1.25;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .c2-row {
+      gap: 10px 16px;
+    }
+    .c2-row-lbl {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      padding-top: 2px;
+    }
+    .c2-row-text {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .c2-progress {
+      margin-bottom: 8px;
     }
   }
 </style>

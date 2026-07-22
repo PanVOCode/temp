@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const basePath = path.join(dataDir, "viewport-results.base.json");
 const overlayPath = path.join(dataDir, "viewport-results.overlay.json");
-const outPath = path.join(root, "test-results/viewport-results.json");
+const outPath = path.join(dataDir, "viewport-results.json");
 
 function getAnnotation(test, type) {
   const result = test.results?.[0];

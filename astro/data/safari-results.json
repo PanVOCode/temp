@@ -1,0 +1,316 @@
+{
+  "config": {
+    "argv": [
+      "/home/vladimir/.nvm/versions/node/v22.12.0/bin/node",
+      "/home/vladimir/projects/additech/astro/node_modules/.bin/playwright",
+      "test",
+      "-c",
+      "playwright.safari.config.ts",
+      "--project=chromium-iphone15"
+    ],
+    "configFile": "/home/vladimir/projects/additech/astro/playwright.safari.config.ts",
+    "rootDir": "/home/vladimir/projects/additech/astro/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/vladimir/projects/additech/astro/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium-iphone15",
+        "name": "chromium-iphone15",
+        "testDir": "/home/vladimir/projects/additech/astro/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "safari-compat.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/vladimir/projects/additech/astro/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-iphone15",
+        "name": "webkit-iphone15",
+        "testDir": "/home/vladimir/projects/additech/astro/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "safari-compat.spec.ts"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/vladimir/projects/additech/astro/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit-ipad",
+        "name": "webkit-ipad",
+        "testDir": "/home/vladimir/projects/additech/astro/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "safari-compat.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/safari-results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "playwright-report-safari"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run build && npm run preview -- --host 127.0.0.1 --port 4173",
+      "port": 4173,
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "safari-compat.spec.ts",
+      "file": "safari-compat.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Safari / iOS compatibility",
+          "file": "safari-compat.spec.ts",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "hero and services text visible with JS enabled",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-iphone15",
+                  "projectName": "chromium-iphone15",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2338,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:48:16.820Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-d0085-ext-visible-with-JS-enabled-chromium-iphone15/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-d0085-ext-visible-with-JS-enabled-chromium-iphone15/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "60dbdc113305f5770469-af17f681a7f375cb1a01",
+              "file": "safari-compat.spec.ts",
+              "line": 12,
+              "column": 3
+            },
+            {
+              "title": "case images are not stuck at opacity 0",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-iphone15",
+                  "projectName": "chromium-iphone15",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2090,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:48:19.546Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-73e33--are-not-stuck-at-opacity-0-chromium-iphone15/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-73e33--are-not-stuck-at-opacity-0-chromium-iphone15/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "60dbdc113305f5770469-2f516a1545b6573db6bd",
+              "file": "safari-compat.spec.ts",
+              "line": 31,
+              "column": 3
+            },
+            {
+              "title": "content stays visible when JavaScript is disabled",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-iphone15",
+                  "projectName": "chromium-iphone15",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1123,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:48:21.921Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-50841-when-JavaScript-is-disabled-chromium-iphone15/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "60dbdc113305f5770469-a06217f80c79dd0fb4aa",
+              "file": "safari-compat.spec.ts",
+              "line": 52,
+              "column": 3
+            },
+            {
+              "title": "in-viewport reveal blocks are shown on load (IO Safari quirk)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium-iphone15",
+                  "projectName": "chromium-iphone15",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1906,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:48:23.301Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-3e1f7-wn-on-load-IO-Safari-quirk--chromium-iphone15/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/safari-compat-Safari-iOS-c-3e1f7-wn-on-load-IO-Safari-quirk--chromium-iphone15/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "60dbdc113305f5770469-c0902010c33a7c041419",
+              "file": "safari-compat.spec.ts",
+              "line": 73,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-22T07:48:13.441Z",
+    "duration": 12125.985999999999,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

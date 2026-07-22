@@ -116,7 +116,7 @@ export async function readState(page: Page): Promise<ScrollState> {
       scrollY: window.scrollY,
       maxScroll: document.documentElement.scrollHeight - window.innerHeight,
       viewportH: window.innerHeight,
-      hijackActive: window.innerWidth > 900,
+      hijackActive: window.innerWidth > 1199,
     };
   });
 }

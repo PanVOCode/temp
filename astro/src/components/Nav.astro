@@ -65,7 +65,7 @@ const links = [
   .nav-links {
     display: flex;
     gap: clamp(14px, 1.8vw, 28px);
-    font-size: clamp(13px, 1.1vw, 18px);
+    font-size: clamp(14px, 1.1vw, 18px);
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -90,7 +90,7 @@ const links = [
   .nav-phone {
     font-family: inherit;
     font-weight: 500;
-    font-size: clamp(10px, min(0.75vw, 1.1svh), 13px);
+    font-size: clamp(14px, min(0.75vw, 1.1svh), 16px);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--nav-fg);
@@ -102,11 +102,13 @@ const links = [
     color: var(--orange);
   }
 
-  @media (max-width: 900px) {
+  /* Tablets + phones: hide section nav — only logo (+ phones on tablet) */
+  @media (max-width: 1199px) {
     .nav-links {
       display: none;
     }
   }
+  /* Phones only: hide phone numbers too */
   @media (max-width: 767px) {
     .nav-phones {
       display: none;

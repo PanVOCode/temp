@@ -1,0 +1,527 @@
+{
+  "config": {
+    "argv": [
+      "/home/vladimir/.nvm/versions/node/v22.12.0/bin/node",
+      "/home/vladimir/projects/additech/astro/node_modules/.bin/playwright",
+      "test",
+      "fullscreen-scroll.spec.ts"
+    ],
+    "configFile": "/home/vladimir/projects/additech/astro/playwright.config.ts",
+    "rootDir": "/home/vladimir/projects/additech/astro/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/vladimir/projects/additech/astro/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/vladimir/projects/additech/astro/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 90000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "open": "never",
+          "outputFolder": "playwright-report"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run build && npm run preview -- --host 127.0.0.1 --port 4173",
+      "port": 4173,
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "fullscreen-scroll.spec.ts",
+      "file": "fullscreen-scroll.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "fullscreen-scroll",
+          "file": "fullscreen-scroll.spec.ts",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "scroll down through entire site",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "audit",
+                      "description": "down: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11969,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:49:49.269Z",
+                      "annotations": [
+                        {
+                          "type": "audit",
+                          "description": "down: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-79188-ll-down-through-entire-site-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-79188-ll-down-through-entire-site-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-37d08fd8d2ccab29b208",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 13,
+              "column": 5
+            },
+            {
+              "title": "scroll up through entire site",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "audit",
+                      "description": "up: cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 23071,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:50:02.236Z",
+                      "annotations": [
+                        {
+                          "type": "audit",
+                          "description": "up: cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-26c7b-roll-up-through-entire-site-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-26c7b-roll-up-through-entire-site-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-4b388a7ed791cc3c17e4",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 13,
+              "column": 5
+            },
+            {
+              "title": "round trip through entire site",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "audit",
+                      "description": "round-trip: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta ↑ cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 38529,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:50:27.024Z",
+                      "annotations": [
+                        {
+                          "type": "audit",
+                          "description": "round-trip: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta ↑ cta → specs → process-step → process-step → process-step → process-step → partners-c → projects → projects → projects → projects → services → hero"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-e2a86-nd-trip-through-entire-site-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-e2a86-nd-trip-through-entire-site-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-44b13a0b322232000314",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 13,
+              "column": 5
+            },
+            {
+              "title": "full scroll down with large wheel deltas",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "audit",
+                      "description": "large-delta: 12 steps to cta"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11811,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:51:06.936Z",
+                      "annotations": [
+                        {
+                          "type": "audit",
+                          "description": "large-delta: 12 steps to cta"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-92e0a-own-with-large-wheel-deltas-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-92e0a-own-with-large-wheel-deltas-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-c525db5b413daf9f3d5f",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 13,
+              "column": 5
+            },
+            {
+              "title": "full scroll down with trackpad inertia bursts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "audit",
+                      "description": "inertia: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 103249,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:51:19.697Z",
+                      "annotations": [
+                        {
+                          "type": "audit",
+                          "description": "inertia: hero → services → projects → partners-c → process-step → process-step → process-step → process-step → specs → cta"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-8e659-ith-trackpad-inertia-bursts-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-8e659-ith-trackpad-inertia-bursts-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-e003ae06cd2f70f1af4f",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 13,
+              "column": 5
+            },
+            {
+              "title": "full scroll respects boundaries at top and bottom",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "audit",
+                      "description": "boundaries: top=hero, bottom=cta"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12491,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:53:03.980Z",
+                      "annotations": [
+                        {
+                          "type": "audit",
+                          "description": "boundaries: top=hero, bottom=cta"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-ccb6c-oundaries-at-top-and-bottom-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-ccb6c-oundaries-at-top-and-bottom-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-edce6ccbe7cb7cbc7de4",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 13,
+              "column": 5
+            },
+            {
+              "title": "mouse wheel responds immediately after transition",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2928,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:53:17.410Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-7ac3b-mmediately-after-transition-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-7ac3b-mmediately-after-transition-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-57d0f48a9b7626cddcfe",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 19,
+              "column": 3
+            },
+            {
+              "title": "long trackpad tail remains one gesture",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3332,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-07-22T07:53:20.778Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-c11dc-ad-tail-remains-one-gesture-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/vladimir/projects/additech/astro/test-results/fullscreen-scroll-fullscre-c11dc-ad-tail-remains-one-gesture-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7a34530b990d0b73756b-69652ea7285d38766c35",
+              "file": "fullscreen-scroll.spec.ts",
+              "line": 39,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-07-22T07:49:45.843Z",
+    "duration": 218781.983,
+    "expected": 8,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

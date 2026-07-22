@@ -4,8 +4,11 @@ export type ViewportDevice = {
   width: number;
   height: number;
   dpr: number;
-  platform: "macbook" | "windows" | "phone";
+  platform: "macbook" | "windows" | "tablet" | "phone";
   isMobile?: boolean;
+  /** Native scroll (no fullscreen hijack) — phones and tablets */
+  nativeScroll?: boolean;
+  hasTouch?: boolean;
 };
 
 export const MACBOOK_VIEWPORTS: ViewportDevice[] = [
@@ -110,6 +113,50 @@ export const WINDOWS_VIEWPORTS: ViewportDevice[] = [
   },
 ];
 
+/** Tablets: desktop page layout, but native scroll (no fullscreen hijack). */
+export const TABLET_VIEWPORTS: ViewportDevice[] = [
+  {
+    id: "ipad-mini",
+    name: "iPad Mini",
+    width: 768,
+    height: 1024,
+    dpr: 2,
+    platform: "tablet",
+    hasTouch: true,
+    nativeScroll: true,
+  },
+  {
+    id: "ipad-air",
+    name: "iPad Air",
+    width: 820,
+    height: 1180,
+    dpr: 2,
+    platform: "tablet",
+    hasTouch: true,
+    nativeScroll: true,
+  },
+  {
+    id: "ipad-pro-11",
+    name: 'iPad Pro 11"',
+    width: 834,
+    height: 1194,
+    dpr: 2,
+    platform: "tablet",
+    hasTouch: true,
+    nativeScroll: true,
+  },
+  {
+    id: "ipad-pro-11-land",
+    name: 'iPad Pro 11" landscape',
+    width: 1194,
+    height: 834,
+    dpr: 2,
+    platform: "tablet",
+    hasTouch: true,
+    nativeScroll: true,
+  },
+];
+
 export const PHONE_VIEWPORTS: ViewportDevice[] = [
   {
     id: "iphone-15",
@@ -177,6 +224,11 @@ export const ALL_VIEWPORT_GROUPS = [
     label: "Windows",
     platform: "windows" as const,
     devices: WINDOWS_VIEWPORTS,
+  },
+  {
+    label: "Tablet",
+    platform: "tablet" as const,
+    devices: TABLET_VIEWPORTS,
   },
   { label: "Phone", platform: "phone" as const, devices: PHONE_VIEWPORTS },
 ];

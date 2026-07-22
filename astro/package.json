@@ -8,9 +8,14 @@
     "preview": "astro preview",
     "test:e2e": "playwright test",
     "test:e2e:audit": "playwright test fullscreen-scroll.spec.ts && node scripts/generate-scroll-audit.mjs",
-    "test:e2e:viewports": "playwright test -c playwright.viewports.config.ts; node scripts/generate-viewport-report.mjs",
+    "test:e2e:viewports": "playwright test -c playwright.viewports.config.ts; node scripts/merge-viewport-results.mjs; node scripts/generate-viewport-report.mjs",
+    "test:e2e:tablets": "playwright test -c playwright.viewports.config.ts -g \"Tablet ·\" && node scripts/merge-json-into-viewport.mjs && node scripts/generate-viewport-report.mjs",
+    "test:e2e:report": "npm run test:e2e:safari && cp test-results/safari-results.json data/safari-results.json && npm run test:e2e:audit && cp test-results/results.json data/desktop-results.json && node scripts/merge-viewport-results.mjs && node scripts/generate-viewport-report.mjs",
     "report:viewports:open": "node scripts/generate-viewport-report.mjs && node scripts/serve-viewport-report.mjs",
-    "test:e2e:viewports:retry": "node scripts/retry-failed-viewports.mjs"
+    "test:e2e:viewports:retry": "node scripts/retry-failed-viewports.mjs",
+    "test:e2e:safari": "playwright test -c playwright.safari.config.ts --project=chromium-iphone15",
+    "test:e2e:safari:webkit": "playwright test -c playwright.safari.config.ts --project=webkit-iphone15 --project=webkit-ipad",
+    "test:e2e:safari:open": "playwright test -c playwright.safari.config.ts && playwright show-report playwright-report-safari"
   },
   "dependencies": {
     "astro": "^5.0.0"

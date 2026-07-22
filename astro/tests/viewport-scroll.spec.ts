@@ -12,13 +12,14 @@ import {
 } from "./helpers/scroll-helpers";
 
 function describeViewport(device: ViewportDevice) {
-  const scenarios = device.isMobile ? MOBILE_SCENARIOS : DESKTOP_SCENARIOS;
+  const nativeScroll = !!(device.nativeScroll || device.isMobile);
+  const scenarios = nativeScroll ? MOBILE_SCENARIOS : DESKTOP_SCENARIOS;
 
   test.describe(`${device.platform} · ${device.name} (${device.width}×${device.height})`, () => {
     test.use({
       viewport: { width: device.width, height: device.height },
       deviceScaleFactor: device.dpr,
-      hasTouch: !!device.isMobile,
+      hasTouch: !!(device.hasTouch ?? device.isMobile),
       isMobile: !!device.isMobile,
     });
 
@@ -26,7 +27,7 @@ function describeViewport(device: ViewportDevice) {
       test(scenario, async ({ page }, testInfo) => {
         test.setTimeout(300_000);
         annotateViewport(testInfo, device);
-        if (device.isMobile) {
+        if (nativeScroll) {
           await runMobileScenario(page, scenario, testInfo);
         } else {
           await runDesktopScenario(page, scenario, testInfo);

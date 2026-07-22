@@ -1,9 +1,17 @@
 import { initFullscreenScroll } from "./fullscreen-scroll";
 
-document.addEventListener("DOMContentLoaded", () => {
+// Mark JS as available before any hide-for-animation CSS applies meaningfully
+document.documentElement.classList.add("js");
+
+function boot() {
   document.body.classList.add("loaded");
   initFullscreenScroll();
-});
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot, { once: true });
+} else {
+  boot();
+}
 
 // Smooth image reveal — hide until fully decoded, then fade in
 (function () {
@@ -21,7 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelectorAll<HTMLImageElement>("img.img-smooth, .hero-float img")
     .forEach((img) => {
       if (img.complete && img.naturalWidth) void reveal(img);
-      else img.addEventListener("load", () => void reveal(img), { once: true });
+      else {
+        img.addEventListener("load", () => void reveal(img), { once: true });
+        img.addEventListener("error", () => reveal(img), { once: true });
+        // Safari: decode/load can stall — force-show after timeout
+        window.setTimeout(() => {
+          if (!img.classList.contains("is-loaded")) void reveal(img);
+        }, 2500);
+      }
     });
 })();
 
@@ -38,18 +53,30 @@ window.addEventListener("scroll", updateNav, { passive: true });
 updateNav();
 
 // Scroll reveal
+function showReveal(el: Element) {
+  el.classList.add("vis");
+}
+
 const revealObs = new IntersectionObserver(
   (entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
-        e.target.classList.add("vis");
+        showReveal(e.target);
         revealObs.unobserve(e.target);
       }
     });
   },
-  { threshold: 0.05 },
+  { threshold: 0.05, rootMargin: "0px 0px -5% 0px" },
 );
-document.querySelectorAll(".reveal").forEach((el) => revealObs.observe(el));
+document.querySelectorAll(".reveal").forEach((el) => {
+  const rect = el.getBoundingClientRect();
+  // Safari often skips IO callback for already-visible nodes on load
+  if (rect.bottom > 0 && rect.top < window.innerHeight) {
+    showReveal(el);
+  } else {
+    revealObs.observe(el);
+  }
+});
 
 // Counter animation
 const counterObs = new IntersectionObserver(
@@ -133,14 +160,28 @@ document.querySelectorAll(".faq-q").forEach((q) => {
   let touchStartX = 0;
   let touchStartY = 0;
   let touchStartIndex = 0;
+  let gestureAxis: "x" | "y" | null = null;
 
   scroll.addEventListener(
     "touchstart",
     (e) => {
-      if (window.innerWidth > 900 || e.touches.length !== 1) return;
+      if (window.innerWidth > 767 || e.touches.length !== 1) return;
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       touchStartIndex = Math.round(scroll.scrollLeft / scroll.clientWidth);
+      gestureAxis = null;
+    },
+    { passive: true },
+  );
+
+  scroll.addEventListener(
+    "touchmove",
+    (e) => {
+      if (window.innerWidth > 767 || e.touches.length !== 1 || gestureAxis) return;
+      const dx = e.touches[0].clientX - touchStartX;
+      const dy = e.touches[0].clientY - touchStartY;
+      if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
+      gestureAxis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
     },
     { passive: true },
   );
@@ -148,11 +189,14 @@ document.querySelectorAll(".faq-q").forEach((q) => {
   scroll.addEventListener(
     "touchend",
     (e) => {
-      if (window.innerWidth > 900 || e.changedTouches.length !== 1) return;
+      if (window.innerWidth > 767 || e.changedTouches.length !== 1) return;
 
       const dx = touchStartX - e.changedTouches[0].clientX;
       const dy = touchStartY - e.changedTouches[0].clientY;
-      const isHorizontal = Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy);
+      const isHorizontal =
+        gestureAxis === "x" ||
+        (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy));
+      gestureAxis = null;
       if (!isHorizontal) return;
 
       const direction = dx > 0 ? 1 : -1;
